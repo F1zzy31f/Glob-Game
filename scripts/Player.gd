@@ -46,7 +46,7 @@ func _process(delta):
 	ambient_healing_timer += delta
 	
 	if ambient_healing_timer > 3:
-		health += (delta * 16)
+		health += (delta * 16) / 32
 	health = clamp(health, 0, 16)
 
 func _physics_process(delta):
