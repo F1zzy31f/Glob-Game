@@ -9,7 +9,7 @@ colors = PackedColorArray(0, 0.501961, 1, 1, 0.501961, 0.752941, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_bmrea"]
 gradient = SubResource("Gradient_f81du")
-width = 1024
+width = 2048
 height = 1024
 fill_to = Vector2(1, 1)
 
@@ -19,7 +19,7 @@ fill_to = Vector2(1, 1)
 environment = ExtResource("1_wcr3b")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(-42, -18)
+position = Vector2(375, -40)
 texture = SubResource("GradientTexture2D_bmrea")
 
 [node name="Map" type="TileMap" parent="."]
