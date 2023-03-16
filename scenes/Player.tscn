@@ -143,7 +143,7 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 64
+damage = 48
 firerate = 1
 accuracy = 0
 
