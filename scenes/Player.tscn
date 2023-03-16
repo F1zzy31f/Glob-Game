@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4c210xc8jsv1"]
+[gd_scene load_steps=15 format=3 uid="uid://c4c210xc8jsv1"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
@@ -34,6 +34,9 @@ animations = [{
 "name": &"walk",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o4edw"]
+size = Vector2(14, 3)
 
 [sub_resource type="Gradient" id="Gradient_t607y"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -86,6 +89,14 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.428526
 
+[node name="Foot" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Collider" type="CollisionShape2D" parent="Foot"]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_o4edw")
+
 [node name="TeamIndicator" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(0, -16)
@@ -95,7 +106,7 @@ texture = SubResource("GradientTexture2D_avgkc")
 [node name="Camera" type="Camera2D" parent="."]
 offset = Vector2(0, -32)
 enabled = false
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 
@@ -188,5 +199,7 @@ stream = ExtResource("8_c63tt")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4ei3r")
 
+[connection signal="body_entered" from="Foot" to="." method="_on_foot_body_entered"]
+[connection signal="body_exited" from="Foot" to="." method="_on_foot_body_exited"]
 [connection signal="pressed" from="CanvasLayer/UI/TeamDown" to="." method="_on_team_down_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TeamUp" to="." method="_on_team_up_pressed"]

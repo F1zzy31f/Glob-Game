@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 128
 @export var jump_height = 48
+@export var climb_speed = 128
 @export var health = 0
 @export var item_index = 0
 @export var team_index = 0 # 1-16 (0-15)
@@ -18,6 +19,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ui = $CanvasLayer/UI
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
 @onready var hurt_sound = $HurtSound
+
+var on_climbable = false
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -61,8 +64,10 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = -sqrt(jump_height * 2 * gravity)
+	if Input.is_action_pressed("jump") and on_climbable:
+		velocity.y = -climb_speed
+	elif Input.is_action_just_pressed("jump") and is_on_floor():
+			velocity.y = -sqrt(jump_height * 2 * gravity)
 	
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
@@ -118,3 +123,9 @@ func _on_team_up_pressed():
 func _on_team_down_pressed():
 	team_index = clamp(team_index - 1, 0, 15)
 	$CanvasLayer/UI/TeamDown.release_focus()
+
+func _on_foot_body_entered(_area):
+	on_climbable = true
+
+func _on_foot_body_exited(_area):
+	on_climbable = false
