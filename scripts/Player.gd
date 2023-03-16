@@ -46,8 +46,8 @@ func _process(delta):
 	ambient_healing_timer += delta
 	
 	if ambient_healing_timer > 3:
-		health += (delta * 16) / 32
-	health = clamp(health, 0, 16)
+		health += (delta * 32) / 32 # x / Time to heal
+	health = clamp(health, 0, 32)
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
