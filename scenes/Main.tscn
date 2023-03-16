@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmsdtck10hpf8"]
+[gd_scene load_steps=7 format=3 uid="uid://dmsdtck10hpf8"]
 
 [ext_resource type="TileSet" uid="uid://etaumxter5v1" path="res://StandardTileset.tres" id="1_56c62"]
 [ext_resource type="Environment" uid="uid://dmru5chb61n77" path="res://WorldEnviroment.tres" id="1_wcr3b"]
@@ -12,6 +12,9 @@ gradient = SubResource("Gradient_f81du")
 width = 2048
 height = 1024
 fill_to = Vector2(1, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uwuxj"]
+size = Vector2(8192, 2)
 
 [node name="Main" type="Node2D"]
 
@@ -54,3 +57,8 @@ position = Vector2(409, -64)
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/Player.tscn")
 spawn_path = NodePath("..")
+
+[node name="Void" type="Sprite2D" parent="."]
+z_index = 6
+position = Vector2(0, 64)
+texture = SubResource("PlaceholderTexture2D_uwuxj")

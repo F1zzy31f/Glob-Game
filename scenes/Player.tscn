@@ -117,7 +117,7 @@ position_smoothing_speed = 3.0
 [node name="Hand" type="Node2D" parent="HandPivot"]
 position = Vector2(12, 0)
 
-[node name="0" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+[node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 self_modulate = Color(0.333333, 1, 0, 1)
 z_index = 4
 texture = ExtResource("2_432dd")
@@ -127,15 +127,25 @@ damage = 2
 firerate = 8
 accuracy = 2
 
-[node name="1" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+[node name="MP5" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 self_modulate = Color(1, 0, 0.117647, 1)
 z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
 damage = 1
-firerate = 16
+firerate = 18
 accuracy = 5
+
+[node name="AWM" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+self_modulate = Color(0.833333, 1, 0, 1)
+z_index = 4
+texture = ExtResource("2_432dd")
+region_enabled = true
+region_rect = Rect2(126, 18, 18, 18)
+damage = 64
+firerate = 1
+accuracy = 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

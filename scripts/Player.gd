@@ -58,7 +58,7 @@ func _physics_process(delta):
 	# Dying
 	if health <= 0 or global_position.y > 64:
 		global_position = get_node("/root/Main/Spawns").get_child(randi_range(0, get_node("/root/Main/Spawns").get_child_count() - 1)).global_position
-		health = 16
+		health = 32
 	
 	# Movement
 	if not is_on_floor():
