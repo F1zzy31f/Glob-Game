@@ -18,6 +18,18 @@ offset_bottom = 68.0
 theme_override_font_sizes/font_size = 32
 text = "???.???.???.???"
 
+[node name="Scoreboard" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -256.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
 [connection signal="text_changed" from="CanvasLayer/JoinUI/ServerAddress" to="." method="_on_server_address_text_changed"]
 [connection signal="pressed" from="CanvasLayer/JoinUI/JoinServer" to="." method="_on_join_server_pressed"]
 [connection signal="pressed" from="CanvasLayer/JoinUI/HostServer" to="." method="_on_host_server_pressed"]

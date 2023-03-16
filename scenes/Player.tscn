@@ -74,6 +74,15 @@ properties/7/sync = true
 properties/8/path = NodePath("TeamIndicator:modulate")
 properties/8/spawn = true
 properties/8/sync = true
+properties/9/path = NodePath(".:score")
+properties/9/spawn = true
+properties/9/sync = true
+properties/10/path = NodePath(".:kills")
+properties/10/spawn = true
+properties/10/sync = true
+properties/11/path = NodePath(".:deaths")
+properties/11/spawn = true
+properties/11/sync = true
 
 [node name="Player" type="CharacterBody2D" groups=["Hurtable"]]
 script = ExtResource("1_3vl4j")
@@ -143,7 +152,7 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 48
+damage = 28
 firerate = 1
 accuracy = 0
 

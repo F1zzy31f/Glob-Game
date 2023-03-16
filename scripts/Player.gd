@@ -8,6 +8,10 @@ extends CharacterBody2D
 @export var team_index = 0 # 1-16 (0-15)
 @export var ambient_healing_timer = 0
 
+@export var score = 0
+@export var kills = 0
+@export var deaths = -1
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
@@ -51,12 +55,17 @@ func _process(delta):
 	if ambient_healing_timer > 3:
 		health += (delta * 32) / 32 # x / Time to heal
 	health = clamp(health, 0, 32)
+	
+	# Score
+	score = kills - deaths
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
 	
 	# Dying
 	if health <= 0 or global_position.y > 64:
+		deaths += 1
+		
 		global_position = get_node("/root/Main/Spawns").get_child(randi_range(0, get_node("/root/Main/Spawns").get_child_count() - 1)).global_position
 		health = 32
 	
