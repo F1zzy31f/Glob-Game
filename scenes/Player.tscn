@@ -1,0 +1,191 @@
+[gd_scene load_steps=14 format=3 uid="uid://c4c210xc8jsv1"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
+[ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
+[ext_resource type="Texture2D" uid="uid://c1xc5rm58asqs" path="res://assets/player_0.png" id="2_uf8iu"]
+[ext_resource type="Texture2D" uid="uid://cfkkmh44xxfnv" path="res://assets/player_1.png" id="3_pdcv2"]
+[ext_resource type="PackedScene" uid="uid://b1fya3pffgkcm" path="res://scenes/Firearm.tscn" id="3_rid25"]
+[ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="4_3nt55"]
+[ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="5_xutxo"]
+[ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="8_c63tt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
+radius = 7.0
+height = 24.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tpaxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uf8iu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uf8iu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pdcv2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_t607y"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_avgkc"]
+gradient = SubResource("Gradient_t607y")
+width = 8
+height = 8
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4ei3r"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath("HandPivot:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath("HandPivot/Hand:scale")
+properties/2/spawn = true
+properties/2/sync = true
+properties/3/path = NodePath(".:item_index")
+properties/3/spawn = true
+properties/3/sync = true
+properties/4/path = NodePath(".:health")
+properties/4/spawn = true
+properties/4/sync = true
+properties/5/path = NodePath("Sprite:flip_h")
+properties/5/spawn = true
+properties/5/sync = true
+properties/6/path = NodePath("Sprite:animation")
+properties/6/spawn = true
+properties/6/sync = true
+properties/7/path = NodePath(".:team_index")
+properties/7/spawn = true
+properties/7/sync = true
+properties/8/path = NodePath("TeamIndicator:modulate")
+properties/8/spawn = true
+properties/8/sync = true
+
+[node name="Player" type="CharacterBody2D" groups=["Hurtable"]]
+script = ExtResource("1_3vl4j")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_swevk")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 3
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_tpaxj")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.428526
+
+[node name="TeamIndicator" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0, -16)
+scale = Vector2(1, 0.5)
+texture = SubResource("GradientTexture2D_avgkc")
+
+[node name="Camera" type="Camera2D" parent="."]
+offset = Vector2(0, -32)
+enabled = false
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="AudioListener" type="AudioListener2D" parent="Camera"]
+
+[node name="HandPivot" type="Node2D" parent="."]
+
+[node name="Hand" type="Node2D" parent="HandPivot"]
+position = Vector2(12, 0)
+
+[node name="0" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+self_modulate = Color(0.333333, 1, 0, 1)
+z_index = 4
+texture = ExtResource("2_432dd")
+region_enabled = true
+region_rect = Rect2(126, 18, 18, 18)
+damage = 2
+firerate = 8
+accuracy = 2
+
+[node name="1" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+self_modulate = Color(1, 0, 0.117647, 1)
+z_index = 4
+texture = ExtResource("2_432dd")
+region_enabled = true
+region_rect = Rect2(126, 18, 18, 18)
+damage = 1
+firerate = 16
+accuracy = 5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Healthbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_top = 656.0
+offset_right = 64.0
+offset_bottom = 672.0
+scale = Vector2(4, 4)
+max_value = 16.0
+value = 7.0
+texture_under = ExtResource("4_3nt55")
+texture_progress = ExtResource("5_xutxo")
+
+[node name="TeamDown" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_right = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+text = "-"
+
+[node name="TeamUp" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+text = "+"
+
+[node name="TeamIndex" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = 32.0
+offset_bottom = 64.0
+grow_horizontal = 0
+text = "Team: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_c63tt")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4ei3r")
+
+[connection signal="pressed" from="CanvasLayer/UI/TeamDown" to="." method="_on_team_down_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/TeamUp" to="." method="_on_team_up_pressed"]

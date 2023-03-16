@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjkfv40fscmjc"]
+
+[ext_resource type="Script" path="res://scripts/Network.gd" id="1_ybd15"]
+[ext_resource type="PackedScene" uid="uid://dxgvkdivd6ahg" path="res://scenes/JoinUI.tscn" id="2_hiiys"]
+
+[node name="Network" type="Node"]
+script = ExtResource("1_ybd15")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="JoinUI" parent="CanvasLayer" instance=ExtResource("2_hiiys")]
+
+[node name="Address" type="Label" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 227.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 32
+text = "???.???.???.???"
+
+[connection signal="text_changed" from="CanvasLayer/JoinUI/ServerAddress" to="." method="_on_server_address_text_changed"]
+[connection signal="pressed" from="CanvasLayer/JoinUI/JoinServer" to="." method="_on_join_server_pressed"]
+[connection signal="pressed" from="CanvasLayer/JoinUI/HostServer" to="." method="_on_host_server_pressed"]
+
+[editable path="CanvasLayer/JoinUI"]

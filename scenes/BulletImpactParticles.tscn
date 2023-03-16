@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6nhbyoum6670"]
+
+[sub_resource type="Gradient" id="Gradient_utwsh"]
+colors = PackedColorArray(1.5, 1, 0, 1, 1.5, 1, 0, 0)
+
+[node name="BulletImpactParticles" type="CPUParticles2D"]
+z_index = 5
+emitting = false
+amount = 6
+one_shot = true
+explosiveness = 1.0
+gravity = Vector2(0, 128)
+initial_velocity_min = 24.0
+initial_velocity_max = 48.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+scale_amount_min = 1.5
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_utwsh")
