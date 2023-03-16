@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var health = 0
 @export var item_index = 0
 @export var team_index = 0 # 1-16 (0-15)
+@export var ambient_healing_timer = 0
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -17,7 +18,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ui = $CanvasLayer/UI
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
 @onready var hurt_sound = $HurtSound
-@onready var ambient_healing_timer = $AmbientHealingTimer
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -43,8 +43,10 @@ func _process(delta):
 	team_indicator.modulate = Color.from_hsv(team_index / float(16), 1, 1)
 	
 	# Update
-	if ambient_healing_timer.is_stopped():
-		health += (delta * 16) / 32 # x / time to heal full
+	ambient_healing_timer += delta
+	
+	if ambient_healing_timer > 3:
+		health += (delta * 16)
 	health = clamp(health, 0, 16)
 
 func _physics_process(delta):
@@ -100,14 +102,14 @@ func change_item(old_index, new_index):
 	hand.get_child(old_index).on_unequip()
 	hand.get_child(new_index).on_equip()
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local")
 func hurt(amount):
 	hurt_sound.play()
 	
 	if not is_multiplayer_authority(): return
 	
 	health -= amount
-	ambient_healing_timer.start()
+	ambient_healing_timer = 0
 
 func _on_team_up_pressed():
 	team_index = clamp(team_index + 1, 0, 15)
