@@ -188,5 +188,8 @@ stream = ExtResource("8_c63tt")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4ei3r")
 
+[node name="AmbientHealingTimer" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="pressed" from="CanvasLayer/UI/TeamDown" to="." method="_on_team_down_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TeamUp" to="." method="_on_team_up_pressed"]

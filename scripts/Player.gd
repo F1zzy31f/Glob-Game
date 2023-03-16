@@ -17,6 +17,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ui = $CanvasLayer/UI
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
 @onready var hurt_sound = $HurtSound
+@onready var ambient_healing_timer = $AmbientHealingTimer
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -32,7 +33,7 @@ func _ready():
 	
 	team_index = randi_range(0, 15)
 
-func _physics_process(delta):
+func _process(delta):
 	if not is_multiplayer_authority(): return
 	
 	# UI
@@ -40,6 +41,14 @@ func _physics_process(delta):
 	
 	$CanvasLayer/UI/TeamIndex.text = "Team: " + str(team_index + 1)
 	team_indicator.modulate = Color.from_hsv(team_index / float(16), 1, 1)
+	
+	# Update
+	if ambient_healing_timer.is_stopped():
+		health += (delta * 16) / 32 # x / time to heal full
+	health = clamp(health, 0, 16)
+
+func _physics_process(delta):
+	if not is_multiplayer_authority(): return
 	
 	# Dying
 	if health <= 0 or global_position.y > 64:
@@ -98,6 +107,7 @@ func hurt(amount):
 	if not is_multiplayer_authority(): return
 	
 	health -= amount
+	ambient_healing_timer.start()
 
 func _on_team_up_pressed():
 	team_index = clamp(team_index + 1, 0, 15)
