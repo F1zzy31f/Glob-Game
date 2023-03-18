@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d1luw076f7ld0"]
+
+[node name="Peers" type="Node"]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/Player.tscn")
+spawn_path = NodePath("..")
