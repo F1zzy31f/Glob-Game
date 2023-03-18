@@ -25,6 +25,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var hand = $HandPivot/Hand
 @onready var ui = $CanvasLayer/UI
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
+@onready var item_info = $CanvasLayer/UI/ItemInfo
 @onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
 
@@ -53,6 +54,8 @@ func _process(delta):
 	
 	$CanvasLayer/UI/TeamIndex.text = "Team: " + str(team_index + 1)
 	team_indicator.modulate = Color.from_hsv(team_index / float(16), 1, 1)
+	
+	item_info.text = hand.get_child(item_index).get_item_info()
 	
 	# Update
 	ambient_healing_timer += delta
