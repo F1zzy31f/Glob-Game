@@ -142,6 +142,15 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="JoinGame" type="Button" parent="Menus/PlayMenu/Content"]
+layout_mode = 2
+text = "Join Game"
+
+[node name="HostGame" type="Button" parent="Menus/PlayMenu/Content"]
+layout_mode = 2
+text = "Host Game
+"
+
 [node name="Back" type="Button" parent="Menus/PlayMenu/Content"]
 layout_mode = 2
 text = "Back"
@@ -198,5 +207,7 @@ text = "Back"
 [connection signal="pressed" from="Menus/TitleMenu/Content/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Menus/PlayMenu/Content/JoinGame" to="." method="_on_join_game_pressed"]
+[connection signal="pressed" from="Menus/PlayMenu/Content/HostGame" to="." method="_on_host_game_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Menus/SettingsMenu/Content/Back" to="." method="_on_back_pressed"]

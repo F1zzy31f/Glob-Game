@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmsdtck10hpf8"]
+[gd_scene load_steps=6 format=3 uid="uid://dmsdtck10hpf8"]
 
 [ext_resource type="TileSet" uid="uid://etaumxter5v1" path="res://StandardTileset.tres" id="1_56c62"]
 [ext_resource type="Environment" uid="uid://dmru5chb61n77" path="res://WorldEnviroment.tres" id="1_wcr3b"]
-[ext_resource type="PackedScene" uid="uid://bjkfv40fscmjc" path="res://scenes/Network.tscn" id="2_au30e"]
 
 [sub_resource type="Gradient" id="Gradient_f81du"]
 colors = PackedColorArray(0, 0.501961, 1, 1, 0.501961, 0.752941, 1, 1)
@@ -16,7 +15,7 @@ fill_to = Vector2(1, 1)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uwuxj"]
 size = Vector2(8192, 2)
 
-[node name="Main" type="Node2D"]
+[node name="Map" type="Node2D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_wcr3b")
@@ -51,8 +50,6 @@ position = Vector2(296, 16)
 
 [node name="4" type="Node2D" parent="Spawns"]
 position = Vector2(409, -64)
-
-[node name="Network" parent="." instance=ExtResource("2_au30e")]
 
 [node name="Void" type="Sprite2D" parent="."]
 z_index = 6

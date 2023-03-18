@@ -4,30 +4,18 @@ extends Node
 @export var player = preload("res://scenes/Player.tscn")
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 
-@onready var join_ui = $CanvasLayer/JoinUI
-@onready var address_ui = $CanvasLayer/Address
-
 var address = ""
 
 var enet_peer = ENetMultiplayerPeer.new()
 
-func _ready():
-	address_ui.visible = false
-	address_ui.text = IP.get_local_addresses()[3]
+func set_server_address(new):
+	address = new
 
-func _on_server_address_text_changed(new_text):
-	address = new_text
-
-func _on_join_server_pressed():
-	join_ui.visible = false
-	
+func join_server():
 	enet_peer.create_client(address, port)
 	multiplayer.multiplayer_peer = enet_peer
 
-func _on_host_server_pressed():
-	join_ui.visible = false
-	address_ui.visible = true
-	
+func host_server():
 	enet_peer.create_server(port)
 	multiplayer.multiplayer_peer = enet_peer
 	multiplayer.peer_connected.connect(add_player)
@@ -36,13 +24,13 @@ func _on_host_server_pressed():
 	add_player(multiplayer.get_unique_id())
 
 func add_player(peer_id):
-	# Player
+	await get_tree().create_timer(1).timeout
+	
 	var new_player = player.instantiate()
 	new_player.name = str(peer_id)
 	Peers.add_child(new_player)
 
 func remove_player(peer_id):
-	# Player
 	var old_player = Peers.get_node_or_null(str(peer_id))
 	if old_player:
 		old_player.dormant = true

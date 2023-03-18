@@ -17,3 +17,13 @@ func _on_quit_pressed():
 
 func _on_back_pressed():
 	open_menu("TitleMenu")
+
+func _on_join_game_pressed():
+	get_tree().change_scene_to_file("res://scenes/Map.tscn")
+	
+	Network.join_server()
+
+func _on_host_game_pressed():
+	get_tree().change_scene_to_file("res://scenes/Map.tscn")
+	
+	Network.host_server()

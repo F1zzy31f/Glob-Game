@@ -75,7 +75,7 @@ func _physics_process(delta):
 		
 		deaths += 1
 		
-		global_position = get_node("/root/Main/Spawns").get_child(randi_range(0, get_node("/root/Main/Spawns").get_child_count() - 1)).global_position
+		global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
 		health = 32
 	
 	# Movement
