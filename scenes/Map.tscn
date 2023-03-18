@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmsdtck10hpf8"]
+[gd_scene load_steps=5 format=3 uid="uid://dmsdtck10hpf8"]
 
 [ext_resource type="TileSet" uid="uid://etaumxter5v1" path="res://StandardTileset.tres" id="1_56c62"]
 [ext_resource type="Environment" uid="uid://dmru5chb61n77" path="res://WorldEnviroment.tres" id="1_wcr3b"]
@@ -11,9 +11,6 @@ gradient = SubResource("Gradient_f81du")
 width = 2048
 height = 1024
 fill_to = Vector2(1, 1)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uwuxj"]
-size = Vector2(8192, 2)
 
 [node name="Map" type="Node2D"]
 
@@ -40,18 +37,73 @@ layer_1/tile_data = PackedInt32Array(-2, 262144, 6, -262141, 262144, 6, -65528, 
 [node name="Spawns" type="Node2D" parent="."]
 
 [node name="1" type="Node2D" parent="Spawns"]
-position = Vector2(0, 16)
+position = Vector2(-600, 64)
 
 [node name="2" type="Node2D" parent="Spawns"]
-position = Vector2(-136, -64)
+position = Vector2(-422, 64)
 
 [node name="3" type="Node2D" parent="Spawns"]
-position = Vector2(296, 16)
+position = Vector2(-104, 65)
 
 [node name="4" type="Node2D" parent="Spawns"]
-position = Vector2(409, -64)
+position = Vector2(-152, -64)
 
-[node name="Void" type="Sprite2D" parent="."]
-z_index = 6
-position = Vector2(0, 64)
-texture = SubResource("PlaceholderTexture2D_uwuxj")
+[node name="5" type="Node2D" parent="Spawns"]
+position = Vector2(88, -112)
+
+[node name="6" type="Node2D" parent="Spawns"]
+position = Vector2(136, 0)
+
+[node name="7" type="Node2D" parent="Spawns"]
+position = Vector2(264, 0)
+
+[node name="8" type="Node2D" parent="Spawns"]
+position = Vector2(393, -80)
+
+[node name="9" type="Node2D" parent="Spawns"]
+position = Vector2(567, -208)
+
+[node name="10" type="Node2D" parent="Spawns"]
+position = Vector2(232, -208)
+
+[node name="11" type="Node2D" parent="Spawns"]
+position = Vector2(24, -256)
+
+[node name="12" type="Node2D" parent="Spawns"]
+position = Vector2(-119, -256)
+
+[node name="13" type="Node2D" parent="Spawns"]
+position = Vector2(-136, -352)
+
+[node name="14" type="Node2D" parent="Spawns"]
+position = Vector2(-200, -416)
+
+[node name="15" type="Node2D" parent="Spawns"]
+position = Vector2(456, -432)
+
+[node name="16" type="Node2D" parent="Spawns"]
+position = Vector2(728, -432)
+
+[node name="17" type="Node2D" parent="Spawns"]
+position = Vector2(904, -208)
+
+[node name="18" type="Node2D" parent="Spawns"]
+position = Vector2(664, -208)
+
+[node name="19" type="Node2D" parent="Spawns"]
+position = Vector2(696, -112)
+
+[node name="20" type="Node2D" parent="Spawns"]
+position = Vector2(808, -80)
+
+[node name="21" type="Node2D" parent="Spawns"]
+position = Vector2(792, 48)
+
+[node name="22" type="Node2D" parent="Spawns"]
+position = Vector2(1048, 64)
+
+[node name="23" type="Node2D" parent="Spawns"]
+position = Vector2(1208, 32)
+
+[node name="24" type="Node2D" parent="Spawns"]
+position = Vector2(1352, 64)
