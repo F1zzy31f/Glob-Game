@@ -95,7 +95,6 @@ shape = SubResource("CapsuleShape2D_swevk")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 z_index = 3
-y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_tpaxj")
 animation = &"idle"
 autoplay = "idle"
