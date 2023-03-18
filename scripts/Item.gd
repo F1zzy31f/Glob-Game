@@ -1,4 +1,5 @@
 extends Sprite2D
+class_name Item
 
 func on_equip():
 	print("Item equip not implemented")

@@ -1,4 +1,4 @@
-extends "res://scripts/Item.gd"
+extends Item
 
 @export var damage = 10
 @export var firerate = 10

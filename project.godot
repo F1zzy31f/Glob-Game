@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Cat Combat"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 boot_splash/bg_color=Color(0.470588, 0.705882, 1, 1)
 boot_splash/show_image=false
