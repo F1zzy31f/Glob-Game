@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var dormant = false
+
 @export var speed = 128
 @export var jump_height = 48
 @export var climb_speed = 128
@@ -27,6 +29,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var hurt_sound = $HurtSound
 
 var on_climbable = false
+var recent_damager = null
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -66,6 +69,10 @@ func _physics_process(delta):
 	
 	# Dying
 	if health <= 0 or global_position.y > 64:
+		var damager = Peers.get_node_or_null(str(recent_damager))
+		if damager:
+			damager.got_kill.rpc()
+		
 		deaths += 1
 		
 		global_position = get_node("/root/Main/Spawns").get_child(randi_range(0, get_node("/root/Main/Spawns").get_child_count() - 1)).global_position
@@ -113,6 +120,10 @@ func _physics_process(delta):
 		change_item(old_item_index, item_index)
 		change_item.rpc(old_item_index, item_index)
 
+@rpc("any_peer")
+func got_kill():
+	kills += 1
+
 @rpc
 func change_item(old_index, new_index):
 	hand.get_child(old_index).on_unequip()
@@ -124,6 +135,8 @@ func hurt(amount):
 	
 	if not is_multiplayer_authority(): return
 	
+	recent_damager = multiplayer.get_remote_sender_id()
+	
 	health -= amount
 	ambient_healing_timer = 0
 
@@ -132,7 +145,12 @@ func update_scoreboard():
 		if not child.is_class("Timer"):
 			child.free()
 	
+	var peers = []
 	for child in Peers.get_children():
+		if not child.is_class("MultiplayerSpawner"):
+			peers.append(child)
+	peers.sort_custom(func(a, b): return a.score > b.score)
+	for child in peers:
 		if not child.is_class("MultiplayerSpawner"):
 			var new_item = scoreboard_item.instantiate()
 			new_item.name = child.name

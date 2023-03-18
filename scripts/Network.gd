@@ -45,4 +45,8 @@ func remove_player(peer_id):
 	# Player
 	var old_player = Peers.get_node_or_null(str(peer_id))
 	if old_player:
+		old_player.dormant = true
+		
+		await get_tree().create_timer(1).timeout
+		
 		old_player.queue_free()
