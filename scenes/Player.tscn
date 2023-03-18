@@ -138,6 +138,7 @@ region_rect = Rect2(126, 18, 18, 18)
 damage = 2
 firerate = 8
 accuracy = 2
+mag_size = 20
 
 [node name="MP5" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 self_modulate = Color(1, 0, 0.117647, 1)
@@ -158,6 +159,7 @@ region_rect = Rect2(126, 18, 18, 18)
 damage = 28
 firerate = 1
 accuracy = 0
+mag_size = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -192,6 +194,14 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 28
 text = "AK-47: 0 / 30"
 vertical_alignment = 1
+
+[node name="Inventory" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 128.0
+grow_vertical = 2
+alignment = 1
 
 [node name="TeamDown" type="Button" parent="CanvasLayer/UI"]
 layout_mode = 1

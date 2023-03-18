@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var team_index = 0 # 1-16 (0-15)
 @export var ambient_healing_timer = 0
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
+@export var inventory_item = preload("res://scenes/InventoryItem.tscn")
 
 @export var score = 0
 @export var kills = 0
@@ -26,6 +27,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ui = $CanvasLayer/UI
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
 @onready var item_info = $CanvasLayer/UI/ItemInfo
+@onready var inventory = $CanvasLayer/UI/Inventory
 @onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
 
@@ -56,6 +58,14 @@ func _process(delta):
 	team_indicator.modulate = Color.from_hsv(team_index / float(16), 1, 1)
 	
 	item_info.text = hand.get_child(item_index).get_item_info()
+	for child in inventory.get_children():
+		child.free()
+	for child in hand.get_children():
+		var new_item = inventory_item.instantiate()
+		new_item.name = child.name
+		new_item.get_child(0).text = str(new_item.name)
+		new_item.self_modulate = Color.from_hsv(0, 0, 0.4) if child.is_equip else Color.from_hsv(0, 0, 0.3)
+		inventory.add_child(new_item)
 	
 	# Update
 	ambient_healing_timer += delta
