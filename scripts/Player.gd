@@ -7,6 +7,7 @@ extends CharacterBody2D
 @export var item_index = 0
 @export var team_index = 0 # 1-16 (0-15)
 @export var ambient_healing_timer = 0
+@export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 
 @export var score = 0
 @export var kills = 0
@@ -22,6 +23,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var hand = $HandPivot/Hand
 @onready var ui = $CanvasLayer/UI
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
+@onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
 
 var on_climbable = false
@@ -124,6 +126,17 @@ func hurt(amount):
 	
 	health -= amount
 	ambient_healing_timer = 0
+
+func update_scoreboard():
+	for child in scoreboard.get_children():
+		if not child.is_class("Timer"):
+			child.free()
+	
+	for child in Peers.get_children():
+		if not child.is_class("MultiplayerSpawner"):
+			var new_item = scoreboard_item.instantiate()
+			new_item.name = child.name
+			scoreboard.add_child(new_item)
 
 func _on_team_up_pressed():
 	team_index = clamp(team_index + 1, 0, 15)

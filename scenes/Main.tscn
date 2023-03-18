@@ -54,10 +54,6 @@ position = Vector2(409, -64)
 
 [node name="Network" parent="." instance=ExtResource("2_au30e")]
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/Player.tscn")
-spawn_path = NodePath("..")
-
 [node name="Void" type="Sprite2D" parent="."]
 z_index = 6
 position = Vector2(0, 64)
