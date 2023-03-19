@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var dormant = false
+@export var username = ""
 
 @export var speed = 128
 @export var jump_height = 48
@@ -42,11 +43,12 @@ func _ready():
 	
 	if not is_multiplayer_authority(): return
 	
+	username = Network.username
+	team_index = randi_range(0, 15)
+	
 	ui.visible = true
 	camera.enabled = true
 	audio_listener.make_current()
-	
-	team_index = randi_range(0, 15)
 
 func _process(delta):
 	if not is_multiplayer_authority(): return
@@ -82,14 +84,7 @@ func _physics_process(delta):
 	
 	# Dying
 	if health <= 0 or global_position.y > 64:
-		var damager = Peers.get_node_or_null(str(recent_damager))
-		if damager:
-			damager.got_kill.rpc()
-		
-		deaths += 1
-		
-		global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
-		health = 32
+		on_die()
 	
 	# Movement
 	if not is_on_floor():
@@ -132,6 +127,19 @@ func _physics_process(delta):
 	if item_index != old_item_index:
 		change_item(old_item_index, item_index)
 		change_item.rpc(old_item_index, item_index)
+
+func on_die():
+	var damager = Peers.get_node_or_null(str(recent_damager))
+	if damager:
+		damager.got_kill.rpc()
+	
+	deaths += 1
+	
+	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
+	health = 32
+	
+	for child in hand.get_children():
+		child.reset()
 
 @rpc("any_peer")
 func got_kill():

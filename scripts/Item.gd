@@ -3,6 +3,9 @@ class_name Item
 
 var is_equip = false
 
+func reset():
+	print("Item reset not implemented")
+
 func on_equip():
 	print("Item equip not implemented")
 

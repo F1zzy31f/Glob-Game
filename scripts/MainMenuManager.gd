@@ -6,6 +6,9 @@ func open_menu(menu_name):
 	for child in menus.get_children():
 		child.visible = child.name == menu_name
 
+func _on_username_text_changed(new_text):
+	Network.set_username(new_text)
+
 func _on_play_pressed():
 	open_menu("PlayMenu")
 

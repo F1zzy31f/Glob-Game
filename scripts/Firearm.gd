@@ -18,6 +18,9 @@ var mag_contents = 0
 
 func _ready():
 	tracer.top_level = true
+	reset()
+
+func reset():
 	mag_contents = mag_size
 
 func on_equip():

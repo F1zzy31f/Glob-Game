@@ -85,6 +85,11 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Username" type="LineEdit" parent="Menus/TitleMenu/Content"]
+layout_mode = 2
+placeholder_text = "Username"
+alignment = 1
+
 [node name="Play" type="Button" parent="Menus/TitleMenu/Content"]
 layout_mode = 2
 text = "Play"
@@ -209,6 +214,7 @@ grow_vertical = 2
 layout_mode = 2
 text = "Back"
 
+[connection signal="text_changed" from="Menus/TitleMenu/Content/Username" to="." method="_on_username_text_changed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Quit" to="." method="_on_quit_pressed"]

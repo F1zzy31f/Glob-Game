@@ -2,10 +2,26 @@
 
 [ext_resource type="Script" path="res://scripts/ScoreboardItem.gd" id="1_mjvwe"]
 
-[node name="ScoreboardItem" type="Label"]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 32
+[node name="ScoreboardItem" type="ColorRect"]
+self_modulate = Color(0.52549, 0.52549, 0.52549, 1)
+custom_minimum_size = Vector2(192, 32)
+offset_right = 192.0
+offset_bottom = 32.0
+script = ExtResource("1_mjvwe")
+
+[node name="Text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+text = "Username: ??"
 horizontal_alignment = 2
 vertical_alignment = 1
-script = ExtResource("1_mjvwe")
