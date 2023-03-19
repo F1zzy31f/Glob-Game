@@ -27,3 +27,6 @@ func _on_host_game_pressed():
 	get_tree().change_scene_to_file("res://scenes/Map.tscn")
 	
 	Network.host_server()
+
+func _on_ip_address_text_changed(new_text):
+	Network.set_server_address(new_text)
