@@ -20,7 +20,7 @@ extends CharacterBody2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
-@onready var team_indicator = $TeamIndicator
+@onready var overhead_username = $OverheadUI/SubViewport/Username
 @onready var camera = $Camera
 @onready var audio_listener = $Camera/AudioListener
 @onready var hand_pivot = $HandPivot
@@ -44,6 +44,7 @@ func _ready():
 	if not is_multiplayer_authority(): return
 	
 	username = Network.username
+	overhead_username.text = username
 	team_index = randi_range(0, 15)
 	
 	ui.visible = true
@@ -57,7 +58,6 @@ func _process(delta):
 	healthbar_inner.value = health
 	
 	$CanvasLayer/UI/TeamIndex.text = "Team: " + str(team_index + 1)
-	team_indicator.modulate = Color.from_hsv(team_index / float(16), 1, 1)
 	
 	item_info.text = hand.get_child(item_index).get_item_info()
 	for child in inventory.get_children():
