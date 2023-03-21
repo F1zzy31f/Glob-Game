@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4c210xc8jsv1"]
+[gd_scene load_steps=13 format=3 uid="uid://c4c210xc8jsv1"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
@@ -37,9 +37,6 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o4edw"]
 size = Vector2(14, 3)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_vb55b"]
-viewport_path = NodePath("OverheadUI/SubViewport")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4ei3r"]
 properties/0/path = NodePath(".:position")
@@ -108,32 +105,6 @@ collision_mask = 2
 [node name="Collider" type="CollisionShape2D" parent="Foot"]
 position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_o4edw")
-
-[node name="OverheadUI" type="Sprite2D" parent="."]
-z_index = 3
-position = Vector2(0, -18)
-scale = Vector2(0.25, 0.25)
-texture = SubResource("ViewportTexture_vb55b")
-
-[node name="SubViewport" type="SubViewport" parent="OverheadUI"]
-transparent_bg = true
-size = Vector2i(256, 64)
-
-[node name="Username" type="Label" parent="OverheadUI/SubViewport"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 32
-text = "Username"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Camera" type="Camera2D" parent="."]
 offset = Vector2(0, -32)

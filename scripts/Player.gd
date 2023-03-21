@@ -20,7 +20,6 @@ extends CharacterBody2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
-@onready var overhead_username = $OverheadUI/SubViewport/Username
 @onready var camera = $Camera
 @onready var audio_listener = $Camera/AudioListener
 @onready var hand_pivot = $HandPivot
@@ -44,7 +43,6 @@ func _ready():
 	if not is_multiplayer_authority(): return
 	
 	username = Network.username
-	overhead_username.text = username
 	team_index = randi_range(0, 15)
 	
 	ui.visible = true
