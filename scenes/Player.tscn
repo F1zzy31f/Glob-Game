@@ -142,7 +142,7 @@ texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
 damage = 2
-firerate = 8
+firerate = 12
 accuracy = 2
 mag_size = 20
 
@@ -152,7 +152,7 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 1
+damage = 2
 firerate = 18
 accuracy = 5
 
@@ -162,7 +162,7 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 28
+damage = 32
 firerate = 1
 accuracy = 0
 mag_size = 3
@@ -260,7 +260,7 @@ grow_vertical = 0
 alignment = 2
 
 [node name="UpdateTimer" type="Timer" parent="CanvasLayer/UI/Scoreboard"]
-wait_time = 0.033
+wait_time = 0.5
 autostart = true
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
