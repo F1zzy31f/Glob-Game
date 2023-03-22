@@ -69,6 +69,9 @@ properties/7/sync = true
 properties/8/path = NodePath("HandPivot:rotation")
 properties/8/spawn = true
 properties/8/sync = true
+properties/9/path = NodePath(".:team_index")
+properties/9/spawn = true
+properties/9/sync = true
 
 [node name="Player" type="CharacterBody2D" groups=["Hurtable"]]
 script = ExtResource("1_3vl4j")
@@ -257,6 +260,7 @@ grow_vertical = 0
 alignment = 2
 
 [node name="UpdateTimer" type="Timer" parent="CanvasLayer/UI/Scoreboard"]
+wait_time = 0.033
 autostart = true
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]

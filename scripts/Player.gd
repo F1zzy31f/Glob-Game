@@ -48,7 +48,7 @@ func _ready():
 	username = Network.username
 	overhead_username.text = username
 	
-	team_index = randi_range(0, 15)
+	team_index = randi_range(0, Globals.team_count - 1)
 	
 	ui.visible = true
 	camera.enabled = true
@@ -181,11 +181,11 @@ func update_scoreboard():
 			scoreboard.add_child(new_item)
 
 func _on_team_up_pressed():
-	team_index = clamp(team_index + 1, 0, 15)
+	team_index = clamp(team_index + 1, 0, Globals.team_count - 1)
 	$CanvasLayer/UI/TeamUp.release_focus()
 
 func _on_team_down_pressed():
-	team_index = clamp(team_index - 1, 0, 15)
+	team_index = clamp(team_index - 1, 0, Globals.team_count - 1)
 	$CanvasLayer/UI/TeamDown.release_focus()
 
 func _on_foot_body_entered(_area):
