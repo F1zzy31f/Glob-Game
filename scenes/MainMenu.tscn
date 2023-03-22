@@ -89,6 +89,7 @@ grow_vertical = 2
 layout_mode = 2
 placeholder_text = "Username"
 alignment = 1
+max_length = 12
 
 [node name="Play" type="Button" parent="Menus/TitleMenu/Content"]
 layout_mode = 2
