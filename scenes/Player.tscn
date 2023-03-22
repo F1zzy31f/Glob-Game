@@ -144,7 +144,6 @@ region_rect = Rect2(126, 18, 18, 18)
 damage = 2
 firerate = 12
 accuracy = 2
-mag_size = 20
 
 [node name="MP5" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 self_modulate = Color(1, 0, 0.117647, 1)
@@ -155,6 +154,7 @@ region_rect = Rect2(126, 18, 18, 18)
 damage = 2
 firerate = 18
 accuracy = 5
+mag_size = 45
 
 [node name="AWM" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 self_modulate = Color(0.833333, 1, 0, 1)
