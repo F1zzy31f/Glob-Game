@@ -21,6 +21,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
 @onready var camera = $Camera
+@onready var overhead_username = $SubViewport/Username
 @onready var audio_listener = $Camera/AudioListener
 @onready var hand_pivot = $HandPivot
 @onready var hand = $HandPivot/Hand
@@ -40,9 +41,13 @@ func _enter_tree():
 func _ready():
 	change_item(item_index, item_index)
 	
+	overhead_username.text = username
+	
 	if not is_multiplayer_authority(): return
 	
 	username = Network.username
+	overhead_username.text = username
+	
 	team_index = randi_range(0, 15)
 	
 	ui.visible = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4c210xc8jsv1"]
+[gd_scene load_steps=14 format=3 uid="uid://c4c210xc8jsv1"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
@@ -38,52 +38,37 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o4edw"]
 size = Vector2(14, 3)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_qqooj"]
+viewport_path = NodePath("SubViewport")
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4ei3r"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/sync = true
-properties/1/path = NodePath("HandPivot:rotation")
+properties/1/path = NodePath(".:username")
 properties/1/spawn = true
 properties/1/sync = true
-properties/2/path = NodePath("HandPivot/Hand:scale")
+properties/2/path = NodePath(".:health")
 properties/2/spawn = true
 properties/2/sync = true
-properties/3/path = NodePath(".:item_index")
+properties/3/path = NodePath(".:score")
 properties/3/spawn = true
 properties/3/sync = true
-properties/4/path = NodePath(".:health")
+properties/4/path = NodePath(".:kills")
 properties/4/spawn = true
 properties/4/sync = true
-properties/5/path = NodePath("Sprite:flip_h")
+properties/5/path = NodePath(".:deaths")
 properties/5/spawn = true
 properties/5/sync = true
-properties/6/path = NodePath("Sprite:animation")
+properties/6/path = NodePath(".:dormant")
 properties/6/spawn = true
 properties/6/sync = true
-properties/7/path = NodePath(".:team_index")
+properties/7/path = NodePath("Sprite:animation")
 properties/7/spawn = true
 properties/7/sync = true
-properties/8/path = NodePath("TeamIndicator:modulate")
+properties/8/path = NodePath("HandPivot:rotation")
 properties/8/spawn = true
 properties/8/sync = true
-properties/9/path = NodePath(".:score")
-properties/9/spawn = true
-properties/9/sync = true
-properties/10/path = NodePath(".:kills")
-properties/10/spawn = true
-properties/10/sync = true
-properties/11/path = NodePath(".:deaths")
-properties/11/spawn = true
-properties/11/sync = true
-properties/12/path = NodePath(".:dormant")
-properties/12/spawn = true
-properties/12/sync = true
-properties/13/path = NodePath(".:username")
-properties/13/spawn = true
-properties/13/sync = true
-properties/14/path = NodePath("OverheadUI/SubViewport/Username:text")
-properties/14/spawn = true
-properties/14/sync = true
 
 [node name="Player" type="CharacterBody2D" groups=["Hurtable"]]
 script = ExtResource("1_3vl4j")
@@ -105,6 +90,33 @@ collision_mask = 2
 [node name="Collider" type="CollisionShape2D" parent="Foot"]
 position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_o4edw")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(512, 64)
+render_target_update_mode = 4
+
+[node name="Username" type="Label" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 64
+text = "Username"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OverheadUI" type="Sprite2D" parent="."]
+z_index = 3
+position = Vector2(0, -18)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("ViewportTexture_qqooj")
 
 [node name="Camera" type="Camera2D" parent="."]
 offset = Vector2(0, -32)
