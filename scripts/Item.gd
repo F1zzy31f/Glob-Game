@@ -1,6 +1,8 @@
 extends Sprite2D
 class_name Item
 
+@export var speed_multiplier = 1
+
 var is_equip = false
 
 func reset():
