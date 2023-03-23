@@ -41,8 +41,6 @@ func _enter_tree():
 func _ready():
 	change_item(item_index, item_index)
 	
-	overhead_username.text = username
-	
 	if not is_multiplayer_authority(): return
 	
 	username = Network.username

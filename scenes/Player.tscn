@@ -1,13 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4c210xc8jsv1"]
+[gd_scene load_steps=11 format=3 uid="uid://c4c210xc8jsv1"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
 [ext_resource type="Texture2D" uid="uid://c1xc5rm58asqs" path="res://assets/player_0.png" id="2_uf8iu"]
 [ext_resource type="Texture2D" uid="uid://cfkkmh44xxfnv" path="res://assets/player_1.png" id="3_pdcv2"]
 [ext_resource type="PackedScene" uid="uid://b1fya3pffgkcm" path="res://scenes/Firearm.tscn" id="3_rid25"]
-[ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="4_3nt55"]
-[ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="5_xutxo"]
-[ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="8_c63tt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
 radius = 7.0
@@ -72,6 +69,9 @@ properties/8/sync = true
 properties/9/path = NodePath(".:team_index")
 properties/9/spawn = true
 properties/9/sync = true
+properties/10/path = NodePath("SubViewport/Username:text")
+properties/10/spawn = true
+properties/10/sync = true
 
 [node name="Player" type="CharacterBody2D" groups=["Hurtable"]]
 script = ExtResource("1_3vl4j")
@@ -82,9 +82,8 @@ shape = SubResource("CapsuleShape2D_swevk")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 z_index = 3
 sprite_frames = SubResource("SpriteFrames_tpaxj")
-animation = &"idle"
+animation = &"walk"
 autoplay = "idle"
-frame_progress = 0.428526
 
 [node name="Foot" type="Area2D" parent="."]
 collision_layer = 0
@@ -186,8 +185,6 @@ offset_bottom = 672.0
 scale = Vector2(4, 4)
 max_value = 32.0
 value = 7.0
-texture_under = ExtResource("4_3nt55")
-texture_progress = ExtResource("5_xutxo")
 
 [node name="ItemInfo" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -264,7 +261,6 @@ wait_time = 0.5
 autostart = true
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_c63tt")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4ei3r")
