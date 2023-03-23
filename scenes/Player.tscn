@@ -154,6 +154,7 @@ damage = 2
 firerate = 18
 accuracy = 5
 mag_size = 45
+speed_multiplier = 1.2
 
 [node name="AWM" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 self_modulate = Color(0.833333, 1, 0, 1)
@@ -165,6 +166,7 @@ damage = 32
 firerate = 1
 accuracy = 0
 mag_size = 3
+speed_multiplier = 0.8
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
