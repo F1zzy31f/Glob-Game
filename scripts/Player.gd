@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var dormant = false
 @export var username = ""
 
-@export var speed = 128
+@export var speed = 96
 @export var jump_height = 48
 @export var climb_speed = 128
 @export var health = 0
