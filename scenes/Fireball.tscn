@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqdfrjcq18fgp"]
+
+[ext_resource type="Script" path="res://scripts/Fireball.gd" id="1_y3flx"]
+[ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_y8oro"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5nlex"]
+friction = 0.5
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7rfm7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ngss2"]
+radius = 64.0
+
+[sub_resource type="Gradient" id="Gradient_vv04y"]
+interpolation_mode = 1
+colors = PackedColorArray(0, 0, 0, 0.498039, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u35i7"]
+gradient = SubResource("Gradient_vv04y")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[node name="Fireball" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_5nlex")
+max_contacts_reported = 1
+contact_monitor = true
+lock_rotation = true
+script = ExtResource("1_y3flx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 3
+texture = ExtResource("2_y8oro")
+region_enabled = true
+region_rect = Rect2(144, 108, 18, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7rfm7")
+
+[node name="BlastRadius" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlastRadius"]
+shape = SubResource("CircleShape2D_ngss2")
+
+[node name="Sprite2D" type="Sprite2D" parent="BlastRadius"]
+z_index = 3
+texture = SubResource("GradientTexture2D_u35i7")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

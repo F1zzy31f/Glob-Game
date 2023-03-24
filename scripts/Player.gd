@@ -21,14 +21,18 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
 @onready var camera = $Camera
-@onready var overhead_username = $SubViewport/Username
+@onready var overhead_username = $OverheadUI/Username
 @onready var audio_listener = $Camera/AudioListener
 @onready var hand_pivot = $HandPivot
 @onready var hand = $HandPivot/Hand
+@onready var abilities = $Abilities
 @onready var ui = $CanvasLayer/UI
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
 @onready var item_info = $CanvasLayer/UI/ItemInfo
 @onready var inventory = $CanvasLayer/UI/Inventory
+@onready var ability_ui_active1 = $CanvasLayer/UI/Abilities/Active1
+@onready var ability_ui_active2 = $CanvasLayer/UI/Abilities/Active2
+@onready var ability_ui_ultimate = $CanvasLayer/UI/Abilities/Ultimate
 @onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
 
@@ -70,12 +74,27 @@ func _process(delta):
 		new_item.self_modulate = Color.from_hsv(0, 0, 0.4) if child.is_equip else Color.from_hsv(0, 0, 0.3)
 		inventory.add_child(new_item)
 	
+	ability_ui_active1.get_child(0).text = abilities.get_child(1).name
+	ability_ui_active1.get_child(1).value = abilities.get_child(1).recharge_timer
+	
+	ability_ui_active2.get_child(0).text = abilities.get_child(2).name
+	ability_ui_active2.get_child(1).value = abilities.get_child(2).recharge_timer
+	
+	ability_ui_ultimate.get_child(0).text = abilities.get_child(3).name
+	ability_ui_ultimate.get_child(1).value = abilities.get_child(3).recharge_timer
+	
 	# Update
 	ambient_healing_timer += delta
 	
 	if ambient_healing_timer > 3:
 		health += (delta * 32) / 32 # x / Time to heal
 	health = clamp(health, 0, 32)
+	
+	# Abilities
+	if Input.is_action_just_pressed("ability_active_1"):
+		abilities.get_child(1).activate()
+	if Input.is_action_just_pressed("ability_active_2"):
+		abilities.get_child(2).activate()
 	
 	# Score
 	score = kills - deaths
