@@ -72,7 +72,7 @@ properties/8/sync = true
 properties/9/path = NodePath(".:team_index")
 properties/9/spawn = true
 properties/9/sync = true
-properties/10/path = NodePath("SubViewport/Username:text")
+properties/10/path = NodePath("OverheadUI/Username:text")
 properties/10/spawn = true
 properties/10/sync = true
 
@@ -193,6 +193,7 @@ buff_jump_height = null
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
