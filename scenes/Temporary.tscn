@@ -1,3 +1,7 @@
 [gd_scene format=3 uid="uid://c254mlslgbhh"]
 
 [node name="Temporary" type="Node"]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/Fireball.tscn")
+spawn_path = NodePath("..")
