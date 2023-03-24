@@ -38,13 +38,7 @@ func activate():
 				
 				match style:
 					AbilityStyle.Projectile:
-						var new_projectile = projectile_scene.instantiate()
-						new_projectile.set_multiplayer_authority(multiplayer.get_unique_id())
-						Temporary.add_child(new_projectile)
-						
-						var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
-						new_projectile.global_position = global_position - (mouse_normal * 24)
-						new_projectile.set_axis_velocity(-mouse_normal * projectile_speed)
+						projectile.rpc((global_position - get_global_mouse_position()).normalized().limit_length(1))
 					
 					AbilityStyle.Buff:
 						print(player)
@@ -57,3 +51,12 @@ func activate():
 						player.health -= buff_health
 						player.speed -= buff_speed
 						player.jump_height -= buff_jump_height
+
+@rpc("any_peer", "call_local")
+func projectile(aim_normal):
+	var new_projectile = projectile_scene.instantiate()
+	new_projectile.set_multiplayer_authority(multiplayer.get_unique_id())
+	Temporary.add_child(new_projectile)
+	
+	new_projectile.global_position = global_position - (aim_normal * 24)
+	new_projectile.set_axis_velocity(-aim_normal * projectile_speed)
