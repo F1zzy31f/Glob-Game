@@ -205,6 +205,8 @@ func knockback(vector):
 	velocity += vector
 
 func charge_ultimate():
+	if not is_multiplayer_authority(): return
+	
 	if ability_ultimate.ultimate_charge == false:
 		ability_ultimate.ultimate_charge = true
 		return true
