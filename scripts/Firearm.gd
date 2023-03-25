@@ -86,3 +86,6 @@ func draw_tracer(collision_point, collision_normal):
 	tracer.add_point(collision_point)
 	await get_tree().create_timer(0.05).timeout
 	tracer.clear_points()
+	
+	await get_tree().create_timer(10).timeout
+	bullet_impact.queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4c210xc8jsv1"]
+[gd_scene load_steps=16 format=3 uid="uid://c4c210xc8jsv1"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="6_k8qsi"]
 [ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="7_4wlsm"]
 [ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Goblin.tscn" id="7_qhgxf"]
+[ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="10_ur7w6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
 radius = 7.0
@@ -429,6 +430,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_ur7w6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4ei3r")
