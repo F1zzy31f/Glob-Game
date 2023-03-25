@@ -298,7 +298,7 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 max_value = 32.0
-step = 1.0
+step = 0.0
 value = 32.0
 
 [node name="Active2" type="Control" parent="CanvasLayer/UI/Abilities"]
@@ -337,7 +337,7 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 max_value = 32.0
-step = 1.0
+step = 0.0
 value = 32.0
 
 [node name="Ultimate" type="Control" parent="CanvasLayer/UI/Abilities"]
