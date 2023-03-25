@@ -15,6 +15,7 @@ extends CharacterBody2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
+@onready var hurt_sound = $HurtSound
 
 var on_climbable = false
 
@@ -103,6 +104,8 @@ func _physics_process(delta):
 
 @rpc("any_peer", "call_local")
 func hurt(amount):
+	hurt_sound.play()
+	
 	if not is_multiplayer_authority(): return
 	
 	health -= amount

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfm3bcjgjqtck"]
+[gd_scene load_steps=9 format=3 uid="uid://cfm3bcjgjqtck"]
 
 [ext_resource type="Script" path="res://scripts/EnemyAI.gd" id="1_fahkt"]
 [ext_resource type="Texture2D" uid="uid://bprbkvx11gn4y" path="res://assets/goblin_0.png" id="2_nwwuo"]
 [ext_resource type="Texture2D" uid="uid://fhx4mx3ex2n1" path="res://assets/goblin_1.png" id="3_o2ujy"]
+[ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="4_djxgd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n0ndp"]
 radius = 7.0
@@ -70,6 +71,9 @@ collision_mask = 2
 [node name="Collider" type="CollisionShape2D" parent="Foot"]
 position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_w7m3h")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_djxgd")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_g0pct")
