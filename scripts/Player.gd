@@ -1,14 +1,21 @@
 extends CharacterBody2D
 
+@export var dormant = false
+@export var username = ""
+
 @export var speed = 96
 @export var jump_height = 48
 @export var climb_speed = 128
-@export var health = 32
+@export var health = 0
 @export var item_index = 0
 @export var team_index = 0 # 1-16 (0-15)
 @export var ambient_healing_timer = 0
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 @export var inventory_item = preload("res://scenes/InventoryItem.tscn")
+
+@export var score = 0
+@export var kills = 0
+@export var deaths = -1
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -28,6 +35,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ability_ui_active1 = $CanvasLayer/UI/Abilities/Active1
 @onready var ability_ui_active2 = $CanvasLayer/UI/Abilities/Active2
 @onready var ability_ui_ultimate = $CanvasLayer/UI/Abilities/Ultimate
+@onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
 
 var ability_passive = null
@@ -47,7 +55,8 @@ func _ready():
 	
 	if not is_multiplayer_authority(): return
 	
-	overhead_username.text = Peers.get_node(str(get_multiplayer_authority())).username
+	username = Network.username
+	overhead_username.text = username
 	
 	team_index = randi_range(0, Globals.team_count - 1)
 	
@@ -103,6 +112,9 @@ func _process(delta):
 		ability_active2.activate()
 	if Input.is_action_just_pressed("ability_ultimate"):
 		ability_ultimate.activate()
+	
+	# Score
+	score = kills - deaths
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -159,7 +171,18 @@ func on_die():
 	if damager:
 		damager.got_kill.rpc()
 	
-	queue_free()
+	deaths += 1
+	
+	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
+	health = 32
+	
+	for child in hand.get_children():
+		child.reset()
+	is_dead = false
+
+@rpc("any_peer")
+func got_kill():
+	kills += 1
 
 @rpc
 func change_item(old_index, new_index):
@@ -188,6 +211,22 @@ func charge_ultimate():
 		ability_ultimate.ultimate_charge = true
 		return true
 	return false
+
+func update_scoreboard():
+	for child in scoreboard.get_children():
+		if not child.is_class("Timer"):
+			child.free()
+	
+	var peers = []
+	for child in Peers.get_children():
+		if not child.is_class("MultiplayerSpawner"):
+			peers.append(child)
+	peers.sort_custom(func(a, b): return a.score > b.score)
+	for child in peers:
+		if not child.is_class("MultiplayerSpawner"):
+			var new_item = scoreboard_item.instantiate()
+			new_item.name = child.name
+			scoreboard.add_child(new_item)
 
 func _on_team_up_pressed():
 	team_index = clamp(team_index + 1, 0, Globals.team_count - 1)
