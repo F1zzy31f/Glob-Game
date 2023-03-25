@@ -41,6 +41,8 @@ func _process(delta):
 	recharge_timer += delta
 
 func activate():
+	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
+	
 	match type:
 		AbilityType.Active:
 			if recharge_timer > active_recharge:
@@ -48,39 +50,38 @@ func activate():
 				
 				match style:
 					AbilityStyle.Projectile:
-						projectile.rpc(multiplayer.get_unique_id(), (global_position - get_global_mouse_position()).normalized().limit_length(1))
+						projectile.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24), mouse_normal)
 					
 					AbilityStyle.Buff:
 						buff()
 					
 					AbilityStyle.Summon:
-						summon.rpc(multiplayer.get_unique_id())
+						summon.rpc(multiplayer.get_unique_id(), global_position - mouse_normal * 24)
 		
 		AbilityType.Ultimate:
 			if ultimate_charge:
 				ultimate_charge = false
 				match style:
 						AbilityStyle.Projectile:
-							projectile.rpc(multiplayer.get_unique_id(), (global_position - get_global_mouse_position()).normalized().limit_length(1))
+							projectile.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24), mouse_normal)
 						
 						AbilityStyle.Buff:
 							buff()
 						
 						AbilityStyle.Summon:
 							for i in summon_count:
-								summon.rpc(multiplayer.get_unique_id())
+								summon.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24 * i))
 
 @rpc("any_peer", "call_local")
-func projectile(owner_id, aim_normal):
+func projectile(owner_id, spawn_position, aim_normal):
 	if multiplayer.get_unique_id() != 1: return
 	
 	var new_projectile = projectile_scene.instantiate()
 	new_projectile.name = str(owner_id) + "_" + new_projectile.name
-	new_projectile.global_position = global_position - (aim_normal * 24)
-	
 	Temporary.add_child(new_projectile, true)
 	
-	new_projectile.set_axis_velocity(-aim_normal * projectile_speed)
+	new_projectile.initialize.rpc(spawn_position, -aim_normal * projectile_speed)
+	
 
 func buff():
 	player.health += buff_health
@@ -94,11 +95,12 @@ func buff():
 	player.jump_height -= buff_jump_height
 
 @rpc("any_peer", "call_local")
-func summon(owner_id):
+func summon(owner_id, spawn_position):
 	if multiplayer.get_unique_id() != 1: return
 	
 	var new_summon = summon_scene.instantiate()
 	new_summon.name = str(owner_id) + "_" + new_summon.name
-	
 	Temporary.add_child(new_summon, true)
+	
+	new_summon.initialize.rpc(spawn_position)
 	

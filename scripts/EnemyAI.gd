@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var initialized = false
+
 @export var speed = 96
 @export var jump_height = 48
 @export var climb_speed = 128
@@ -28,11 +30,16 @@ var ai_input = input.new()
 func _enter_tree():
 	set_multiplayer_authority(int(name.split("_")[0]), true)
 
-func _ready():
-	global_position = Peers.get_node(str(get_multiplayer_authority())).global_position
+@rpc("any_peer", "call_local")
+func initialize(spawn_position):
+	if not is_multiplayer_authority(): return
+	
+	initialized = true
+	
+	global_position = spawn_position
 
 func _process(delta):
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority() or not initialized: return
 	
 	knockback_timer += delta
 	
@@ -40,6 +47,7 @@ func _process(delta):
 		for child in Peers.get_children():
 			if child.is_class("CharacterBody2D") and child.name != str(get_multiplayer_authority()):
 				target = child
+		return
 	
 	var target_vector = global_position - target.global_position
 	
@@ -65,11 +73,13 @@ func _process(delta):
 		ai_input.jump = false
 
 func _physics_process(delta):
-	if not is_multiplayer_authority(): return
+	if not initialized: return
 	
 	# Dying
 	if health <= 0 or global_position.y > 64:
 		queue_free()
+	
+	if not is_multiplayer_authority(): return
 	
 	# Movement
 	if not is_on_floor():
