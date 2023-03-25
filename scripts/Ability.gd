@@ -28,7 +28,7 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export var summon_scene = preload("res://scenes/Goblin.tscn")
 @export var summon_count = 1
 
-@onready var player = $"../.."
+@onready var player = $"../../.."
 
 var recharge_timer = 0
 

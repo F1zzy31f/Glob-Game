@@ -189,7 +189,6 @@ type = 1
 [node name="Active" type="Node2D" parent="Abilities"]
 
 [node name="Fireball" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
-active_recharge = 0
 
 [node name="Fast" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
 style = 1

@@ -7,7 +7,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n0ndp"]
 radius = 7.0
-height = 24.0
+height = 18.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_58adv"]
 animations = [{
@@ -56,6 +56,7 @@ script = ExtResource("1_fahkt")
 speed = 32
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
 shape = SubResource("CapsuleShape2D_n0ndp")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
