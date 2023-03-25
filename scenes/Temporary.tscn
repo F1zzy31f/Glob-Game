@@ -3,5 +3,5 @@
 [node name="Temporary" type="Node"]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/Fireball.tscn", "res://scenes/Goblin.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/PlayerController.tscn", "res://scenes/Fireball.tscn", "res://scenes/Goblin.tscn")
 spawn_path = NodePath("..")
