@@ -77,12 +77,14 @@ func _process(delta):
 	
 	ability_ui_active1.get_child(0).text = abilities.get_child(1).name
 	ability_ui_active1.get_child(1).value = abilities.get_child(1).recharge_timer
+	ability_ui_active1.get_child(1).max_value = abilities.get_child(1).active_recharge
 	
 	ability_ui_active2.get_child(0).text = abilities.get_child(2).name
 	ability_ui_active2.get_child(1).value = abilities.get_child(2).recharge_timer
+	ability_ui_active2.get_child(1).max_value = abilities.get_child(2).active_recharge
 	
 	ability_ui_ultimate.get_child(0).text = abilities.get_child(3).name
-	ability_ui_ultimate.get_child(1).value = abilities.get_child(3).recharge_timer
+	ability_ui_ultimate.get_child(1).value = 1 if abilities.get_child(3).ultimate_charge else 0
 	
 	# Update
 	ambient_healing_timer += delta

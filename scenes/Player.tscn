@@ -197,7 +197,6 @@ summon_scene = ExtResource("7_qhgxf")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -287,6 +286,7 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 max_value = 32.0
+step = 1.0
 value = 32.0
 show_percentage = false
 
@@ -326,6 +326,7 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 max_value = 32.0
+step = 1.0
 value = 32.0
 show_percentage = false
 
@@ -364,8 +365,9 @@ offset_right = 2.0
 offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
-max_value = 32.0
-value = 32.0
+max_value = 1.0
+step = 1.0
+value = 1.0
 show_percentage = false
 
 [node name="TeamDown" type="Button" parent="CanvasLayer/UI"]
