@@ -1,15 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4c210xc8jsv1"]
+[gd_scene load_steps=16 format=3 uid="uid://crif1i56owjv5"]
 
-[ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
-[ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
-[ext_resource type="Texture2D" uid="uid://c1xc5rm58asqs" path="res://assets/player_0.png" id="2_uf8iu"]
-[ext_resource type="Texture2D" uid="uid://cfkkmh44xxfnv" path="res://assets/player_1.png" id="3_pdcv2"]
-[ext_resource type="PackedScene" uid="uid://b1fya3pffgkcm" path="res://scenes/Firearm.tscn" id="3_rid25"]
-[ext_resource type="PackedScene" uid="uid://c8sg8bew2kv4q" path="res://scenes/Ability.tscn" id="6_1ee1w"]
-[ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="6_k8qsi"]
-[ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="7_4wlsm"]
-[ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Goblin.tscn" id="7_qhgxf"]
-[ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="10_ur7w6"]
+[ext_resource type="Script" path="res://scripts/PlayerController.gd" id="1_6s3xg"]
+[ext_resource type="Texture2D" uid="uid://c1xc5rm58asqs" path="res://assets/player_0.png" id="2_6sd53"]
+[ext_resource type="Texture2D" uid="uid://cfkkmh44xxfnv" path="res://assets/player_1.png" id="3_82wrl"]
+[ext_resource type="PackedScene" uid="uid://b1fya3pffgkcm" path="res://scenes/Firearm.tscn" id="4_3famm"]
+[ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="5_8jroo"]
+[ext_resource type="PackedScene" uid="uid://c8sg8bew2kv4q" path="res://scenes/Ability.tscn" id="6_cvxeq"]
+[ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Goblin.tscn" id="7_v0iyd"]
+[ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="8_4wmbu"]
+[ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="9_3371d"]
+[ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="10_1xfrc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
 radius = 7.0
@@ -19,7 +19,7 @@ height = 24.0
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_uf8iu")
+"texture": ExtResource("2_6sd53")
 }],
 "loop": true,
 "name": &"idle",
@@ -27,10 +27,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_uf8iu")
+"texture": ExtResource("2_6sd53")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_pdcv2")
+"texture": ExtResource("3_82wrl")
 }],
 "loop": true,
 "name": &"walk",
@@ -84,8 +84,8 @@ properties/12/path = NodePath("Sprite:flip_h")
 properties/12/spawn = true
 properties/12/sync = true
 
-[node name="Player" type="CharacterBody2D" groups=["Hurtable", "Player"]]
-script = ExtResource("1_3vl4j")
+[node name="PlayerController" type="CharacterBody2D" groups=["Hurtable", "Player"]]
+script = ExtResource("1_6s3xg")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_swevk")
@@ -145,20 +145,20 @@ position_smoothing_speed = 3.0
 [node name="Hand" type="Node2D" parent="HandPivot"]
 position = Vector2(12, 0)
 
-[node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+[node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("4_3famm")]
 self_modulate = Color(0.333333, 1, 0, 1)
 z_index = 4
-texture = ExtResource("2_432dd")
+texture = ExtResource("5_8jroo")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
 damage = 2
 firerate = 12
 accuracy = 2
 
-[node name="MP5" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+[node name="MP5" parent="HandPivot/Hand" instance=ExtResource("4_3famm")]
 self_modulate = Color(1, 0, 0.117647, 1)
 z_index = 4
-texture = ExtResource("2_432dd")
+texture = ExtResource("5_8jroo")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
 damage = 2
@@ -167,10 +167,10 @@ accuracy = 5
 mag_size = 45
 speed_multiplier = 1.2
 
-[node name="AWM" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+[node name="AWM" parent="HandPivot/Hand" instance=ExtResource("4_3famm")]
 self_modulate = Color(0.833333, 1, 0, 1)
 z_index = 4
-texture = ExtResource("2_432dd")
+texture = ExtResource("5_8jroo")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
 damage = 32
@@ -183,32 +183,30 @@ speed_multiplier = 0.8
 
 [node name="Passive" type="Node2D" parent="Abilities"]
 
-[node name="Passive" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
+[node name="Passive" parent="Abilities/Passive" instance=ExtResource("6_cvxeq")]
 type = 1
-buff_permenent = null
 
 [node name="Active" type="Node2D" parent="Abilities"]
 
-[node name="Fireball" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+[node name="Fireball" parent="Abilities/Active" instance=ExtResource("6_cvxeq")]
 active_recharge = 16
 
-[node name="Fast" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+[node name="Fast" parent="Abilities/Active" instance=ExtResource("6_cvxeq")]
 style = 1
 buff_speed = 32
 
-[node name="Heal" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+[node name="Heal" parent="Abilities/Active" instance=ExtResource("6_cvxeq")]
 style = 1
 buff_permenent = true
 buff_health = 16
 
 [node name="Ultimate" type="Node2D" parent="Abilities"]
 
-[node name="Goblins" parent="Abilities/Ultimate" instance=ExtResource("6_1ee1w")]
+[node name="Goblins" parent="Abilities/Ultimate" instance=ExtResource("6_cvxeq")]
 type = 2
 style = 2
 ultimate_charge = false
-buff_permenent = null
-summon_scene = ExtResource("7_qhgxf")
+summon_scene = ExtResource("7_v0iyd")
 summon_count = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -230,8 +228,8 @@ offset_bottom = 672.0
 scale = Vector2(4, 4)
 max_value = 32.0
 value = 7.0
-texture_under = ExtResource("6_k8qsi")
-texture_progress = ExtResource("7_4wlsm")
+texture_under = ExtResource("8_4wmbu")
+texture_progress = ExtResource("9_3371d")
 
 [node name="ItemInfo" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -420,27 +418,8 @@ text = "Team: 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Scoreboard" type="VBoxContainer" parent="CanvasLayer/UI"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -197.0
-offset_top = -517.0
-offset_right = -5.0
-offset_bottom = -5.0
-grow_horizontal = 0
-grow_vertical = 0
-alignment = 2
-
-[node name="UpdateTimer" type="Timer" parent="CanvasLayer/UI/Scoreboard"]
-wait_time = 0.5
-autostart = true
-
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_ur7w6")
+stream = ExtResource("10_1xfrc")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4ei3r")
@@ -449,4 +428,3 @@ replication_config = SubResource("SceneReplicationConfig_4ei3r")
 [connection signal="body_exited" from="Foot" to="." method="_on_foot_body_exited"]
 [connection signal="pressed" from="CanvasLayer/UI/TeamDown" to="." method="_on_team_down_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TeamUp" to="." method="_on_team_up_pressed"]
-[connection signal="timeout" from="CanvasLayer/UI/Scoreboard/UpdateTimer" to="." method="update_scoreboard"]

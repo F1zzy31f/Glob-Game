@@ -1,7 +1,7 @@
 extends Node
 
 @export var port = 7777
-@export var player = preload("res://scenes/Player.tscn")
+@export var player = preload("res://scenes/PlayerManager.tscn")
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 
 var username = "Username"

@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://muah14qyuf0x"]
+
+[ext_resource type="Script" path="res://scripts/PlayerManager.gd" id="1_be5rk"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gokyt"]
+properties/0/path = NodePath(".:dormant")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:username")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(".:team_index")
+properties/2/spawn = true
+properties/2/sync = true
+properties/3/path = NodePath(".:score")
+properties/3/spawn = true
+properties/3/sync = true
+properties/4/path = NodePath(".:player_controller")
+properties/4/spawn = true
+properties/4/sync = true
+
+[node name="PlayerManager" type="Node2D"]
+script = ExtResource("1_be5rk")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scoreboard" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -197.0
+offset_top = -517.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="UpdateTimer" type="Timer" parent="CanvasLayer/UI/Scoreboard"]
+wait_time = 0.5
+autostart = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_gokyt")
+
+[connection signal="timeout" from="CanvasLayer/UI/Scoreboard/UpdateTimer" to="." method="update_scoreboard"]
