@@ -28,6 +28,8 @@ func _ready():
 	recharge_timer = active_recharge
 
 func _process(delta):
+	if not is_multiplayer_authority(): return
+	
 	recharge_timer += delta
 
 func activate():
@@ -38,10 +40,16 @@ func activate():
 				
 				match style:
 					AbilityStyle.Projectile:
-						projectile.rpc(multiplayer.get_unique_id(), (global_position - get_global_mouse_position()).normalized().limit_length(1))
+						var aim_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
+						var new_projectile = projectile_scene.instantiate()
+						new_projectile.name = str(multiplayer.get_unique_id()) + "_" + new_projectile.name
+						
+						Temporary.add_child(new_projectile, true)
+						
+						new_projectile.global_position = global_position - (aim_normal * 24)
+						new_projectile.set_axis_velocity(-aim_normal * projectile_speed)
 					
 					AbilityStyle.Buff:
-						print(player)
 						player.health += buff_health
 						player.speed += buff_speed
 						player.jump_height += buff_jump_height
@@ -51,13 +59,3 @@ func activate():
 						player.health -= buff_health
 						player.speed -= buff_speed
 						player.jump_height -= buff_jump_height
-
-@rpc("any_peer", "call_local")
-func projectile(owner_id, aim_normal):
-	var new_projectile = projectile_scene.instantiate()
-	Temporary.add_child(new_projectile)
-	print(owner_id)
-	new_projectile.set_multiplayer_authority(owner_id)
-	
-	new_projectile.global_position = global_position - (aim_normal * 24)
-	new_projectile.set_axis_velocity(-aim_normal * projectile_speed)

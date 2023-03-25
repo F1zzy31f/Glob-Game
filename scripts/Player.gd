@@ -41,7 +41,7 @@ var on_climbable = false
 var recent_damager = null
 
 func _enter_tree():
-	set_multiplayer_authority(str(name).to_int())
+	set_multiplayer_authority(str(name).to_int(), true)
 
 func _ready():
 	change_item(item_index, item_index)

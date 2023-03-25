@@ -31,6 +31,9 @@ properties/0/sync = true
 properties/1/path = NodePath(".:linear_velocity")
 properties/1/spawn = true
 properties/1/sync = true
+properties/2/path = NodePath(".:dormant")
+properties/2/spawn = true
+properties/2/sync = true
 
 [node name="Fireball" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_5nlex")
