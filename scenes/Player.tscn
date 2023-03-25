@@ -75,6 +75,9 @@ properties/9/sync = true
 properties/10/path = NodePath("OverheadUI/Username:text")
 properties/10/spawn = true
 properties/10/sync = true
+properties/11/path = NodePath("HandPivot/Hand:scale")
+properties/11/spawn = true
+properties/11/sync = true
 
 [node name="Player" type="CharacterBody2D" groups=["Hurtable"]]
 script = ExtResource("1_3vl4j")
