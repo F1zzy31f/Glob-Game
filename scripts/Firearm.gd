@@ -52,7 +52,7 @@ func _process(_delta):
 		
 		raycast.rotation_degrees = randf_range(-accuracy, accuracy)
 		
-		if (raycast.is_colliding()):
+		if (raycast.is_colliding() and raycast.get_collider()):
 			if (raycast.get_collider().is_in_group("Hurtable")):
 				if (raycast.get_collider().team_index != player.team_index || raycast.get_collider().team_index == -1):
 					raycast.get_collider().hurt.rpc(damage)
