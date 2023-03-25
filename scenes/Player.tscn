@@ -189,6 +189,7 @@ type = 1
 [node name="Active" type="Node2D" parent="Abilities"]
 
 [node name="Fireball" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+active_recharge = 16
 
 [node name="Fast" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
 style = 1
@@ -299,7 +300,6 @@ grow_vertical = 2
 max_value = 32.0
 step = 1.0
 value = 32.0
-show_percentage = false
 
 [node name="Active2" type="Control" parent="CanvasLayer/UI/Abilities"]
 custom_minimum_size = Vector2(160, 128)
@@ -339,7 +339,6 @@ grow_vertical = 2
 max_value = 32.0
 step = 1.0
 value = 32.0
-show_percentage = false
 
 [node name="Ultimate" type="Control" parent="CanvasLayer/UI/Abilities"]
 custom_minimum_size = Vector2(160, 128)
