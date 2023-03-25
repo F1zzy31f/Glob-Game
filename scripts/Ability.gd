@@ -26,6 +26,7 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export var buff_jump_height = 0
 @export_subgroup("Summon")
 @export var summon_scene = preload("res://scenes/Goblin.tscn")
+@export var summon_count = 1
 
 @onready var player = $"../.."
 
@@ -66,7 +67,8 @@ func activate():
 							buff()
 						
 						AbilityStyle.Summon:
-							summon.rpc(multiplayer.get_unique_id(), -(global_position - get_global_mouse_position()).normalized().limit_length(1) * 24)
+							for i in summon_count:
+								summon.rpc(multiplayer.get_unique_id(), -(global_position - get_global_mouse_position()).normalized().limit_length(1) * 24 * i)
 
 @rpc("any_peer", "call_local")
 func projectile(owner_id, aim_normal):

@@ -6,3 +6,4 @@
 script = ExtResource("1_w6fpx")
 ultimate_charge = null
 summon_scene = null
+summon_count = null

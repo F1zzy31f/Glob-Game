@@ -193,6 +193,7 @@ type = 2
 style = 2
 ultimate_charge = true
 summon_scene = ExtResource("7_qhgxf")
+summon_count = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

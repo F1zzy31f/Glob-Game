@@ -1,11 +1,34 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfm3bcjgjqtck"]
+[gd_scene load_steps=8 format=3 uid="uid://cfm3bcjgjqtck"]
 
-[ext_resource type="Texture2D" uid="uid://c2l5ykjphywn3" path="res://assets/CharacterTileset.png" id="1_4hxfc"]
 [ext_resource type="Script" path="res://scripts/EnemyAI.gd" id="1_fahkt"]
+[ext_resource type="Texture2D" uid="uid://bprbkvx11gn4y" path="res://assets/goblin_0.png" id="2_nwwuo"]
+[ext_resource type="Texture2D" uid="uid://fhx4mx3ex2n1" path="res://assets/goblin_1.png" id="3_o2ujy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n0ndp"]
 radius = 7.0
 height = 24.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58adv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nwwuo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nwwuo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_o2ujy")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w7m3h"]
 size = Vector2(14, 3)
@@ -22,11 +45,11 @@ speed = 32
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_n0ndp")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
 z_index = 3
-texture = ExtResource("1_4hxfc")
-region_enabled = true
-region_rect = Rect2(0, 48, 24, 24)
+sprite_frames = SubResource("SpriteFrames_58adv")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="Foot" type="Area2D" parent="."]
 collision_layer = 0

@@ -6,11 +6,17 @@ extends CharacterBody2D
 @export var health = 16
 @export var team_index = -1
 
+@export var knockback_delay = 1
+@export var knockback = Vector2(512, 128)
+@export var damage = 4
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
 
 var on_climbable = false
+
+var knockback_timer = 0
 
 class input:
 	var jump = false
@@ -22,6 +28,10 @@ func _enter_tree():
 	set_multiplayer_authority(int(name.split("_")[0]), true)
 
 func _process(delta):
+	if not is_multiplayer_authority(): return
+	
+	knockback_timer += delta
+	
 	var target = Peers.get_child(1)
 	var target_vector = global_position - target.global_position
 	
@@ -34,6 +44,12 @@ func _process(delta):
 	else:
 		ai_input.move_left = 0
 		ai_input.move_right = 0
+		
+		if target_vector.length() < 36 and knockback_timer > knockback_delay:
+			knockback_timer = 0
+			
+			target.velocity = Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y)
+			target.hurt.rpc(damage)
 	
 	if target_vector.y > 16:
 		ai_input.jump = true
@@ -59,10 +75,10 @@ func _physics_process(delta):
 	var direction = -ai_input.move_left + ai_input.move_right
 	if direction:
 		velocity.x = direction * speed
-		#sprite.animation = "walk"
+		sprite.animation = "walk"
 		sprite.flip_h = true if velocity.x > 0 else false
 	else:
-		#sprite.animation = "idle"
+		sprite.animation = "idle"
 		velocity.x = move_toward(velocity.x, 0, speed)
 	
 	move_and_slide()
