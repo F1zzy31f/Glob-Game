@@ -68,7 +68,7 @@ func activate():
 						
 						AbilityStyle.Summon:
 							for i in summon_count:
-								summon.rpc(multiplayer.get_unique_id(), -(global_position - get_global_mouse_position()).normalized().limit_length(1) * 24 * i)
+								summon.rpc(multiplayer.get_unique_id(), global_position - (global_position - get_global_mouse_position()).normalized().limit_length(1) * 24 * i)
 
 @rpc("any_peer", "call_local")
 func projectile(owner_id, aim_normal):
@@ -94,12 +94,12 @@ func buff():
 	player.jump_height -= buff_jump_height
 
 @rpc("any_peer", "call_local")
-func summon(owner_id, offset):
+func summon(owner_id, spawn_position):
 	if multiplayer.get_unique_id() != 1: return
 	
 	var new_summon = summon_scene.instantiate()
 	new_summon.name = str(owner_id) + "_" + new_summon.name
-	new_summon.global_position = global_position + offset
+	new_summon.global_position = spawn_position
 	
 	Temporary.add_child(new_summon, true)
 	
