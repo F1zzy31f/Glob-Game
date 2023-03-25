@@ -16,6 +16,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var on_climbable = false
 
+var target = null
 var knockback_timer = 0
 
 class input:
@@ -27,12 +28,19 @@ var ai_input = input.new()
 func _enter_tree():
 	set_multiplayer_authority(int(name.split("_")[0]), true)
 
+func _ready():
+	global_position = Peers.get_node(str(get_multiplayer_authority())).global_position
+
 func _process(delta):
 	if not is_multiplayer_authority(): return
 	
 	knockback_timer += delta
 	
-	var target = Peers.get_child(1)
+	if target == null:
+		for child in Peers.get_children():
+			if child.is_class("CharacterBody2D") and child.name != str(get_multiplayer_authority()):
+				target = child
+	
 	var target_vector = global_position - target.global_position
 	
 	if target_vector.x > 24:
@@ -48,7 +56,7 @@ func _process(delta):
 		if target_vector.length() < 36 and knockback_timer > knockback_delay:
 			knockback_timer = 0
 			
-			target.velocity = Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y)
+			target.knockback.rpc(Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y))
 			target.hurt.rpc(damage)
 	
 	if target_vector.y > 16:

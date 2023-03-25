@@ -188,6 +188,10 @@ func hurt(amount):
 	health -= amount
 	ambient_healing_timer = 0
 
+@rpc("any_peer", "call_local")
+func knockback(vector):
+	velocity += vector
+
 func update_scoreboard():
 	for child in scoreboard.get_children():
 		if not child.is_class("Timer"):

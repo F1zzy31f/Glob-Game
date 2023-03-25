@@ -37,6 +37,9 @@ size = Vector2(14, 3)
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/sync = true
+properties/1/path = NodePath("Sprite:animation")
+properties/1/spawn = true
+properties/1/sync = true
 
 [node name="Goblin" type="CharacterBody2D" groups=["Hurtable"]]
 script = ExtResource("1_fahkt")
