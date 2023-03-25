@@ -78,7 +78,7 @@ func projectile(owner_id, spawn_position, aim_normal):
 	
 	var new_projectile = projectile_scene.instantiate()
 	new_projectile.name = str(owner_id) + "_" + new_projectile.name
-	Temporary.add_child(new_projectile, true)
+	Temporary.add_child(new_projectile)
 	
 	new_projectile.initialize.rpc(spawn_position, -aim_normal * projectile_speed)
 	
@@ -100,7 +100,7 @@ func summon(owner_id, spawn_position):
 	
 	var new_summon = summon_scene.instantiate()
 	new_summon.name = str(owner_id) + "_" + new_summon.name
-	Temporary.add_child(new_summon, true)
+	Temporary.add_child(new_summon)
 	
 	new_summon.initialize.rpc(spawn_position)
 	

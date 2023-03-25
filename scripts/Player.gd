@@ -25,7 +25,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var audio_listener = $Camera/AudioListener
 @onready var hand_pivot = $HandPivot
 @onready var hand = $HandPivot/Hand
-@onready var abilities = $Abilities
+@onready var passive_abilities = $Abilities/Passive
+@onready var active_abilities = $Abilities/Active
+@onready var ultimate_abilities = $Abilities/Ultimate
 @onready var ui = $CanvasLayer/UI
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
 @onready var item_info = $CanvasLayer/UI/ItemInfo
@@ -35,6 +37,11 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ability_ui_ultimate = $CanvasLayer/UI/Abilities/Ultimate
 @onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
+
+var ability_passive = null
+var ability_active1 = null
+var ability_active2 = null
+var ability_ultimate = null
 
 var is_dead = false
 var on_climbable = false
@@ -52,6 +59,11 @@ func _ready():
 	overhead_username.text = username
 	
 	team_index = randi_range(0, Globals.team_count - 1)
+	
+	ability_passive = passive_abilities.get_child(randi_range(0, passive_abilities.get_child_count() - 1))
+	ability_active1 = active_abilities.get_child(randi_range(0, active_abilities.get_child_count() - 1))
+	ability_active2 = active_abilities.get_child(randi_range(0, active_abilities.get_child_count() - 1))
+	ability_ultimate = ultimate_abilities.get_child(randi_range(0, ultimate_abilities.get_child_count() - 1))
 	
 	ui.visible = true
 	camera.enabled = true
@@ -75,16 +87,16 @@ func _process(delta):
 		new_item.self_modulate = Color.from_hsv(0, 0, 0.4) if child.is_equip else Color.from_hsv(0, 0, 0.3)
 		inventory.add_child(new_item)
 	
-	ability_ui_active1.get_child(0).text = abilities.get_child(1).name
-	ability_ui_active1.get_child(1).value = abilities.get_child(1).recharge_timer
-	ability_ui_active1.get_child(1).max_value = abilities.get_child(1).active_recharge
+	ability_ui_active1.get_child(0).text = ability_active1.name
+	ability_ui_active1.get_child(1).value =ability_active1.recharge_timer
+	ability_ui_active1.get_child(1).max_value = ability_active1.active_recharge
 	
-	ability_ui_active2.get_child(0).text = abilities.get_child(2).name
-	ability_ui_active2.get_child(1).value = abilities.get_child(2).recharge_timer
-	ability_ui_active2.get_child(1).max_value = abilities.get_child(2).active_recharge
+	ability_ui_active2.get_child(0).text = ability_active2.name
+	ability_ui_active2.get_child(1).value = ability_active2.recharge_timer
+	ability_ui_active2.get_child(1).max_value = ability_active2.active_recharge
 	
-	ability_ui_ultimate.get_child(0).text = abilities.get_child(3).name
-	ability_ui_ultimate.get_child(1).value = 1 if abilities.get_child(3).ultimate_charge else 0
+	ability_ui_ultimate.get_child(0).text = ability_ultimate.name
+	ability_ui_ultimate.get_child(1).value = 1 if ability_ultimate.ultimate_charge else 0
 	
 	# Update
 	ambient_healing_timer += delta
@@ -95,11 +107,11 @@ func _process(delta):
 	
 	# Abilities
 	if Input.is_action_just_pressed("ability_active_1"):
-		abilities.get_child(1).activate()
+		ability_active1.activate()
 	if Input.is_action_just_pressed("ability_active_2"):
-		abilities.get_child(2).activate()
+		ability_active2.activate()
 	if Input.is_action_just_pressed("ability_ultimate"):
-		abilities.get_child(3).activate()
+		ability_ultimate.activate()
 	
 	# Score
 	score = kills - deaths
