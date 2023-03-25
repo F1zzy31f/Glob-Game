@@ -12,7 +12,7 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export_subgroup("Active")
 @export var active_recharge = 32
 @export_subgroup("Ultimate")
-@export var ultimate_charge = true
+@export var ultimate_charge = false
 
 @export_group("Styles")
 
@@ -31,9 +31,6 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @onready var player = $"../../.."
 
 var recharge_timer = 0
-
-func _ready():
-	recharge_timer = active_recharge
 
 func _process(delta):
 	if not is_multiplayer_authority(): return
