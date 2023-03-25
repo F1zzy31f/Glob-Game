@@ -204,6 +204,12 @@ func hurt(amount):
 func knockback(vector):
 	velocity += vector
 
+func charge_ultimate():
+	if ability_ultimate.ultimate_charge == false:
+		ability_ultimate.ultimate_charge = true
+		return true
+	return false
+
 func update_scoreboard():
 	for child in scoreboard.get_children():
 		if not child.is_class("Timer"):

@@ -77,7 +77,7 @@ func projectile(owner_id, spawn_position, aim_normal):
 	if multiplayer.get_unique_id() != 1: return
 	
 	var new_projectile = projectile_scene.instantiate()
-	new_projectile.name = str(owner_id) + "_" + new_projectile.name
+	new_projectile.name = str(owner_id) + "_" + new_projectile.name + str(randi_range(1000, 9999))
 	Temporary.add_child(new_projectile)
 	
 	new_projectile.initialize.rpc(spawn_position, -aim_normal * projectile_speed)
@@ -99,7 +99,7 @@ func summon(owner_id, spawn_position):
 	if multiplayer.get_unique_id() != 1: return
 	
 	var new_summon = summon_scene.instantiate()
-	new_summon.name = str(owner_id) + "_" + new_summon.name
+	new_summon.name = str(owner_id) + "_" + new_summon.name + str(randi_range(1000, 9999))
 	Temporary.add_child(new_summon)
 	
 	new_summon.initialize.rpc(spawn_position)

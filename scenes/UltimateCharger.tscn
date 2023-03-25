@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://be7yfv3dm4vr1"]
+
+[ext_resource type="Script" path="res://scripts/UltimateCharger.gd" id="1_wtfv8"]
+[ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_p3lod"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sxq2"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_af71x"]
+size = Vector2(18, 18)
+
+[node name="UltimateCharger" type="RigidBody2D"]
+max_contacts_reported = 2346
+contact_monitor = true
+script = ExtResource("1_wtfv8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 3
+texture = ExtResource("2_p3lod")
+region_enabled = true
+region_rect = Rect2(180, 0, 18, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6sxq2")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_af71x")
+
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
