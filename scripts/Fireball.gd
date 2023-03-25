@@ -1,14 +1,9 @@
 extends RigidBody2D
 
-@export var dormant = false
-
 @onready var blast_radius = $BlastRadius
 
 func _enter_tree():
 	set_multiplayer_authority(int(name.split("_")[0]), true)
-
-func _process(_delta):
-	visible = !dormant
 
 func _on_body_entered(_body):
 	if not is_multiplayer_authority(): return

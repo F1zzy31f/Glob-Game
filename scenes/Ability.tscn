@@ -4,3 +4,5 @@
 
 [node name="Ability" type="Node2D"]
 script = ExtResource("1_w6fpx")
+ultimate_charge = null
+summon_scene = null

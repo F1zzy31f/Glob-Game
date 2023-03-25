@@ -96,6 +96,8 @@ func _process(delta):
 		abilities.get_child(1).activate()
 	if Input.is_action_just_pressed("ability_active_2"):
 		abilities.get_child(2).activate()
+	if Input.is_action_just_pressed("ability_ultimate"):
+		abilities.get_child(3).activate()
 	
 	# Score
 	score = kills - deaths
@@ -180,7 +182,6 @@ func hurt(amount):
 	if not is_multiplayer_authority(): return
 	
 	recent_damager = multiplayer.get_remote_sender_id()
-	print(multiplayer.get_remote_sender_id())
 	
 	health -= amount
 	ambient_healing_timer = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4c210xc8jsv1"]
+[gd_scene load_steps=15 format=3 uid="uid://c4c210xc8jsv1"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c8sg8bew2kv4q" path="res://scenes/Ability.tscn" id="6_1ee1w"]
 [ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="6_k8qsi"]
 [ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="7_4wlsm"]
+[ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Goblin.tscn" id="7_qhgxf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
 radius = 7.0
@@ -39,7 +40,7 @@ animations = [{
 size = Vector2(14, 3)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_qqooj"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("OverheadUI")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4ei3r"]
 properties/0/path = NodePath(".:position")
@@ -179,10 +180,8 @@ speed_multiplier = 0.8
 [node name="Passive" parent="Abilities" instance=ExtResource("6_1ee1w")]
 type = 1
 style = 1
-buff_jump_height = null
 
 [node name="Fireball" parent="Abilities" instance=ExtResource("6_1ee1w")]
-buff_jump_height = null
 
 [node name="Fast" parent="Abilities" instance=ExtResource("6_1ee1w")]
 style = 1
@@ -191,7 +190,9 @@ buff_jump_height = 16
 
 [node name="Ultimate" parent="Abilities" instance=ExtResource("6_1ee1w")]
 type = 2
-buff_jump_height = null
+style = 2
+ultimate_charge = true
+summon_scene = ExtResource("7_qhgxf")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
