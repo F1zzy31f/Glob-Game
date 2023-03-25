@@ -36,6 +36,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
 
+var is_dead = false
 var on_climbable = false
 var recent_damager = null
 
@@ -103,7 +104,7 @@ func _physics_process(delta):
 	if not is_multiplayer_authority(): return
 	
 	# Dying
-	if health <= 0 or global_position.y > 64:
+	if health <= 0 or global_position.y > 64 and not is_dead:
 		on_die()
 	
 	# Movement
@@ -149,6 +150,7 @@ func _physics_process(delta):
 		change_item.rpc(old_item_index, item_index)
 
 func on_die():
+	is_dead = true
 	var damager = Peers.get_node_or_null(str(recent_damager))
 	if damager:
 		damager.got_kill.rpc()
@@ -160,6 +162,7 @@ func on_die():
 	
 	for child in hand.get_children():
 		child.reset()
+	is_dead = false
 
 @rpc("any_peer")
 func got_kill():
@@ -177,6 +180,7 @@ func hurt(amount):
 	if not is_multiplayer_authority(): return
 	
 	recent_damager = multiplayer.get_remote_sender_id()
+	print(multiplayer.get_remote_sender_id())
 	
 	health -= amount
 	ambient_healing_timer = 0

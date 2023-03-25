@@ -38,7 +38,7 @@ func activate():
 				
 				match style:
 					AbilityStyle.Projectile:
-						projectile.rpc((global_position - get_global_mouse_position()).normalized().limit_length(1))
+						projectile.rpc(multiplayer.get_unique_id(), (global_position - get_global_mouse_position()).normalized().limit_length(1))
 					
 					AbilityStyle.Buff:
 						print(player)
@@ -53,10 +53,11 @@ func activate():
 						player.jump_height -= buff_jump_height
 
 @rpc("any_peer", "call_local")
-func projectile(aim_normal):
+func projectile(owner_id, aim_normal):
 	var new_projectile = projectile_scene.instantiate()
-	new_projectile.set_multiplayer_authority(multiplayer.get_unique_id())
 	Temporary.add_child(new_projectile)
+	print(owner_id)
+	new_projectile.set_multiplayer_authority(owner_id)
 	
 	new_projectile.global_position = global_position - (aim_normal * 24)
 	new_projectile.set_axis_velocity(-aim_normal * projectile_speed)
