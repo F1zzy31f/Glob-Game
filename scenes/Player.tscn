@@ -186,6 +186,7 @@ type = 1
 style = 1
 
 [node name="Fireball" parent="Abilities" instance=ExtResource("6_1ee1w")]
+active_recharge = 0
 
 [node name="Fast" parent="Abilities" instance=ExtResource("6_1ee1w")]
 style = 1
@@ -197,7 +198,7 @@ type = 2
 style = 2
 ultimate_charge = true
 summon_scene = ExtResource("7_qhgxf")
-summon_count = 1
+summon_count = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
