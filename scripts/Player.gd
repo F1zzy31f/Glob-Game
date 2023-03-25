@@ -60,10 +60,9 @@ func _ready():
 	
 	team_index = randi_range(0, Globals.team_count - 1)
 	
-	ability_passive = passive_abilities.get_child(randi_range(0, passive_abilities.get_child_count() - 1))
-	ability_active1 = active_abilities.get_child(randi_range(0, active_abilities.get_child_count() - 1))
-	ability_active2 = active_abilities.get_child(randi_range(0, active_abilities.get_child_count() - 1))
-	ability_ultimate = ultimate_abilities.get_child(randi_range(0, ultimate_abilities.get_child_count() - 1))
+	ability_active1 = active_abilities.get_node(Network.ability_active_1)
+	ability_active2 = active_abilities.get_node(Network.ability_active_2)
+	ability_ultimate = ultimate_abilities.get_node(Network.ability_ultimate)
 	
 	ui.visible = true
 	camera.enabled = true
@@ -241,3 +240,15 @@ func _on_foot_body_entered(_area):
 
 func _on_foot_body_exited(_area):
 	on_climbable = false
+
+
+func _on_leave_pressed():
+	multiplayer.set_multiplayer_peer(null)
+	Network.enet_peer = ENetMultiplayerPeer.new()
+	
+	for child in Temporary.get_children():
+		child.queue_free()
+	for child in Peers.get_children():
+		child.queue_free()
+	
+	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")

@@ -185,7 +185,6 @@ speed_multiplier = 0.8
 
 [node name="Passive" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
 type = 1
-buff_permenent = null
 
 [node name="Active" type="Node2D" parent="Abilities"]
 
@@ -207,20 +206,25 @@ buff_health = 16
 type = 2
 style = 2
 ultimate_charge = false
-buff_permenent = null
 summon_scene = ExtResource("7_qhgxf")
 summon_count = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Leave" type="Button" parent="CanvasLayer/UI"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 1
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Leave Game"
 
 [node name="Healthbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 layout_mode = 0
@@ -247,9 +251,11 @@ text = "AK-47: 0 / 30"
 vertical_alignment = 1
 
 [node name="Inventory" type="VBoxContainer" parent="CanvasLayer/UI"]
+custom_minimum_size = Vector2(0, 500)
 layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
 offset_right = 128.0
 grow_vertical = 2
 alignment = 1
@@ -447,6 +453,7 @@ replication_config = SubResource("SceneReplicationConfig_4ei3r")
 
 [connection signal="body_entered" from="Foot" to="." method="_on_foot_body_entered"]
 [connection signal="body_exited" from="Foot" to="." method="_on_foot_body_exited"]
+[connection signal="pressed" from="CanvasLayer/UI/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TeamDown" to="." method="_on_team_down_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TeamUp" to="." method="_on_team_up_pressed"]
 [connection signal="timeout" from="CanvasLayer/UI/Scoreboard/UpdateTimer" to="." method="update_scoreboard"]
