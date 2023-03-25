@@ -20,6 +20,7 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export var projectile_scene = preload("res://scenes/Fireball.tscn")
 @export var projectile_speed = 256
 @export_subgroup("Buff")
+@export var buff_permenent = false
 @export var buff_duration = 16
 @export var buff_health = 0
 @export var buff_speed = 0
@@ -87,9 +88,10 @@ func buff():
 	
 	await get_tree().create_timer(buff_duration).timeout
 	
-	player.health -= buff_health
-	player.speed -= buff_speed
-	player.jump_height -= buff_jump_height
+	if not buff_permenent:
+		player.health -= buff_health
+		player.speed -= buff_speed
+		player.jump_height -= buff_jump_height
 
 @rpc("any_peer", "call_local")
 func summon(owner_id, spawn_position):
