@@ -9,4 +9,6 @@ func _on_detection_area_body_entered(body):
 
 @rpc("any_peer", "call_local")
 func on_use():
+	if not is_multiplayer_authority(): return
+	
 	queue_free()
