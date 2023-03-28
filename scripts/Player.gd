@@ -116,7 +116,7 @@ func _process(delta):
 		ability_ultimate.activate()
 	
 	# Score
-	score = kills - deaths
+	score = (100 * kills) + (-50 * deaths)
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
