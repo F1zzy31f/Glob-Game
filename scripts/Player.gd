@@ -21,22 +21,34 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
 @onready var camera = $Camera
-@onready var overhead_username = $SubViewport/Username
+@onready var overhead_username = $OverheadUI/Username
 @onready var audio_listener = $Camera/AudioListener
 @onready var hand_pivot = $HandPivot
 @onready var hand = $HandPivot/Hand
+@onready var passive_abilities = $Abilities/Passive
+@onready var active_abilities = $Abilities/Active
+@onready var ultimate_abilities = $Abilities/Ultimate
 @onready var ui = $CanvasLayer/UI
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
 @onready var item_info = $CanvasLayer/UI/ItemInfo
 @onready var inventory = $CanvasLayer/UI/Inventory
+@onready var ability_ui_active1 = $CanvasLayer/UI/Abilities/Active1
+@onready var ability_ui_active2 = $CanvasLayer/UI/Abilities/Active2
+@onready var ability_ui_ultimate = $CanvasLayer/UI/Abilities/Ultimate
 @onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
 
+var ability_passive = null
+var ability_active1 = null
+var ability_active2 = null
+var ability_ultimate = null
+
+var is_dead = false
 var on_climbable = false
 var recent_damager = null
 
 func _enter_tree():
-	set_multiplayer_authority(str(name).to_int())
+	set_multiplayer_authority(str(name).to_int(), true)
 
 func _ready():
 	change_item(item_index, item_index)
@@ -47,6 +59,10 @@ func _ready():
 	overhead_username.text = username
 	
 	team_index = randi_range(0, Globals.team_count - 1)
+	
+	ability_active1 = active_abilities.get_node(Network.ability_active_1)
+	ability_active2 = active_abilities.get_node(Network.ability_active_2)
+	ability_ultimate = ultimate_abilities.get_node(Network.ability_ultimate)
 	
 	ui.visible = true
 	camera.enabled = true
@@ -70,12 +86,31 @@ func _process(delta):
 		new_item.self_modulate = Color.from_hsv(0, 0, 0.4) if child.is_equip else Color.from_hsv(0, 0, 0.3)
 		inventory.add_child(new_item)
 	
+	ability_ui_active1.get_child(0).text = ability_active1.name
+	ability_ui_active1.get_child(1).value =ability_active1.recharge_timer
+	ability_ui_active1.get_child(1).max_value = ability_active1.active_recharge
+	
+	ability_ui_active2.get_child(0).text = ability_active2.name
+	ability_ui_active2.get_child(1).value = ability_active2.recharge_timer
+	ability_ui_active2.get_child(1).max_value = ability_active2.active_recharge
+	
+	ability_ui_ultimate.get_child(0).text = ability_ultimate.name
+	ability_ui_ultimate.get_child(1).value = 1 if ability_ultimate.ultimate_charge else 0
+	
 	# Update
 	ambient_healing_timer += delta
 	
 	if ambient_healing_timer > 3:
 		health += (delta * 32) / 32 # x / Time to heal
 	health = clamp(health, 0, 32)
+	
+	# Abilities
+	if Input.is_action_just_pressed("ability_active_1"):
+		ability_active1.activate()
+	if Input.is_action_just_pressed("ability_active_2"):
+		ability_active2.activate()
+	if Input.is_action_just_pressed("ability_ultimate"):
+		ability_ultimate.activate()
 	
 	# Score
 	score = kills - deaths
@@ -84,7 +119,7 @@ func _physics_process(delta):
 	if not is_multiplayer_authority(): return
 	
 	# Dying
-	if health <= 0 or global_position.y > 64:
+	if health <= 0 or global_position.y > 64 and not is_dead:
 		on_die()
 	
 	# Movement
@@ -130,6 +165,7 @@ func _physics_process(delta):
 		change_item.rpc(old_item_index, item_index)
 
 func on_die():
+	is_dead = true
 	var damager = Peers.get_node_or_null(str(recent_damager))
 	if damager:
 		damager.got_kill.rpc()
@@ -141,6 +177,7 @@ func on_die():
 	
 	for child in hand.get_children():
 		child.reset()
+	is_dead = false
 
 @rpc("any_peer")
 func got_kill():
@@ -161,6 +198,18 @@ func hurt(amount):
 	
 	health -= amount
 	ambient_healing_timer = 0
+
+@rpc("any_peer", "call_local")
+func knockback(vector):
+	velocity += vector
+
+func charge_ultimate():
+	if not is_multiplayer_authority(): return
+	
+	if ability_ultimate.ultimate_charge == false:
+		ability_ultimate.ultimate_charge = true
+		return true
+	return false
 
 func update_scoreboard():
 	for child in scoreboard.get_children():
@@ -191,3 +240,15 @@ func _on_foot_body_entered(_area):
 
 func _on_foot_body_exited(_area):
 	on_climbable = false
+
+
+func _on_leave_pressed():
+	multiplayer.set_multiplayer_peer(null)
+	Network.enet_peer = ENetMultiplayerPeer.new()
+	
+	for child in Temporary.get_children():
+		child.queue_free()
+	for child in Peers.get_children():
+		child.queue_free()
+	
+	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")

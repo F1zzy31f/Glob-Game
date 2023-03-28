@@ -4,8 +4,12 @@ extends Node
 @export var player = preload("res://scenes/Player.tscn")
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 
-var username = "Username"
 var address = ""
+
+var username = "Username"
+var ability_active_1 = "Fireball"
+var ability_active_2 = "Fast"
+var ability_ultimate = "Goblins"
 
 var enet_peer = ENetMultiplayerPeer.new()
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmsdtck10hpf8"]
+[gd_scene load_steps=6 format=3 uid="uid://dmsdtck10hpf8"]
 
 [ext_resource type="TileSet" uid="uid://etaumxter5v1" path="res://StandardTileset.tres" id="1_56c62"]
 [ext_resource type="Environment" uid="uid://dmru5chb61n77" path="res://WorldEnviroment.tres" id="1_wcr3b"]
+[ext_resource type="PackedScene" uid="uid://be7yfv3dm4vr1" path="res://scenes/UltimateCharger.tscn" id="3_oet26"]
 
 [sub_resource type="Gradient" id="Gradient_f81du"]
 colors = PackedColorArray(0, 0.501961, 1, 1, 0.501961, 0.752941, 1, 1)
@@ -107,3 +108,9 @@ position = Vector2(1208, 32)
 
 [node name="24" type="Node2D" parent="Spawns"]
 position = Vector2(1352, 64)
+
+[node name="UltimateCharger" parent="." instance=ExtResource("3_oet26")]
+position = Vector2(104, -263)
+
+[node name="UltimateCharger2" parent="." instance=ExtResource("3_oet26")]
+position = Vector2(681, -231)

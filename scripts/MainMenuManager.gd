@@ -1,6 +1,9 @@
 extends Control
 
 @onready var menus = $Menus
+@onready var ability_active_1 = $Menus/PlayMenu/Abilities/AbilityActive1/Dropdown
+@onready var ability_active_2 = $Menus/PlayMenu/Abilities/AbilityActive2/Dropdown
+@onready var ability_ultimate = $Menus/PlayMenu/Abilities/AbilityUltimate/Dropdown
 
 func open_menu(menu_name):
 	for child in menus.get_children():
@@ -33,3 +36,12 @@ func _on_host_game_pressed():
 
 func _on_ip_address_text_changed(new_text):
 	Network.set_server_address(new_text)
+
+func _on_ability_active_1_item_selected(index):
+	Network.ability_active_1 = ability_active_1.get_item_text(index)
+
+func _on_ability_active_2_item_selected(index):
+	Network.ability_active_2 = ability_active_2.get_item_text(index)
+
+func _on_ability_ultimate_item_selected(index):
+	Network.ability_ultimate = ability_ultimate.get_item_text(index)

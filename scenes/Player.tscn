@@ -1,12 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4c210xc8jsv1"]
+[gd_scene load_steps=16 format=3 uid="uid://c4c210xc8jsv1"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
 [ext_resource type="Texture2D" uid="uid://c1xc5rm58asqs" path="res://assets/player_0.png" id="2_uf8iu"]
 [ext_resource type="Texture2D" uid="uid://cfkkmh44xxfnv" path="res://assets/player_1.png" id="3_pdcv2"]
 [ext_resource type="PackedScene" uid="uid://b1fya3pffgkcm" path="res://scenes/Firearm.tscn" id="3_rid25"]
+[ext_resource type="PackedScene" uid="uid://c8sg8bew2kv4q" path="res://scenes/Ability.tscn" id="6_1ee1w"]
 [ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="6_k8qsi"]
 [ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="7_4wlsm"]
+[ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Goblin.tscn" id="7_qhgxf"]
+[ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="10_ur7w6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
 radius = 7.0
@@ -38,7 +41,7 @@ animations = [{
 size = Vector2(14, 3)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_qqooj"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("OverheadUI")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4ei3r"]
 properties/0/path = NodePath(".:position")
@@ -71,11 +74,17 @@ properties/8/sync = true
 properties/9/path = NodePath(".:team_index")
 properties/9/spawn = true
 properties/9/sync = true
-properties/10/path = NodePath("SubViewport/Username:text")
+properties/10/path = NodePath("OverheadUI/Username:text")
 properties/10/spawn = true
 properties/10/sync = true
+properties/11/path = NodePath("HandPivot/Hand:scale")
+properties/11/spawn = true
+properties/11/sync = true
+properties/12/path = NodePath("Sprite:flip_h")
+properties/12/spawn = true
+properties/12/sync = true
 
-[node name="Player" type="CharacterBody2D" groups=["Hurtable"]]
+[node name="Player" type="CharacterBody2D" groups=["Hurtable", "Player"]]
 script = ExtResource("1_3vl4j")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -95,12 +104,12 @@ collision_mask = 2
 position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_o4edw")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="OverheadUI" type="SubViewport" parent="."]
 transparent_bg = true
 size = Vector2i(512, 64)
 render_target_update_mode = 4
 
-[node name="Username" type="Label" parent="SubViewport"]
+[node name="Username" type="Label" parent="OverheadUI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -116,7 +125,7 @@ text = "Username"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="OverheadUI" type="Sprite2D" parent="."]
+[node name="OverheadUISprite" type="Sprite2D" parent="."]
 z_index = 4096
 position = Vector2(0, -18)
 scale = Vector2(0.1, 0.1)
@@ -170,6 +179,36 @@ accuracy = 0
 mag_size = 3
 speed_multiplier = 0.8
 
+[node name="Abilities" type="Node2D" parent="."]
+
+[node name="Passive" type="Node2D" parent="Abilities"]
+
+[node name="Passive" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
+type = 1
+
+[node name="Active" type="Node2D" parent="Abilities"]
+
+[node name="Fireball" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+active_recharge = 16
+
+[node name="Fast" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+style = 1
+buff_speed = 32
+
+[node name="Heal" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+style = 1
+buff_permenent = true
+buff_health = 16
+
+[node name="Ultimate" type="Node2D" parent="Abilities"]
+
+[node name="Goblins" parent="Abilities/Ultimate" instance=ExtResource("6_1ee1w")]
+type = 2
+style = 2
+ultimate_charge = false
+summon_scene = ExtResource("7_qhgxf")
+summon_count = 3
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" type="Control" parent="CanvasLayer"]
@@ -180,6 +219,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Leave" type="Button" parent="CanvasLayer/UI"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 1
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Leave Game"
 
 [node name="Healthbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
 layout_mode = 0
@@ -206,12 +252,146 @@ text = "AK-47: 0 / 30"
 vertical_alignment = 1
 
 [node name="Inventory" type="VBoxContainer" parent="CanvasLayer/UI"]
+custom_minimum_size = Vector2(0, 500)
 layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
 offset_right = 128.0
 grow_vertical = 2
 alignment = 1
+
+[node name="Abilities" type="HBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -128.0
+offset_right = 256.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Active1" type="Control" parent="CanvasLayer/UI/Abilities"]
+custom_minimum_size = Vector2(160, 128)
+layout_mode = 2
+
+[node name="Name" type="Label" parent="CanvasLayer/UI/Abilities/Active1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 32
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/UI/Abilities/Active1"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -13.5
+offset_right = 2.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 32.0
+step = 0.0
+value = 32.0
+
+[node name="Active2" type="Control" parent="CanvasLayer/UI/Abilities"]
+custom_minimum_size = Vector2(160, 128)
+layout_mode = 2
+
+[node name="Name" type="Label" parent="CanvasLayer/UI/Abilities/Active2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 32
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/UI/Abilities/Active2"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -13.5
+offset_right = 2.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 32.0
+step = 0.0
+value = 32.0
+
+[node name="Ultimate" type="Control" parent="CanvasLayer/UI/Abilities"]
+custom_minimum_size = Vector2(160, 128)
+layout_mode = 2
+
+[node name="Name" type="Label" parent="CanvasLayer/UI/Abilities/Ultimate"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 32
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/UI/Abilities/Ultimate"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -13.5
+offset_right = 2.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 1.0
+value = 1.0
+show_percentage = false
 
 [node name="TeamDown" type="Button" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -267,12 +447,14 @@ wait_time = 0.5
 autostart = true
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_ur7w6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4ei3r")
 
 [connection signal="body_entered" from="Foot" to="." method="_on_foot_body_entered"]
 [connection signal="body_exited" from="Foot" to="." method="_on_foot_body_exited"]
+[connection signal="pressed" from="CanvasLayer/UI/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TeamDown" to="." method="_on_team_down_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/TeamUp" to="." method="_on_team_up_pressed"]
 [connection signal="timeout" from="CanvasLayer/UI/Scoreboard/UpdateTimer" to="." method="update_scoreboard"]

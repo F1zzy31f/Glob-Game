@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqdfrjcq18fgp"]
+
+[ext_resource type="Script" path="res://scripts/Fireball.gd" id="1_y3flx"]
+[ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_y8oro"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5nlex"]
+friction = 0.5
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7rfm7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ngss2"]
+radius = 64.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dd82g"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:linear_velocity")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(".:initialized")
+properties/2/spawn = true
+properties/2/sync = true
+
+[node name="Fireball" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_5nlex")
+max_contacts_reported = 1
+contact_monitor = true
+lock_rotation = true
+script = ExtResource("1_y3flx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 3
+texture = ExtResource("2_y8oro")
+region_enabled = true
+region_rect = Rect2(144, 108, 18, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7rfm7")
+
+[node name="BlastRadius" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlastRadius"]
+shape = SubResource("CircleShape2D_ngss2")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dd82g")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
