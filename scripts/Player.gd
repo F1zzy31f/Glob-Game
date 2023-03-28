@@ -14,8 +14,6 @@ extends CharacterBody2D
 @export var inventory_item = preload("res://scenes/InventoryItem.tscn")
 
 @export var score = 0
-@export var kills = 0
-@export var deaths = -1
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -116,7 +114,8 @@ func _process(delta):
 		ability_ultimate.activate()
 	
 	# Score
-	score = (100 * kills) + (-50 * deaths)
+	Network.score = (100 * Network.kills) + (-50 * Network.deaths)
+	score = Network.score
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -173,7 +172,7 @@ func on_die():
 	if damager:
 		damager.got_kill.rpc()
 	
-	deaths += 1
+	Network.deaths += 1
 	
 	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
 	health = 32
@@ -184,7 +183,7 @@ func on_die():
 
 @rpc("any_peer")
 func got_kill():
-	kills += 1
+	Network.kills += 1
 
 @rpc
 func change_item(old_index, new_index):

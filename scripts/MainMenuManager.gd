@@ -28,7 +28,7 @@ func _on_settings_pressed():
 	open_menu("SettingsMenu")
 
 func _on_quit_pressed():
-	get_tree().quit()
+	Save.quit()
 
 func _on_customize_pressed():
 	open_menu("CustomizeMenu")

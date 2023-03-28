@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Save="*res://scripts/Save.gd"
 Globals="*res://scripts/Globals.gd"
 Temporary="*res://scenes/Temporary.tscn"
 Network="*res://scenes/Network.tscn"

@@ -12,6 +12,10 @@ var ability_active1 = "Fireball"
 var ability_active2 = "Stimulant"
 var ability_ultimate = "Goblins"
 
+var score = 0
+var kills = 0
+var deaths = 0
+
 var enet_peer = ENetMultiplayerPeer.new()
 
 func set_username(new):
