@@ -47,6 +47,7 @@ var recent_damager = null
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int(), true)
+	Network.deaths -= 1
 
 func _ready():
 	change_item(item_index, item_index)
