@@ -290,10 +290,12 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 1
+item_count = 2
 selected = 0
 popup/item_0/text = "Goblins"
 popup/item_0/id = 0
+popup/item_1/text = "Golem"
+popup/item_1/id = 1
 
 [node name="SettingsMenu" type="Control" parent="Menus"]
 visible = false

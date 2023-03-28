@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4c210xc8jsv1"]
+[gd_scene load_steps=17 format=3 uid="uid://d3i2wa4q6gepu"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://c8sg8bew2kv4q" path="res://scenes/Ability.tscn" id="6_1ee1w"]
 [ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="6_k8qsi"]
 [ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="7_4wlsm"]
-[ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Goblin.tscn" id="7_qhgxf"]
+[ext_resource type="PackedScene" uid="uid://c3v7kbpa17in0" path="res://scenes/Goblin.tscn" id="7_qhgxf"]
+[ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Golem.tscn" id="8_0m88f"]
 [ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="10_ur7w6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
@@ -208,6 +209,13 @@ style = 2
 ultimate_charge = false
 summon_scene = ExtResource("7_qhgxf")
 summon_count = 3
+
+[node name="Golem" parent="Abilities/Ultimate" instance=ExtResource("6_1ee1w")]
+type = 2
+style = 2
+ultimate_charge = false
+summon_scene = ExtResource("8_0m88f")
+summon_count = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
