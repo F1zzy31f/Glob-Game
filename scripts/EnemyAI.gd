@@ -115,3 +115,6 @@ func _on_foot_body_entered(_area):
 
 func _on_foot_body_exited(_area):
 	on_climbable = false
+
+
+
