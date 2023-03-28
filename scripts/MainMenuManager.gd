@@ -51,28 +51,12 @@ func _on_ip_address_text_changed(new_text):
 
 func _on_ability_passive_item_selected(index):
 	Network.ability_passive = ability_passive.get_item_text(index)
-	print(Network.ability_passive)
-	print(Network.ability_active1)
-	print(Network.ability_active2)
-	print(Network.ability_ultimate)
 
 func _on_ability_active_1_item_selected(index):
 	Network.ability_active1 = ability_active_1.get_item_text(index)
-	print(Network.ability_passive)
-	print(Network.ability_active1)
-	print(Network.ability_active2)
-	print(Network.ability_ultimate)
 
 func _on_ability_active_2_item_selected(index):
 	Network.ability_active2 = ability_active_2.get_item_text(index)
-	print(Network.ability_passive)
-	print(Network.ability_active1)
-	print(Network.ability_active2)
-	print(Network.ability_ultimate)
 
 func _on_ability_ultimate_item_selected(index):
 	Network.ability_ultimate = ability_ultimate.get_item_text(index)
-	print(Network.ability_passive)
-	print(Network.ability_active1)
-	print(Network.ability_active2)
-	print(Network.ability_ultimate)
