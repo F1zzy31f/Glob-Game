@@ -215,6 +215,44 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="AbilityPassive" type="Control" parent="Menus/CustomizeMenu/Content"]
+custom_minimum_size = Vector2(384, 31)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menus/CustomizeMenu/Content/AbilityPassive"]
+custom_minimum_size = Vector2(134, 31)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 61.0
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 24
+text = "Passive"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dropdown" type="OptionButton" parent="Menus/CustomizeMenu/Content/AbilityPassive"]
+custom_minimum_size = Vector2(250, 31)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -101.0
+grow_horizontal = 0
+grow_vertical = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Fast Feet"
+popup/item_0/id = 0
+popup/item_1/text = "Strong Feet"
+popup/item_1/id = 1
+
 [node name="AbilityActive1" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
 layout_mode = 2
@@ -250,7 +288,7 @@ item_count = 3
 selected = 0
 popup/item_0/text = "Fireball"
 popup/item_0/id = 0
-popup/item_1/text = "Fast"
+popup/item_1/text = "Stimulant"
 popup/item_1/id = 1
 popup/item_2/text = "Heal"
 popup/item_2/id = 2
@@ -287,10 +325,10 @@ offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
 item_count = 3
-selected = 0
+selected = 1
 popup/item_0/text = "Fireball"
 popup/item_0/id = 0
-popup/item_1/text = "Fast"
+popup/item_1/text = "Stimulant"
 popup/item_1/id = 1
 popup/item_2/text = "Heal"
 popup/item_2/id = 2
@@ -333,8 +371,15 @@ popup/item_0/id = 0
 popup/item_1/text = "Golem"
 popup/item_1/id = 1
 
-[node name="Back" type="Button" parent="Menus/CustomizeMenu/Content"]
+[node name="Spacer" type="Control" parent="Menus/CustomizeMenu/Content"]
+custom_minimum_size = Vector2(250, 31)
 layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Back" type="Button" parent="Menus/CustomizeMenu/Content"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
 text = "Back"
 
 [node name="SettingsMenu" type="Control" parent="Menus"]
@@ -395,6 +440,7 @@ text = "Back"
 [connection signal="pressed" from="Menus/PlayMenu/Content/HostGame" to="." method="_on_host_game_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/Customize" to="." method="_on_customize_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/Back" to="." method="_on_back_pressed"]
+[connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityPassive/Dropdown" to="." method="_on_ability_passive_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityActive1/Dropdown" to="." method="_on_ability_active_1_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityActive2/Dropdown" to="." method="_on_ability_active_2_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown" to="." method="_on_ability_ultimate_item_selected"]

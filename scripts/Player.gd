@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var climb_speed = 128
 @export var health = 0
 @export var item_index = 0
-@export var team_index = 0 # 1-16 (0-15)
+@export var team_index = 0
 @export var ambient_healing_timer = 0
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 @export var inventory_item = preload("res://scenes/InventoryItem.tscn")
@@ -60,9 +60,12 @@ func _ready():
 	
 	team_index = randi_range(0, Globals.team_count - 1)
 	
+	ability_passive = passive_abilities.get_node(Network.ability_passive)
 	ability_active1 = active_abilities.get_node(Network.ability_active_1)
 	ability_active2 = active_abilities.get_node(Network.ability_active_2)
 	ability_ultimate = ultimate_abilities.get_node(Network.ability_ultimate)
+	
+	ability_passive.activate()
 	
 	ui.visible = true
 	camera.enabled = true

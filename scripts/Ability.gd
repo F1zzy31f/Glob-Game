@@ -9,6 +9,8 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 
 @export_group("Types")
 
+@export_subgroup("Passive")
+@export var activated_passive = false
 @export_subgroup("Active")
 @export var active_recharge = 32
 @export_subgroup("Ultimate")
@@ -39,36 +41,34 @@ func _process(delta):
 	recharge_timer += delta
 
 func activate():
-	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
-	
 	match type:
+		AbilityType.Passive:
+			if not activated_passive:
+				activated_passive = true
+				activate_style()
+		
 		AbilityType.Active:
 			if recharge_timer > active_recharge:
 				recharge_timer = 0
-				
-				match style:
-					AbilityStyle.Projectile:
-						projectile.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24), mouse_normal)
-					
-					AbilityStyle.Buff:
-						buff()
-					
-					AbilityStyle.Summon:
-						summon.rpc(multiplayer.get_unique_id(), global_position - mouse_normal * 24)
+				activate_style()
 		
 		AbilityType.Ultimate:
 			if ultimate_charge:
 				ultimate_charge = false
-				match style:
-						AbilityStyle.Projectile:
-							projectile.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24), mouse_normal)
-						
-						AbilityStyle.Buff:
-							buff()
-						
-						AbilityStyle.Summon:
-							for i in summon_count:
-								summon.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24 * i))
+				activate_style()
+
+func activate_style():
+	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
+	
+	match style:
+		AbilityStyle.Projectile:
+			projectile.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24), mouse_normal)
+		
+		AbilityStyle.Buff:
+			buff()
+		
+		AbilityStyle.Summon:
+			summon.rpc(multiplayer.get_unique_id(), global_position - mouse_normal * 24)
 
 @rpc("any_peer", "call_local")
 func projectile(owner_id, spawn_position, aim_normal):

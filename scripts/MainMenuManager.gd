@@ -1,6 +1,7 @@
 extends Control
 
 @onready var menus = $Menus
+@onready var ability_passive = $Menus/CustomizeMenu/Content/AbilityPassive/Dropdown
 @onready var ability_active_1 = $Menus/CustomizeMenu/Content/AbilityActive1/Dropdown
 @onready var ability_active_2 = $Menus/CustomizeMenu/Content/AbilityActive2/Dropdown
 @onready var ability_ultimate = $Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown
@@ -48,11 +49,30 @@ func _on_host_game_pressed():
 func _on_ip_address_text_changed(new_text):
 	Network.set_server_address(new_text)
 
+func _on_ability_passive_item_selected(index):
+	Network.ability_passive = ability_passive.get_item_text(index)
+	print(Network.ability_passive)
+	print(Network.ability_active1)
+	print(Network.ability_active2)
+	print(Network.ability_ultimate)
+
 func _on_ability_active_1_item_selected(index):
-	Network.ability_active_1 = ability_active_1.get_item_text(index)
+	Network.ability_active1 = ability_active_1.get_item_text(index)
+	print(Network.ability_passive)
+	print(Network.ability_active1)
+	print(Network.ability_active2)
+	print(Network.ability_ultimate)
 
 func _on_ability_active_2_item_selected(index):
-	Network.ability_active_2 = ability_active_2.get_item_text(index)
+	Network.ability_active2 = ability_active_2.get_item_text(index)
+	print(Network.ability_passive)
+	print(Network.ability_active1)
+	print(Network.ability_active2)
+	print(Network.ability_ultimate)
 
 func _on_ability_ultimate_item_selected(index):
 	Network.ability_ultimate = ability_ultimate.get_item_text(index)
+	print(Network.ability_passive)
+	print(Network.ability_active1)
+	print(Network.ability_active2)
+	print(Network.ability_ultimate)

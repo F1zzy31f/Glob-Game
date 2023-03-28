@@ -7,8 +7,9 @@ extends Node
 var address = ""
 
 var username = "Username"
-var ability_active_1 = "Fireball"
-var ability_active_2 = "Fast"
+var ability_passive = "Fast Feet"
+var ability_active1 = "Fireball"
+var ability_active2 = "Stimulant"
 var ability_ultimate = "Goblins"
 
 var enet_peer = ENetMultiplayerPeer.new()
