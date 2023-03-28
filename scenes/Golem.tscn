@@ -54,6 +54,7 @@ properties/4/sync = true
 [node name="Golem" type="CharacterBody2D" groups=["Hurtable"]]
 script = ExtResource("1_357vm")
 speed = 16
+jump_height = 32
 health = 64
 knockback = Vector2(1024, 256)
 damage = 8
