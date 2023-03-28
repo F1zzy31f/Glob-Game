@@ -1,11 +1,19 @@
 extends Control
 
 @onready var menus = $Menus
-@onready var ability_active_1 = $Menus/PlayMenu/Abilities/AbilityActive1/Dropdown
-@onready var ability_active_2 = $Menus/PlayMenu/Abilities/AbilityActive2/Dropdown
-@onready var ability_ultimate = $Menus/PlayMenu/Abilities/AbilityUltimate/Dropdown
+@onready var ability_active_1 = $Menus/CustomizeMenu/Content/AbilityActive1/Dropdown
+@onready var ability_active_2 = $Menus/CustomizeMenu/Content/AbilityActive2/Dropdown
+@onready var ability_ultimate = $Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown
+
+var menu_queue = ["TitleMenu"]
 
 func open_menu(menu_name):
+	if menu_name == "Back":
+		menu_queue.pop_back()
+		menu_name = menu_queue.back()
+	else:
+		menu_queue.append(menu_name)
+	
 	for child in menus.get_children():
 		child.visible = child.name == menu_name
 
@@ -21,8 +29,11 @@ func _on_settings_pressed():
 func _on_quit_pressed():
 	get_tree().quit()
 
+func _on_customize_pressed():
+	open_menu("CustomizeMenu")
+
 func _on_back_pressed():
-	open_menu("TitleMenu")
+	open_menu("Back")
 
 func _on_join_game_pressed():
 	get_tree().change_scene_to_file("res://scenes/Map.tscn")

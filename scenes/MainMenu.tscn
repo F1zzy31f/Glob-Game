@@ -144,7 +144,7 @@ anchor_bottom = 1.0
 offset_left = 375.0
 offset_top = 150.0
 offset_right = -375.0
-offset_bottom = -200.0
+offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -162,28 +162,64 @@ layout_mode = 2
 text = "Host Game
 "
 
+[node name="Customize" type="Button" parent="Menus/PlayMenu/Content"]
+layout_mode = 2
+text = "Customize"
+
 [node name="Back" type="Button" parent="Menus/PlayMenu/Content"]
 layout_mode = 2
 text = "Back"
 
-[node name="Abilities" type="VBoxContainer" parent="Menus/PlayMenu"]
+[node name="CustomizeMenu" type="Control" parent="Menus"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Menus/CustomizeMenu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+text = "Customize"
+label_settings = SubResource("LabelSettings_erero")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="ColorRect" parent="Menus/CustomizeMenu/Title"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_right = -50.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 1, 1, 0.498039)
+
+[node name="Content" type="VBoxContainer" parent="Menus/CustomizeMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 308.0
-offset_top = 300.0
+offset_top = 150.0
 offset_right = -308.0
 offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 2
 
-[node name="AbilityActive1" type="Control" parent="Menus/PlayMenu/Abilities"]
+[node name="AbilityActive1" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menus/PlayMenu/Abilities/AbilityActive1"]
+[node name="Label" type="Label" parent="Menus/CustomizeMenu/Content/AbilityActive1"]
 custom_minimum_size = Vector2(134, 31)
 layout_mode = 1
 anchors_preset = 9
@@ -200,7 +236,7 @@ text = "Active 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Dropdown" type="OptionButton" parent="Menus/PlayMenu/Abilities/AbilityActive1"]
+[node name="Dropdown" type="OptionButton" parent="Menus/CustomizeMenu/Content/AbilityActive1"]
 custom_minimum_size = Vector2(250, 31)
 layout_mode = 1
 anchors_preset = 11
@@ -219,11 +255,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Heal"
 popup/item_2/id = 2
 
-[node name="AbilityActive2" type="Control" parent="Menus/PlayMenu/Abilities"]
+[node name="AbilityActive2" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menus/PlayMenu/Abilities/AbilityActive2"]
+[node name="Label" type="Label" parent="Menus/CustomizeMenu/Content/AbilityActive2"]
 custom_minimum_size = Vector2(134, 31)
 layout_mode = 1
 anchors_preset = 9
@@ -240,7 +276,7 @@ text = "Active 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Dropdown" type="OptionButton" parent="Menus/PlayMenu/Abilities/AbilityActive2"]
+[node name="Dropdown" type="OptionButton" parent="Menus/CustomizeMenu/Content/AbilityActive2"]
 custom_minimum_size = Vector2(250, 31)
 layout_mode = 1
 anchors_preset = 11
@@ -259,11 +295,11 @@ popup/item_1/id = 1
 popup/item_2/text = "Heal"
 popup/item_2/id = 2
 
-[node name="AbilityUltimate" type="Control" parent="Menus/PlayMenu/Abilities"]
+[node name="AbilityUltimate" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menus/PlayMenu/Abilities/AbilityUltimate"]
+[node name="Label" type="Label" parent="Menus/CustomizeMenu/Content/AbilityUltimate"]
 custom_minimum_size = Vector2(134, 31)
 layout_mode = 1
 anchors_preset = 9
@@ -280,7 +316,7 @@ text = "Ultimate"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Dropdown" type="OptionButton" parent="Menus/PlayMenu/Abilities/AbilityUltimate"]
+[node name="Dropdown" type="OptionButton" parent="Menus/CustomizeMenu/Content/AbilityUltimate"]
 custom_minimum_size = Vector2(250, 31)
 layout_mode = 1
 anchors_preset = 11
@@ -296,6 +332,10 @@ popup/item_0/text = "Goblins"
 popup/item_0/id = 0
 popup/item_1/text = "Golem"
 popup/item_1/id = 1
+
+[node name="Back" type="Button" parent="Menus/CustomizeMenu/Content"]
+layout_mode = 2
+text = "Back"
 
 [node name="SettingsMenu" type="Control" parent="Menus"]
 visible = false
@@ -353,8 +393,10 @@ text = "Back"
 [connection signal="text_changed" from="Menus/PlayMenu/Content/IPAddress" to="." method="_on_ip_address_text_changed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/JoinGame" to="." method="_on_join_game_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/HostGame" to="." method="_on_host_game_pressed"]
+[connection signal="pressed" from="Menus/PlayMenu/Content/Customize" to="." method="_on_customize_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/Back" to="." method="_on_back_pressed"]
-[connection signal="item_selected" from="Menus/PlayMenu/Abilities/AbilityActive1/Dropdown" to="." method="_on_ability_active_1_item_selected"]
-[connection signal="item_selected" from="Menus/PlayMenu/Abilities/AbilityActive2/Dropdown" to="." method="_on_ability_active_2_item_selected"]
-[connection signal="item_selected" from="Menus/PlayMenu/Abilities/AbilityUltimate/Dropdown" to="." method="_on_ability_ultimate_item_selected"]
+[connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityActive1/Dropdown" to="." method="_on_ability_active_1_item_selected"]
+[connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityActive2/Dropdown" to="." method="_on_ability_active_2_item_selected"]
+[connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown" to="." method="_on_ability_ultimate_item_selected"]
+[connection signal="pressed" from="Menus/CustomizeMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Menus/SettingsMenu/Content/Back" to="." method="_on_back_pressed"]
