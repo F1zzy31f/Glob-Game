@@ -190,6 +190,12 @@ style = 1
 buff_permenent = true
 buff_jump_height = 32
 
+[node name="healthy" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
+type = 1
+style = 1
+buff_permenent = true
+buff_health = 16
+
 [node name="Active" type="Node2D" parent="Abilities"]
 
 [node name="Fireball" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
