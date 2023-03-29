@@ -68,7 +68,8 @@ func activate_style():
 			buff()
 		
 		AbilityStyle.Summon:
-			summon.rpc(multiplayer.get_unique_id(), global_position - mouse_normal * 24)
+			for i in summon_count:
+				summon.rpc(multiplayer.get_unique_id(), global_position - mouse_normal * 24 * i)
 
 @rpc("any_peer", "call_local")
 func projectile(owner_id, spawn_position, aim_normal):
