@@ -9,8 +9,8 @@ colors = PackedColorArray(0, 0.501961, 1, 1, 0.501961, 0.752941, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_bmrea"]
 gradient = SubResource("Gradient_f81du")
-width = 3072
-height = 1024
+width = 5120
+height = 1536
 fill_to = Vector2(1, 1)
 
 [node name="Map" type="Node2D"]

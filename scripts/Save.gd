@@ -31,6 +31,7 @@ func save_data():
 	save_binary()
 	
 	print("[SAVE] : Data saved")
+	return true
 
 func load_data():
 	load_binary()
@@ -45,6 +46,7 @@ func load_data():
 	Network.deaths = save["deaths"]
 	
 	print("[SAVE] : Data loaded")
+	return true
 
 func save_binary():
 	var file = FileAccess.open_encrypted_with_pass("user://save.dat", FileAccess.WRITE, "CatCombat")
@@ -52,6 +54,9 @@ func save_binary():
 	file.close()
 
 func load_binary():
+	if not FileAccess.file_exists("user://save.dat"):
+		print("[SAVE] : No save file")
+		save_data()
 	var file = FileAccess.open_encrypted_with_pass("user://save.dat", FileAccess.READ, "CatCombat")
 	save = file.get_var()
 	file.close()
