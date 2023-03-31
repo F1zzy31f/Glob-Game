@@ -1,9 +1,15 @@
 extends Node
 
-@export var save = {}
+signal save_loaded
+
+@export var data = {}
 
 func _ready():
+	print(get_property_list())
+	
 	get_tree().set_auto_accept_quit(false)
+	
+	await get_tree().create_timer(0.5).timeout
 	
 	load_data()
 
@@ -19,38 +25,38 @@ func quit():
 	get_tree().quit()
 
 func save_data():
-	save["username"] = Network.username
-	save["ability_passive"] = Network.ability_passive
-	save["ability_active1"] = Network.ability_active1
-	save["ability_active2"] = Network.ability_active2
-	save["ability_ultimate"] = Network.ability_ultimate
-	save["score"] = Network.score
-	save["kills"] = Network.kills
-	save["deaths"] = Network.deaths
+	data["username"] = Network.username
+	data["ability_passive"] = Network.ability_passive
+	data["ability_active1"] = Network.ability_active1
+	data["ability_active2"] = Network.ability_active2
+	data["ability_ultimate"] = Network.ability_ultimate
+	data["score"] = Network.score
+	data["kills"] = Network.kills
+	data["deaths"] = Network.deaths
 	
 	save_binary()
 	
 	print("[SAVE] : Data saved")
-	return true
 
 func load_data():
 	load_binary()
 	
-	Network.username = save["username"]
-	Network.ability_passive = save["ability_passive"]
-	Network.ability_active1 = save["ability_active1"]
-	Network.ability_active2 = save["ability_active2"]
-	Network.ability_ultimate = save["ability_ultimate"]
-	Network.score = save["score"]
-	Network.kills = save["kills"]
-	Network.deaths = save["deaths"]
+	Network.username = data["username"]
+	Network.ability_passive = data["ability_passive"]
+	Network.ability_active1 = data["ability_active1"]
+	Network.ability_active2 = data["ability_active2"]
+	Network.ability_ultimate = data["ability_ultimate"]
+	Network.score = data["score"]
+	Network.kills = data["kills"]
+	Network.deaths = data["deaths"]
+	
+	save_loaded.emit()
 	
 	print("[SAVE] : Data loaded")
-	return true
 
 func save_binary():
 	var file = FileAccess.open_encrypted_with_pass("user://save.dat", FileAccess.WRITE, "CatCombat")
-	file.store_var(save)
+	file.store_var(data)
 	file.close()
 
 func load_binary():
@@ -58,5 +64,5 @@ func load_binary():
 		print("[SAVE] : No save file")
 		save_data()
 	var file = FileAccess.open_encrypted_with_pass("user://save.dat", FileAccess.READ, "CatCombat")
-	save = file.get_var()
+	data = file.get_var()
 	file.close()
