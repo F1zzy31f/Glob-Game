@@ -21,6 +21,8 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export_subgroup("Projectile")
 @export var projectile_scene = preload("res://scenes/Fireball.tscn")
 @export var projectile_speed = 256
+@export var projectile_count = 1
+@export var projectile_delay = 0.2
 @export_subgroup("Buff")
 @export var buff_permenent = false
 @export var buff_duration = 16
@@ -30,6 +32,7 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export_subgroup("Summon")
 @export var summon_scene = preload("res://scenes/Goblin.tscn")
 @export var summon_count = 1
+@export var summon_delay = 0.2
 
 @onready var player = $"../../.."
 
@@ -62,14 +65,17 @@ func activate_style():
 	
 	match style:
 		AbilityStyle.Projectile:
-			projectile.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24), mouse_normal)
+			for i in projectile_count:
+				projectile.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24), mouse_normal)
+				await get_tree().create_timer(projectile_delay).timeout
 		
 		AbilityStyle.Buff:
 			buff()
 		
 		AbilityStyle.Summon:
 			for i in summon_count:
-				summon.rpc(multiplayer.get_unique_id(), global_position - mouse_normal * 24 * i)
+				summon.rpc(multiplayer.get_unique_id(), global_position - mouse_normal * 24)
+				await get_tree().create_timer(summon_delay).timeout
 
 @rpc("any_peer", "call_local")
 func projectile(owner_id, spawn_position, aim_normal):
