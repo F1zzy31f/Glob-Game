@@ -5,8 +5,6 @@ signal save_loaded
 @export var data = {}
 
 func _ready():
-	print(get_property_list())
-	
 	get_tree().set_auto_accept_quit(false)
 	
 	await get_tree().create_timer(0.5).timeout

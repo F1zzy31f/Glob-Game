@@ -10,7 +10,7 @@ bounce = 0.5
 [sub_resource type="CircleShape2D" id="CircleShape2D_7rfm7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ngss2"]
-radius = 64.0
+radius = 32.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dd82g"]
 properties/0/path = NodePath(".:position")
