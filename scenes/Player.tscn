@@ -194,6 +194,8 @@ buff_jump_height = 32
 
 [node name="Fireball" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
 active_recharge = 16
+projectile_count = 1
+projectile_delay = 0.2
 
 [node name="Stimulant" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
 style = 1
@@ -212,6 +214,7 @@ style = 2
 ultimate_charge = false
 summon_scene = ExtResource("7_qhgxf")
 summon_count = 3
+summon_delay = 0.2
 
 [node name="Golem" parent="Abilities/Ultimate" instance=ExtResource("6_1ee1w")]
 type = 2
@@ -219,12 +222,7 @@ style = 2
 ultimate_charge = false
 summon_scene = ExtResource("8_0m88f")
 summon_count = 1
-
-[node name="Balls" parent="Abilities/Ultimate" instance=ExtResource("6_1ee1w")]
-type = 2
-ultimate_charge = false
-projectile_speed = 512
-projectile_count = 10
+summon_delay = 0.2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -66,7 +66,7 @@ func activate_style():
 	match style:
 		AbilityStyle.Projectile:
 			for i in projectile_count:
-				projectile.rpc(multiplayer.get_unique_id(), global_position - (mouse_normal * 24), mouse_normal)
+				projectile.rpc(str(multiplayer.get_unique_id()) + "_" + name + str(randi_range(1000, 9999)), global_position - (mouse_normal * 24), mouse_normal)
 				await get_tree().create_timer(projectile_delay).timeout
 		
 		AbilityStyle.Buff:
@@ -74,15 +74,13 @@ func activate_style():
 		
 		AbilityStyle.Summon:
 			for i in summon_count:
-				summon.rpc(multiplayer.get_unique_id(), global_position - mouse_normal * 24)
+				summon.rpc(str(multiplayer.get_unique_id()) + "_" + name + str(randi_range(1000, 9999)), global_position - mouse_normal * 24)
 				await get_tree().create_timer(summon_delay).timeout
 
 @rpc("any_peer", "call_local")
-func projectile(owner_id, spawn_position, aim_normal):
-	if multiplayer.get_unique_id() != 1: return
-	
+func projectile(spawn_name, spawn_position, aim_normal):
 	var new_projectile = projectile_scene.instantiate()
-	new_projectile.name = str(owner_id) + "_" + new_projectile.name + str(randi_range(1000, 9999))
+	new_projectile.name = spawn_name
 	Temporary.add_child(new_projectile)
 	
 	new_projectile.initialize.rpc(spawn_position, -aim_normal * projectile_speed)
@@ -101,11 +99,9 @@ func buff():
 		player.jump_height -= buff_jump_height
 
 @rpc("any_peer", "call_local")
-func summon(owner_id, spawn_position):
-	if multiplayer.get_unique_id() != 1: return
-	
+func summon(spawn_name, spawn_position):
 	var new_summon = summon_scene.instantiate()
-	new_summon.name = str(owner_id) + "_" + new_summon.name + str(randi_range(1000, 9999))
+	new_summon.name = spawn_name
 	Temporary.add_child(new_summon)
 	
 	new_summon.initialize.rpc(spawn_position)

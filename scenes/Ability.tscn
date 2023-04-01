@@ -6,6 +6,9 @@
 script = ExtResource("1_w6fpx")
 activated_passive = null
 ultimate_charge = null
+projectile_count = null
+projectile_delay = null
 buff_permenent = null
 summon_scene = null
 summon_count = null
+summon_delay = null
