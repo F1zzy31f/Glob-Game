@@ -55,7 +55,7 @@ properties/4/sync = true
 script = ExtResource("1_fahkt")
 speed = 32
 
-[node name="Collider" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.5)
 shape = SubResource("CapsuleShape2D_n0ndp")
 

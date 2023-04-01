@@ -30,14 +30,14 @@ contact_monitor = true
 lock_rotation = true
 script = ExtResource("1_y3flx")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7rfm7")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 3
 texture = ExtResource("2_y8oro")
 region_enabled = true
 region_rect = Rect2(144, 108, 18, 18)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_7rfm7")
 
 [node name="BlastRadius" type="Area2D" parent="."]
 

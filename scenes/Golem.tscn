@@ -59,7 +59,7 @@ health = 64
 knockback = Vector2(1024, 256)
 damage = 8
 
-[node name="Collider" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_n0ndp")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]

@@ -74,13 +74,12 @@ func _process(delta):
 		ai_input.jump = false
 
 func _physics_process(delta):
-	if not initialized: return
+	if not is_multiplayer_authority() or not initialized: return
 	
 	# Dying
 	if health <= 0 or global_position.y > 64:
-		queue_free()
-	
-	if not is_multiplayer_authority(): return
+		destroy.rpc()
+		return
 	
 	# Movement
 	if not is_on_floor():
@@ -109,6 +108,17 @@ func hurt(amount):
 	if not is_multiplayer_authority(): return
 	
 	health -= amount
+	
+@rpc("any_peer", "call_local")
+func destroy():
+	visible = false
+	set_deferred("freeze", true)
+	get_node("CollisionShape2D").set_deferred("disabled", true)
+	
+	await get_tree().create_timer(1).timeout
+	
+	queue_free()
+
 
 func _on_foot_body_entered(_area):
 	on_climbable = true
