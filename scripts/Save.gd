@@ -52,6 +52,19 @@ func load_data():
 	
 	print("[SAVE] : Data loaded")
 
+func clear_data():
+	for prop in Save.data:
+		match typeof(data[prop]):
+			4: # string
+				data[prop] = ""
+			2: # int
+				data[prop] = 0
+	Save.save_binary()
+	
+	print("[SAVE] : Data cleared")
+	
+	Save.load_data()
+
 func save_binary():
 	var file = FileAccess.open_encrypted_with_pass("user://save.dat", FileAccess.WRITE, "CatCombat")
 	file.store_var(data)

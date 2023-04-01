@@ -27,9 +27,9 @@ Peers="*res://scenes/Peers.tscn"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
-window/size/resizable=false
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
@@ -101,5 +101,4 @@ ability_ultimate={
 [rendering]
 
 renderer/rendering_method="mobile"
-renderer/rendering_method.web="mobile"
 textures/canvas_textures/default_texture_filter=0
