@@ -53,13 +53,16 @@ func load_data():
 	print("[SAVE] : Data loaded")
 
 func clear_data():
-	for prop in Save.data:
-		match typeof(data[prop]):
-			4: # string
-				data[prop] = ""
-			2: # int
-				data[prop] = 0
-	Save.save_binary()
+	data["username"] = "Guest_" + str(randi_range(1000, 9999))
+	data["ability_passive"] = "Fast Feet"
+	data["ability_active1"] ="Fireball"
+	data["ability_active2"] = "Stimulant"
+	data["ability_ultimate"] = "Goblins"
+	data["score"] = 0
+	data["kills"] = 0
+	data["deaths"] = 0
+	
+	save_binary()
 	
 	print("[SAVE] : Data cleared")
 	

@@ -12,6 +12,7 @@ extends CharacterBody2D
 @export var ambient_healing_timer = 0
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 @export var inventory_item = preload("res://scenes/InventoryItem.tscn")
+@export var explosion_effect = preload("res://scenes/ExplosionEffect.tscn")
 
 @export var score = 0
 
@@ -123,7 +124,7 @@ func _physics_process(delta):
 	
 	# Dying
 	if health <= 0 or global_position.y > 64 and not is_dead:
-		on_die()
+		on_die.rpc()
 	
 	# Movement
 	if not is_on_floor():
@@ -167,7 +168,14 @@ func _physics_process(delta):
 		change_item(old_item_index, item_index)
 		change_item.rpc(old_item_index, item_index)
 
+@rpc("any_peer", "call_local")
 func on_die():
+	var new_explosion = explosion_effect.instantiate()
+	new_explosion.global_position = global_position
+	Temporary.add_child(new_explosion)
+	
+	if not is_multiplayer_authority(): return
+	
 	is_dead = true
 	var damager = Peers.get_node_or_null(str(recent_damager))
 	if damager:
