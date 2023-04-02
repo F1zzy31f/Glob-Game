@@ -23,6 +23,8 @@ var on_climbable = false
 var target = null
 var knockback_timer = 0
 
+var is_dead = false
+
 class input:
 	var jump = false
 	var move_left = 0
@@ -78,7 +80,8 @@ func _physics_process(delta):
 	if not is_multiplayer_authority() or not initialized: return
 	
 	# Dying
-	if health <= 0 or global_position.y > 64:
+	if (health <= 0 or global_position.y > 64) and not is_dead:
+		is_dead = true
 		destroy.rpc()
 		return
 	
