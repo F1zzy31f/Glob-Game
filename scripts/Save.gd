@@ -6,10 +6,6 @@ signal save_loaded
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
-	
-	await get_tree().create_timer(0.5).timeout
-	
-	load_data()
 
 func _notification(notification):
 	if notification == NOTIFICATION_WM_CLOSE_REQUEST:

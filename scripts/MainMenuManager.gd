@@ -16,6 +16,7 @@ var menu_queue = []
 
 func _ready():
 	Save.save_loaded.connect(self.save_loaded)
+	Save.load_data()
 
 func save_loaded():
 	if has_save_loaded == false:
