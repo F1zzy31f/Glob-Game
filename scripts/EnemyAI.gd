@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var initialized = false
+@export var explosion_effect = preload("res://scenes/ExplosionEffect.tscn")
 
 @export var speed = 96
 @export var jump_height = 48
@@ -114,6 +115,10 @@ func destroy():
 	visible = false
 	set_deferred("freeze", true)
 	get_node("CollisionShape2D").set_deferred("disabled", true)
+	
+	var new_explosion = explosion_effect.instantiate()
+	new_explosion.global_position = global_position
+	Temporary.add_child(new_explosion)
 	
 	await get_tree().create_timer(1).timeout
 	
