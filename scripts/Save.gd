@@ -20,6 +20,8 @@ func quit():
 
 func save_data():
 	data["username"] = Network.username
+	data["item_primary"] = Network.item_primary
+	data["item_secondary"] = Network.item_secondary
 	data["ability_passive"] = Network.ability_passive
 	data["ability_active1"] = Network.ability_active1
 	data["ability_active2"] = Network.ability_active2
@@ -36,6 +38,8 @@ func load_data():
 	load_binary()
 	
 	Network.username = data["username"]
+	Network.item_primary = data["item_primary"]
+	Network.item_secondary = data["item_secondary"]
 	Network.ability_passive = data["ability_passive"]
 	Network.ability_active1 = data["ability_active1"]
 	Network.ability_active2 = data["ability_active2"]
@@ -50,6 +54,8 @@ func load_data():
 
 func clear_data():
 	data["username"] = "Guest_" + str(randi_range(1000, 9999))
+	data["item_primary"] = "AK-47"
+	data["item_secondary"] = "MP5"
 	data["ability_passive"] = "Fast Feet"
 	data["ability_active1"] ="Fireball"
 	data["ability_active2"] = "Stimulant"

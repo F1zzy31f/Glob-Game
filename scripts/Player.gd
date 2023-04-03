@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var jump_height = 47
 @export var climb_speed = 128
 @export var health = 0
-@export var item_index = 0
+@export var item : Node = null
 @export var team_index = 0
 @export var ambient_healing_timer = 0
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
@@ -37,6 +37,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
 
+var item_primary = null
+var item_secondary = null
+
 var ability_passive = null
 var ability_active1 = null
 var ability_active2 = null
@@ -51,8 +54,6 @@ func _enter_tree():
 	Network.deaths -= 1
 
 func _ready():
-	change_item(item_index, item_index)
-	
 	if not is_multiplayer_authority(): return
 	
 	username = Network.username
@@ -64,6 +65,12 @@ func _ready():
 	ability_active1 = active_abilities.get_node(Network.ability_active1)
 	ability_active2 = active_abilities.get_node(Network.ability_active2)
 	ability_ultimate = ultimate_abilities.get_node(Network.ability_ultimate)
+	
+	item_primary = hand.get_node(Network.item_primary)
+	item_secondary = hand.get_node(Network.item_secondary)
+	
+	item = item_primary
+	change_item.rpc("", str(item.name))
 	
 	ability_passive.activate()
 	
@@ -79,15 +86,21 @@ func _process(delta):
 	
 	$CanvasLayer/UI/TeamIndex.text = "Team: " + str(team_index + 1)
 	
-	item_info.text = hand.get_child(item_index).get_item_info()
+	item_info.text = item.get_item_info()
 	for child in inventory.get_children():
 		child.free()
-	for child in hand.get_children():
-		var new_item = inventory_item.instantiate()
-		new_item.name = child.name
-		new_item.get_child(0).text = str(new_item.name)
-		new_item.self_modulate = Color.from_hsv(0, 0, 0.4) if child.is_equip else Color.from_hsv(0, 0, 0.3)
-		inventory.add_child(new_item)
+		
+	var primary_item = inventory_item.instantiate()
+	primary_item.name = item_primary.name
+	primary_item.get_child(0).text = str(item_primary.name)
+	primary_item.self_modulate = Color.from_hsv(0, 0, 0.4) if item_primary.is_equip else Color.from_hsv(0, 0, 0.3)
+	inventory.add_child(primary_item)
+	
+	var secondary_item = inventory_item.instantiate()
+	secondary_item.name = item_secondary.name
+	secondary_item.get_child(0).text = str(item_secondary.name)
+	secondary_item.self_modulate = Color.from_hsv(0, 0, 0.4) if item_secondary.is_equip else Color.from_hsv(0, 0, 0.3)
+	inventory.add_child(secondary_item)
 	
 	ability_ui_active1.get_child(0).text = ability_active1.name
 	ability_ui_active1.get_child(1).value =ability_active1.recharge_timer
@@ -137,7 +150,7 @@ func _physics_process(delta):
 	
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
-		velocity.x = direction * (speed * hand.get_child(item_index).speed_multiplier)
+		velocity.x = direction * (speed * item.speed_multiplier)
 		sprite.animation = "walk"
 		sprite.flip_h = true if velocity.x > 0 else false
 	else:
@@ -155,18 +168,12 @@ func _physics_process(delta):
 	hand.scale.y = -1 if hand_pivot.rotation_degrees > 90 and hand_pivot.rotation_degrees < 270 else 1
 	
 	# Items
-	var old_item_index = item_index
-	if Input.is_action_just_pressed("item_up"):
-		item_index += 1
-	if Input.is_action_just_pressed("item_down"):
-		item_index -= 1
-	if item_index > hand.get_child_count() - 1:
-		item_index = 0
-	if item_index < 0:
-		item_index = hand.get_child_count() - 1
-	if item_index != old_item_index:
-		change_item(old_item_index, item_index)
-		change_item.rpc(old_item_index, item_index)
+	if Input.is_action_just_pressed("item_primary"):
+		change_item.rpc(str(item.name), str(item_primary.name))
+		item = item_primary
+	elif Input.is_action_just_pressed("item_secondary"):
+		change_item.rpc(str(item.name), str(item_secondary.name))
+		item = item_secondary
 
 @rpc("any_peer", "call_local")
 func on_die():
@@ -194,10 +201,14 @@ func on_die():
 func got_kill():
 	Network.kills += 1
 
-@rpc
-func change_item(old_index, new_index):
-	hand.get_child(old_index).on_unequip()
-	hand.get_child(new_index).on_equip()
+@rpc("call_local")
+func change_item(old_node_name, new_node_name):
+	var old_node = hand.get_node(old_node_name)
+	if old_node:
+		old_node.on_unequip()
+	var new_node = hand.get_node(new_node_name)
+	if new_node:
+		new_node.on_equip()
 
 @rpc("any_peer", "call_local")
 func hurt(amount):
