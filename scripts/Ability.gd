@@ -74,7 +74,7 @@ func activate_style():
 		
 		AbilityStyle.Summon:
 			for i in summon_count:
-				summon.rpc(str(multiplayer.get_unique_id()) + "_" + name + str(randi_range(1000, 9999)), global_position - mouse_normal * 24)
+				summon.rpc(str(multiplayer.get_unique_id()) + "_" + name + str(randi_range(1000, 9999)), global_position - mouse_normal * 24, player.team_index)
 				await get_tree().create_timer(summon_delay).timeout
 
 @rpc("any_peer", "call_local")
@@ -99,10 +99,10 @@ func buff():
 		player.jump_height -= buff_jump_height
 
 @rpc("any_peer", "call_local")
-func summon(spawn_name, spawn_position):
+func summon(spawn_name, spawn_position, spawn_team):
 	var new_summon = summon_scene.instantiate()
 	new_summon.name = spawn_name
 	Temporary.add_child(new_summon)
 	
-	new_summon.initialize.rpc(spawn_position, player.team_index)
+	new_summon.initialize.rpc(spawn_position, spawn_team)
 	
