@@ -36,13 +36,13 @@ func _enter_tree():
 	set_multiplayer_authority(int(name.split("_")[0]), true)
 
 @rpc("any_peer", "call_local")
-func initialize(spawn_position, team_index):
+func initialize(spawn_position, spawn_team):
 	if not is_multiplayer_authority(): return
 	
 	initialized = true
 	
 	global_position = spawn_position
-	self.team_index = team_index
+	team_index = spawn_team
 
 func _process(delta):
 	if not is_multiplayer_authority() or not initialized: return
