@@ -55,10 +55,12 @@ func _process(_delta):
 			raycast.rotation_degrees = randf_range(-accuracy, accuracy)
 			raycast.force_raycast_update()
 			
-			if (raycast.is_colliding() and raycast.get_collider()):
-				if (raycast.get_collider().is_in_group("Hurtable")):
+			if raycast.is_colliding() and raycast.get_collider():
+				if raycast.get_collider().is_in_group("Hurtable"):
 					if (raycast.get_collider().team_index != player.team_index):
 						raycast.get_collider().hurt.rpc(damage)
+				if raycast.get_collider() is TileMap and damage > 16:
+					raycast.get_collider().erase_cell(0, raycast.get_collider().local_to_map(raycast.get_collision_point() - raycast.get_collision_normal()))
 				draw_tracer(raycast.get_collision_point(), raycast.get_collision_normal())
 				draw_tracer.rpc(raycast.get_collision_point(), raycast.get_collision_normal())
 		
