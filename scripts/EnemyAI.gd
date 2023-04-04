@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var team_index = 0
 
 @export var detection_range = 256
+@export var attack_range = 36
 @export var knockback_delay = 1
 @export var knockback = Vector2(512, 128)
 @export var damage = 4
@@ -67,7 +68,7 @@ func _process(delta):
 	elif target_vector.x < -24:
 		ai_input.move_right = 1
 		
-		if target_vector.length() < 36 and knockback_timer > knockback_delay:
+		if target_vector.length() < attack_range and knockback_timer > knockback_delay:
 			knockback_timer = 0
 			
 			target.knockback.rpc(Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y))
@@ -108,7 +109,6 @@ func _physics_process(delta):
 func is_valid_target(player):
 	if player == null : return false
 	
-	if player.name == str(get_multiplayer_authority()) : return false                               # Not us
 	if player.team_index == team_index : return false                                               # Not ally player
 	if global_position.distance_to(player.global_position) > detection_range : return false         # Within detection range
 	if player.health <= 0 : return false                                                            # Player alive

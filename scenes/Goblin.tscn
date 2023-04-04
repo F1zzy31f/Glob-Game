@@ -54,6 +54,7 @@ properties/4/sync = true
 [node name="Goblin" type="CharacterBody2D" groups=["Hurtable"]]
 script = ExtResource("1_fahkt")
 speed = 32
+attack_range = 28
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.5)

@@ -67,6 +67,7 @@ script = ExtResource("1_357vm")
 speed = 16
 jump_height = 32
 health = 64
+attack_range = 48
 knockback = Vector2(1024, 256)
 damage = 8
 
