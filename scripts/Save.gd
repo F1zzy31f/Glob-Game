@@ -7,8 +7,8 @@ signal save_loaded
 func _ready():
 	get_tree().set_auto_accept_quit(false)
 
-func _notification(notification):
-	if notification == NOTIFICATION_WM_CLOSE_REQUEST:
+func _notification(notif):
+	if notif == NOTIFICATION_WM_CLOSE_REQUEST:
 		quit()
 
 func quit():
