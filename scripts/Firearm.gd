@@ -61,7 +61,7 @@ func _process(_delta):
 					if (raycast.get_collider().team_index != player.team_index):
 						raycast.get_collider().hurt.rpc(damage)
 				if raycast.get_collider() is TileMap and can_destroy_terrain:
-					raycast.get_collider().erase_cell(0, raycast.get_collider().local_to_map(raycast.get_collision_point() - raycast.get_collision_normal()))
+					destroy_terrain.rpc(raycast.get_collider().local_to_map(raycast.get_collision_point() - raycast.get_collision_normal()))
 				draw_tracer(raycast.get_collision_point(), raycast.get_collision_normal())
 				draw_tracer.rpc(raycast.get_collision_point(), raycast.get_collision_normal())
 		
@@ -76,6 +76,10 @@ func _process(_delta):
 		mag_contents = mag_size
 		
 		is_reloading = false
+
+@rpc("any_peer", "call_local")
+func destroy_terrain(point):
+	get_node("/root/Map/Map").erase_cell(0, point)
 
 @rpc("any_peer")
 func draw_tracer(collision_point, collision_normal):
