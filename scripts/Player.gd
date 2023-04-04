@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var speed = 96
 @export var jump_height = 47
 @export var climb_speed = 128
-@export var health = 0
+@export var health = 32
 @export var item : Node = null
 @export var team_index = 0
 @export var ambient_healing_timer = 0
@@ -51,7 +51,6 @@ var recent_damager = null
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int(), true)
-	Network.deaths -= 1
 
 func _ready():
 	if not is_multiplayer_authority(): return
