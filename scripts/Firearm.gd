@@ -53,6 +53,7 @@ func _process(_delta):
 		
 		for i in pellet_count:
 			raycast.rotation_degrees = randf_range(-accuracy, accuracy)
+			raycast.force_raycast_update()
 			
 			if (raycast.is_colliding() and raycast.get_collider()):
 				if (raycast.get_collider().is_in_group("Hurtable")):
@@ -83,11 +84,14 @@ func draw_tracer(collision_point, collision_normal):
 	bullet_impact.look_at(bullet_impact.global_position + collision_normal)
 	bullet_impact.emitting = true
 	
-	tracer.clear_points()
-	tracer.add_point(global_position)
-	tracer.add_point(collision_point)
+	var new_tracer = tracer.duplicate()
+	add_child(new_tracer)
+	new_tracer.clear_points()
+	new_tracer.add_point(global_position)
+	new_tracer.add_point(collision_point)
+	
 	await get_tree().create_timer(0.05).timeout
-	tracer.clear_points()
+	new_tracer.queue_free()
 	
 	await get_tree().create_timer(10).timeout
 	bullet_impact.queue_free()
