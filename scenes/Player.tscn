@@ -180,11 +180,11 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 4
+damage = 2
 firerate = 2
 pellet_count = 8
-accuracy = 5
-mag_size = 6
+accuracy = 8
+mag_size = 5
 speed_multiplier = 0.8
 
 [node name="Abilities" type="Node2D" parent="."]
