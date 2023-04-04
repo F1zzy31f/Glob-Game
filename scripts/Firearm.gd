@@ -2,6 +2,7 @@ extends Item
 
 @export var damage = 10
 @export var firerate = 10
+@export var pellet_count = 1
 @export var accuracy = 3
 @export var mag_size = 30
 @export var reload_time = 2
@@ -50,17 +51,18 @@ func _process(_delta):
 		
 		mag_contents -= 1
 		
-		raycast.rotation_degrees = randf_range(-accuracy, accuracy)
-		
-		if (raycast.is_colliding() and raycast.get_collider()):
-			if (raycast.get_collider().is_in_group("Hurtable")):
-				if (raycast.get_collider().team_index != player.team_index):
-					raycast.get_collider().hurt.rpc(damage)
-			draw_tracer(raycast.get_collision_point(), raycast.get_collision_normal())
-			draw_tracer.rpc(raycast.get_collision_point(), raycast.get_collision_normal())
-		
-		await get_tree().create_timer(float(1) / firerate).timeout
-		can_fire = true
+		for i in pellet_count:
+			raycast.rotation_degrees = randf_range(-accuracy, accuracy)
+			
+			if (raycast.is_colliding() and raycast.get_collider()):
+				if (raycast.get_collider().is_in_group("Hurtable")):
+					if (raycast.get_collider().team_index != player.team_index):
+						raycast.get_collider().hurt.rpc(damage)
+				draw_tracer(raycast.get_collision_point(), raycast.get_collision_normal())
+				draw_tracer.rpc(raycast.get_collision_point(), raycast.get_collision_normal())
+			
+			await get_tree().create_timer(float(1) / firerate).timeout
+			can_fire = true
 	
 	if Input.is_action_just_pressed("reload") and not is_reloading:
 		is_reloading = true

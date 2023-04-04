@@ -5,6 +5,8 @@ var has_save_loaded = false
 @onready var menus = $Menus
 @onready var username = $Menus/TitleMenu/Content/Username
 
+@onready var item_primary = $Menus/CustomizeMenu/Content/ItemPrimary/Dropdown
+@onready var item_secondary = $Menus/CustomizeMenu/Content/ItemSecondary/Dropdown
 @onready var ability_passive = $Menus/CustomizeMenu/Content/AbilityPassive/Dropdown
 @onready var ability_active1 = $Menus/CustomizeMenu/Content/AbilityActive1/Dropdown
 @onready var ability_active2 = $Menus/CustomizeMenu/Content/AbilityActive2/Dropdown
@@ -80,6 +82,12 @@ func _on_ip_address_text_changed(new_text):
 	Network.set_server_address(new_text)
 
 func _on_ability_passive_item_selected(index):
+	Network.item_primary = item_primary.get_item_text(index)
+
+func _on_item_primary_item_selected(index):
+	Network.item_secondary = item_secondary.get_item_text(index)
+
+func _on_item_secondary_item_selected(index):
 	Network.ability_passive = ability_passive.get_item_text(index)
 
 func _on_ability_active_1_item_selected(index):

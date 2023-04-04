@@ -247,7 +247,7 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 3
+item_count = 4
 selected = 0
 popup/item_0/text = "AK-47"
 popup/item_0/id = 0
@@ -255,6 +255,8 @@ popup/item_1/text = "MP5"
 popup/item_1/id = 1
 popup/item_2/text = "AWM"
 popup/item_2/id = 2
+popup/item_3/text = "Remington 870"
+popup/item_3/id = 3
 
 [node name="ItemSecondary" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
@@ -287,7 +289,7 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 3
+item_count = 4
 selected = 1
 popup/item_0/text = "AK-47"
 popup/item_0/id = 0
@@ -295,6 +297,8 @@ popup/item_1/text = "MP5"
 popup/item_1/id = 1
 popup/item_2/text = "AWM"
 popup/item_2/id = 2
+popup/item_3/text = "Remington 870"
+popup/item_3/id = 3
 
 [node name="AbilityPassive" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
@@ -606,8 +610,8 @@ text = "Back"
 [connection signal="pressed" from="Menus/PlayMenu/Content/JoinGame" to="." method="_on_join_game_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/HostGame" to="." method="_on_host_game_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/Back" to="." method="_on_back_pressed"]
-[connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemPrimary/Dropdown" to="." method="_on_ability_passive_item_selected"]
-[connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemSecondary/Dropdown" to="." method="_on_ability_passive_item_selected"]
+[connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemPrimary/Dropdown" to="." method="_on_item_primary_item_selected"]
+[connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemSecondary/Dropdown" to="." method="_on_item_secondary_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityPassive/Dropdown" to="." method="_on_ability_passive_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityActive1/Dropdown" to="." method="_on_ability_active_1_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityActive2/Dropdown" to="." method="_on_ability_active_2_item_selected"]
