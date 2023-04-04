@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjkfv40fscmjc"]
+[gd_scene load_steps=3 format=3 uid="uid://bjkfv40fscmjc"]
 
 [ext_resource type="Script" path="res://scripts/Network.gd" id="1_ybd15"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_w3d8n"]
+properties/0/path = NodePath(".:time_till_start")
+properties/0/spawn = true
+properties/0/sync = true
+
 [node name="Network" type="Node"]
 script = ExtResource("1_ybd15")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_w3d8n")

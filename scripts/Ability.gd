@@ -40,6 +40,7 @@ var recharge_timer = 0
 
 func _process(delta):
 	if not is_multiplayer_authority(): return
+	if not Network.game_started : return
 	
 	recharge_timer += delta
 

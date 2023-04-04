@@ -28,6 +28,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var active_abilities = $Abilities/Active
 @onready var ultimate_abilities = $Abilities/Ultimate
 @onready var ui = $CanvasLayer/UI
+@onready var time_till_start = $CanvasLayer/UI/TimeTillStart
 @onready var healthbar_inner = $CanvasLayer/UI/Healthbar
 @onready var item_info = $CanvasLayer/UI/ItemInfo
 @onready var inventory = $CanvasLayer/UI/Inventory
@@ -76,9 +77,18 @@ func _ready():
 	ui.visible = true
 	camera.enabled = true
 	audio_listener.make_current()
+	
+	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
+	
+	disappear.rpc()
+	
+	Network.on_start_game.connect(self.on_game_start)
+
+func on_game_start():
+	appear.rpc()
 
 func _process(delta):
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority() : return
 	
 	if is_dead and recent_damager:
 		camera.global_position = Peers.get_node(str(recent_damager)).global_position
@@ -86,6 +96,10 @@ func _process(delta):
 		camera.position = Vector2.ZERO
 	
 	# UI
+	time_till_start.text = str(Network.time_till_start) + "..."
+	if Network.time_till_start <= 0:
+		time_till_start.visible = false
+	
 	healthbar_inner.value = health
 	
 	$CanvasLayer/UI/TeamIndex.text = "Team: " + str(team_index + 1)
@@ -117,6 +131,8 @@ func _process(delta):
 	ability_ui_ultimate.get_child(0).text = ability_ultimate.name
 	ability_ui_ultimate.get_child(1).value = 1 if ability_ultimate.ultimate_charge else 0
 	
+	if not Network.game_started : return
+	
 	# Update
 	ambient_healing_timer += delta
 	
@@ -139,6 +155,7 @@ func _process(delta):
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
+	if not Network.game_started : return
 	
 	# Dying
 	if health <= 0 or global_position.y > 64:
@@ -199,7 +216,7 @@ func on_die():
 	Network.deaths += 1
 	
 	disappear.rpc()
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(4).timeout
 	appear.rpc()
 	
 	# Reset
@@ -247,7 +264,7 @@ func knockback(vector):
 	velocity += vector
 
 func charge_ultimate():
-	if not is_multiplayer_authority(): return
+	if not is_multiplayer_authority() : return
 	
 	if ability_ultimate.ultimate_charge == false:
 		ability_ultimate.ultimate_charge = true
