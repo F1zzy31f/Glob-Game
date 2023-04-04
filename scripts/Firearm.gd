@@ -6,6 +6,7 @@ extends Item
 @export var accuracy = 3
 @export var mag_size = 30
 @export var reload_time = 2
+@export var can_destroy_terrain = false
 @export var bullet_impact_particles = preload("res://scenes/BulletImpactParticles.tscn")
 
 var can_fire = true
@@ -59,7 +60,7 @@ func _process(_delta):
 				if raycast.get_collider().is_in_group("Hurtable"):
 					if (raycast.get_collider().team_index != player.team_index):
 						raycast.get_collider().hurt.rpc(damage)
-				if raycast.get_collider() is TileMap and damage > 16:
+				if raycast.get_collider() is TileMap and can_destroy_terrain:
 					raycast.get_collider().erase_cell(0, raycast.get_collider().local_to_map(raycast.get_collision_point() - raycast.get_collision_normal()))
 				draw_tracer(raycast.get_collision_point(), raycast.get_collision_normal())
 				draw_tracer.rpc(raycast.get_collision_point(), raycast.get_collision_normal())

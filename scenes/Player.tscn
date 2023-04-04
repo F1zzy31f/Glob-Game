@@ -172,6 +172,7 @@ damage = 32
 firerate = 1
 accuracy = 0
 mag_size = 3
+can_destroy_terrain = true
 speed_multiplier = 0.8
 
 [node name="Remington 870" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
