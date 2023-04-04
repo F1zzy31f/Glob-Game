@@ -70,7 +70,7 @@ func _ready():
 	item_secondary = hand.get_node(Network.item_secondary)
 	
 	item = item_primary
-	change_item.rpc("", str(item.name))
+	change_item.rpc(null, str(item.name))
 	
 	ability_passive.activate()
 	
@@ -226,13 +226,11 @@ func got_kill():
 	Network.kills += 1
 
 @rpc("call_local")
-func change_item(old_node_name, new_node_name):
-	var old_node = hand.get_node(old_node_name)
+func change_item(old_node, new_node):
 	if old_node:
-		old_node.on_unequip()
-	var new_node = hand.get_node(new_node_name)
+		hand.get_node(old_node).on_unequip()
 	if new_node:
-		new_node.on_equip()
+		hand.get_node(new_node).on_equip()
 
 @rpc("any_peer", "call_local")
 func hurt(amount):
