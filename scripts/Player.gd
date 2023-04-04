@@ -81,6 +81,9 @@ func _ready():
 func _process(delta):
 	if not is_multiplayer_authority(): return
 	
+	if is_dead and recent_damager:
+		camera.global_position = Peers.get_node(str(recent_damager)).global_position
+	
 	# UI
 	healthbar_inner.value = health
 	
@@ -136,47 +139,49 @@ func _physics_process(delta):
 	if not is_multiplayer_authority(): return
 	
 	# Dying
-	if health <= 0 or global_position.y > 64 and not is_dead:
-		on_die.rpc()
-	
-	# Movement
-	if not is_on_floor():
-		velocity.y += gravity * delta
-	
-	if Input.is_action_pressed("jump") and on_climbable:
-		velocity.y = -climb_speed
-	elif Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = -sqrt(jump_height * 2 * gravity)
-	
-	var direction = Input.get_axis("move_left", "move_right")
-	if direction:
-		velocity.x = direction * (speed * item.speed_multiplier)
-		sprite.animation = "walk"
-		sprite.flip_h = true if velocity.x > 0 else false
+	if health <= 0 or global_position.y > 64:
+		if not is_dead:
+			on_die.rpc()
 	else:
-		sprite.animation = "idle"
-		velocity.x = move_toward(velocity.x, 0, speed)
-	
-	move_and_slide()
-	
-	# Aiming
-	hand_pivot.look_at(get_global_mouse_position())
-	while hand_pivot.rotation_degrees > 360:
-		hand_pivot.rotation_degrees -= 360
-	while hand_pivot.rotation_degrees < 0:
-		hand_pivot.rotation_degrees += 360
-	hand.scale.y = -1 if hand_pivot.rotation_degrees > 90 and hand_pivot.rotation_degrees < 270 else 1
-	
-	# Items
-	if Input.is_action_just_pressed("item_primary"):
-		change_item.rpc(str(item.name), str(item_primary.name))
-		item = item_primary
-	elif Input.is_action_just_pressed("item_secondary"):
-		change_item.rpc(str(item.name), str(item_secondary.name))
-		item = item_secondary
+		# Movement
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		
+		if Input.is_action_pressed("jump") and on_climbable:
+			velocity.y = -climb_speed
+		elif Input.is_action_just_pressed("jump") and is_on_floor():
+				velocity.y = -sqrt(jump_height * 2 * gravity)
+		
+		var direction = Input.get_axis("move_left", "move_right")
+		if direction:
+			velocity.x = direction * (speed * item.speed_multiplier)
+			sprite.animation = "walk"
+			sprite.flip_h = true if velocity.x > 0 else false
+		else:
+			sprite.animation = "idle"
+			velocity.x = move_toward(velocity.x, 0, speed)
+		
+		move_and_slide()
+		
+		# Aiming
+		hand_pivot.look_at(get_global_mouse_position())
+		while hand_pivot.rotation_degrees > 360:
+			hand_pivot.rotation_degrees -= 360
+		while hand_pivot.rotation_degrees < 0:
+			hand_pivot.rotation_degrees += 360
+		hand.scale.y = -1 if hand_pivot.rotation_degrees > 90 and hand_pivot.rotation_degrees < 270 else 1
+		
+		# Items
+		if Input.is_action_just_pressed("item_primary"):
+			change_item.rpc(str(item.name), str(item_primary.name))
+			item = item_primary
+		elif Input.is_action_just_pressed("item_secondary"):
+			change_item.rpc(str(item.name), str(item_secondary.name))
+			item = item_secondary
 
-@rpc("any_peer", "call_local")
+@rpc("call_local")
 func on_die():
+	# Explode
 	var new_explosion = explosion_effect.instantiate()
 	new_explosion.global_position = global_position
 	Temporary.add_child(new_explosion)
@@ -184,18 +189,34 @@ func on_die():
 	if not is_multiplayer_authority(): return
 	
 	is_dead = true
+	
+	# Stats
 	var damager = Peers.get_node_or_null(str(recent_damager))
 	if damager:
 		damager.got_kill.rpc()
-	
 	Network.deaths += 1
 	
+	disappear.rpc()
+	await get_tree().create_timer(2).timeout
+	appear.rpc()
+	
+	# Reset
 	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
 	health = 32
 	
 	for child in hand.get_children():
 		child.reset()
 	is_dead = false
+
+@rpc("call_local")
+func disappear():
+	visible = false
+	get_node("Collider").set_deferred("disabled", true)
+
+@rpc("call_local")
+func appear():
+	visible = true
+	get_node("Collider").set_deferred("disabled", false)
 
 @rpc("any_peer")
 func got_kill():
