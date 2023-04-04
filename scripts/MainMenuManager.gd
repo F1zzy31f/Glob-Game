@@ -12,8 +12,6 @@ var has_save_loaded = false
 @onready var ability_active2 = $Menus/CustomizeMenu/Content/AbilityActive2/Dropdown
 @onready var ability_ultimate = $Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown
 
-@onready var resolution = $Menus/SettingsMenu/Content/Resolution/Dropdown
-
 var menu_queue = []
 
 func _ready():
@@ -98,13 +96,6 @@ func _on_ability_active_2_item_selected(index):
 
 func _on_ability_ultimate_item_selected(index):
 	Network.ability_ultimate = ability_ultimate.get_item_text(index)
-
-func _on_resolution_item_selected(index):
-	var resolution_text = resolution.get_item_text(index)
-	resolution_text = resolution_text.split("x")
-	resolution_text = Vector2(int(resolution_text[0]), int(resolution_text[1]))
-	
-	DisplayServer.window_set_size(resolution_text)
 
 func _on_clear_save_pressed():
 	Save.clear_data()

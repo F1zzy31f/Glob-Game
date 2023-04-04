@@ -512,53 +512,11 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Resolution" type="Control" parent="Menus/SettingsMenu/Content"]
+[node name="ClearSave" type="Control" parent="Menus/SettingsMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menus/SettingsMenu/Content/Resolution"]
-custom_minimum_size = Vector2(134, 31)
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 61.0
-grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 24
-text = "Resolution"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Dropdown" type="OptionButton" parent="Menus/SettingsMenu/Content/Resolution"]
-custom_minimum_size = Vector2(250, 31)
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -101.0
-grow_horizontal = 0
-grow_vertical = 2
-item_count = 4
-selected = 1
-popup/item_0/text = "1280x720"
-popup/item_0/id = 0
-popup/item_1/text = "1920x1080"
-popup/item_1/id = 1
-popup/item_2/text = "2560x1440"
-popup/item_2/id = 2
-popup/item_3/text = "3840x2160"
-popup/item_3/id = 3
-
-[node name="Clear Save" type="Control" parent="Menus/SettingsMenu/Content"]
-custom_minimum_size = Vector2(384, 31)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Menus/SettingsMenu/Content/Clear Save"]
+[node name="Label" type="Label" parent="Menus/SettingsMenu/Content/ClearSave"]
 custom_minimum_size = Vector2(134, 31)
 layout_mode = 1
 anchors_preset = 9
@@ -575,7 +533,7 @@ text = "Clear Save"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="Menus/SettingsMenu/Content/Clear Save"]
+[node name="Button" type="Button" parent="Menus/SettingsMenu/Content/ClearSave"]
 custom_minimum_size = Vector2(100, 31)
 layout_mode = 1
 anchors_preset = 6
@@ -617,6 +575,5 @@ text = "Back"
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityActive2/Dropdown" to="." method="_on_ability_active_2_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown" to="." method="_on_ability_ultimate_item_selected"]
 [connection signal="pressed" from="Menus/CustomizeMenu/Content/Back" to="." method="_on_back_pressed"]
-[connection signal="item_selected" from="Menus/SettingsMenu/Content/Resolution/Dropdown" to="." method="_on_resolution_item_selected"]
-[connection signal="pressed" from="Menus/SettingsMenu/Content/Clear Save/Button" to="." method="_on_clear_save_pressed"]
+[connection signal="pressed" from="Menus/SettingsMenu/Content/ClearSave/Button" to="." method="_on_clear_save_pressed"]
 [connection signal="pressed" from="Menus/SettingsMenu/Content/Back" to="." method="_on_back_pressed"]
