@@ -60,9 +60,9 @@ func _process(_delta):
 						raycast.get_collider().hurt.rpc(damage)
 				draw_tracer(raycast.get_collision_point(), raycast.get_collision_normal())
 				draw_tracer.rpc(raycast.get_collision_point(), raycast.get_collision_normal())
-			
-			await get_tree().create_timer(float(1) / firerate).timeout
-			can_fire = true
+		
+		await get_tree().create_timer(float(1) / firerate).timeout
+		can_fire = true
 	
 	if Input.is_action_just_pressed("reload") and not is_reloading:
 		is_reloading = true
