@@ -33,7 +33,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ridiculous_coding/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
