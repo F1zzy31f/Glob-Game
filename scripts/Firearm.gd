@@ -54,7 +54,7 @@ func _process(_delta):
 		
 		if (raycast.is_colliding() and raycast.get_collider()):
 			if (raycast.get_collider().is_in_group("Hurtable")):
-				if (raycast.get_collider().team_index != player.team_index || raycast.get_collider().team_index == -1):
+				if (raycast.get_collider().team_index != player.team_index):
 					raycast.get_collider().hurt.rpc(damage)
 			draw_tracer(raycast.get_collision_point(), raycast.get_collision_normal())
 			draw_tracer.rpc(raycast.get_collision_point(), raycast.get_collision_normal())

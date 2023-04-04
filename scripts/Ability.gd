@@ -104,5 +104,5 @@ func summon(spawn_name, spawn_position):
 	new_summon.name = spawn_name
 	Temporary.add_child(new_summon)
 	
-	new_summon.initialize.rpc(spawn_position)
+	new_summon.initialize.rpc(spawn_position, player.team_index)
 	

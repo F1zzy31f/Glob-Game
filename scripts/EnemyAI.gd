@@ -7,8 +7,9 @@ extends CharacterBody2D
 @export var jump_height = 48
 @export var climb_speed = 128
 @export var health = 16
-@export var team_index = -1
+@export var team_index = 0
 
+@export var detection_range = 256
 @export var knockback_delay = 1
 @export var knockback = Vector2(512, 128)
 @export var damage = 4
@@ -26,30 +27,36 @@ var knockback_timer = 0
 var is_dead = false
 
 class input:
-	var jump = false
 	var move_left = 0
 	var move_right = 0
+	var jump = false
 var ai_input = input.new()
 
 func _enter_tree():
 	set_multiplayer_authority(int(name.split("_")[0]), true)
 
 @rpc("any_peer", "call_local")
-func initialize(spawn_position):
+func initialize(spawn_position, team_index):
 	if not is_multiplayer_authority(): return
 	
 	initialized = true
 	
 	global_position = spawn_position
+	self.team_index = team_index
 
 func _process(delta):
 	if not is_multiplayer_authority() or not initialized: return
 	
 	knockback_timer += delta
 	
+	if not is_valid_target(target):
+		target = null
+	
+	ai_input = input.new()
+	
 	if target == null:
 		for child in Peers.get_children():
-			if child.is_class("CharacterBody2D") and child.name != str(get_multiplayer_authority()):
+			if child.is_class("CharacterBody2D") and is_valid_target(child):
 				target = child
 		return
 	
@@ -57,13 +64,8 @@ func _process(delta):
 	
 	if target_vector.x > 24:
 		ai_input.move_left = 1
-		ai_input.move_right = 0
 	elif target_vector.x < -24:
-		ai_input.move_left = 0
 		ai_input.move_right = 1
-	else:
-		ai_input.move_left = 0
-		ai_input.move_right = 0
 		
 		if target_vector.length() < 36 and knockback_timer > knockback_delay:
 			knockback_timer = 0
@@ -73,8 +75,6 @@ func _process(delta):
 	
 	if target_vector.y > 16:
 		ai_input.jump = true
-	else:
-		ai_input.jump = false
 
 func _physics_process(delta):
 	if not is_multiplayer_authority() or not initialized: return
@@ -104,6 +104,16 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, speed)
 	
 	move_and_slide()
+
+func is_valid_target(player):
+	if player == null : return false
+	
+	if player.name == str(get_multiplayer_authority()) : return false                               # Not us
+	if player.team_index == team_index : return false                                               # Not ally player
+	if global_position.distance_to(player.global_position) > detection_range : return false         # Within detection range
+	if player.health <= 0 : return false                                                            # Player alive
+	
+	return true
 
 @rpc("any_peer", "call_local")
 func hurt(amount):
