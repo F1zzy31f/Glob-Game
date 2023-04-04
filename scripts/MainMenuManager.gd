@@ -54,14 +54,14 @@ func _on_username_text_changed(new_text):
 func _on_play_pressed():
 	open_menu("PlayMenu")
 
+func _on_customize_pressed():
+	open_menu("CustomizeMenu")
+
 func _on_settings_pressed():
 	open_menu("SettingsMenu")
 
 func _on_quit_pressed():
 	Save.quit()
-
-func _on_customize_pressed():
-	open_menu("CustomizeMenu")
 
 func _on_back_pressed():
 	open_menu("Back")

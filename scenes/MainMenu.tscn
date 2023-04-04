@@ -96,6 +96,10 @@ max_length = 12
 layout_mode = 2
 text = "Play"
 
+[node name="Customize" type="Button" parent="Menus/TitleMenu/Content"]
+layout_mode = 2
+text = "Customize"
+
 [node name="Settings" type="Button" parent="Menus/TitleMenu/Content"]
 layout_mode = 2
 text = "Settings"
@@ -162,10 +166,6 @@ text = "Join Game"
 layout_mode = 2
 text = "Host Game
 "
-
-[node name="Customize" type="Button" parent="Menus/PlayMenu/Content"]
-layout_mode = 2
-text = "Customize"
 
 [node name="Back" type="Button" parent="Menus/PlayMenu/Content"]
 layout_mode = 2
@@ -599,12 +599,12 @@ text = "Back"
 
 [connection signal="text_changed" from="Menus/TitleMenu/Content/Username" to="." method="_on_username_text_changed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Menus/TitleMenu/Content/Customize" to="." method="_on_customize_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Quit" to="." method="_on_quit_pressed"]
 [connection signal="text_changed" from="Menus/PlayMenu/Content/IPAddress" to="." method="_on_ip_address_text_changed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/JoinGame" to="." method="_on_join_game_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/HostGame" to="." method="_on_host_game_pressed"]
-[connection signal="pressed" from="Menus/PlayMenu/Content/Customize" to="." method="_on_customize_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemPrimary/Dropdown" to="." method="_on_ability_passive_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemSecondary/Dropdown" to="." method="_on_ability_passive_item_selected"]
