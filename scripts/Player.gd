@@ -83,6 +83,8 @@ func _process(delta):
 	
 	if is_dead and recent_damager:
 		camera.global_position = Peers.get_node(str(recent_damager)).global_position
+	else:
+		camera.position = Vector2.ZERO
 	
 	# UI
 	healthbar_inner.value = health
