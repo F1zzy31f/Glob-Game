@@ -7,13 +7,12 @@ extends Node
 var address = ""
 
 var username = "Username"
+var item_primary = "AK-47"
+var item_secondary = "MP5"
 var ability_passive = "Fast Feet"
 var ability_active1 = "Fireball"
 var ability_active2 = "Stimulant"
 var ability_ultimate = "Goblins"
-
-var item_primary = "AK-47"
-var item_secondary = "MP5"
 
 var score = 0
 var kills = 0

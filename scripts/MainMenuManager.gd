@@ -81,13 +81,13 @@ func _on_host_game_pressed():
 func _on_ip_address_text_changed(new_text):
 	Network.set_server_address(new_text)
 
-func _on_ability_passive_item_selected(index):
+func _on_item_primary_item_selected(index):
 	Network.item_primary = item_primary.get_item_text(index)
 
-func _on_item_primary_item_selected(index):
+func _on_item_secondary_item_selected(index):
 	Network.item_secondary = item_secondary.get_item_text(index)
 
-func _on_item_secondary_item_selected(index):
+func _on_ability_passive_item_selected(index):
 	Network.ability_passive = ability_passive.get_item_text(index)
 
 func _on_ability_active_1_item_selected(index):
