@@ -125,17 +125,18 @@ func _process(delta):
 		health += (delta * 32) / 32 # x / Time to heal
 	health = clamp(health, 0, 32)
 	
-	# Abilities
-	if Input.is_action_just_pressed("ability_active_1"):
-		ability_active1.activate()
-	if Input.is_action_just_pressed("ability_active_2"):
-		ability_active2.activate()
-	if Input.is_action_just_pressed("ability_ultimate"):
-		ability_ultimate.activate()
-	
 	# Score
 	Network.score = (100 * Network.kills) + (-50 * Network.deaths)
 	score = Network.score
+	
+	# Abilities
+	if not is_dead:
+		if Input.is_action_just_pressed("ability_active_1"):
+			ability_active1.activate()
+		if Input.is_action_just_pressed("ability_active_2"):
+			ability_active2.activate()
+		if Input.is_action_just_pressed("ability_ultimate"):
+			ability_ultimate.activate()
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
