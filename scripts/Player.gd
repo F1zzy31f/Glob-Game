@@ -54,6 +54,8 @@ func _enter_tree():
 	set_multiplayer_authority(str(name).to_int(), true)
 
 func _ready():
+	disappear()
+	
 	if not is_multiplayer_authority(): return
 	
 	username = Network.username
@@ -79,8 +81,6 @@ func _ready():
 	audio_listener.make_current()
 	
 	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
-	
-	disappear.rpc()
 	
 	Network.on_start_game.connect(self.on_game_start)
 
