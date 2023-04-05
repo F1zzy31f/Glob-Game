@@ -46,6 +46,7 @@ func _process(_delta):
 	
 	if not is_equip: return
 	if not player.is_multiplayer_authority(): return
+	if player.is_dead : return
 	if not Network.game_started : return
 	
 	if Input.is_action_pressed("primary_fire") and can_fire and not is_reloading and mag_contents > 0:
