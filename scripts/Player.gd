@@ -78,6 +78,7 @@ func _ready():
 	
 	ui.visible = true
 	camera.enabled = true
+	camera.make_current()
 	audio_listener.make_current()
 	
 	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
