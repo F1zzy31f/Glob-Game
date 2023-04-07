@@ -25,6 +25,13 @@ func save_loaded():
 	
 	username.text = Save.data["username"]
 	
+	for item in item_primary.item_count:
+		if item_primary.get_item_text(item) == Save.data["item_primary"]:
+			item_primary.select(item)
+	for item in item_secondary.item_count:
+		if item_secondary.get_item_text(item) == Save.data["item_secondary"]:
+			item_secondary.select(item)
+	
 	for item in ability_passive.item_count:
 		if ability_passive.get_item_text(item) == Save.data["ability_passive"]:
 			ability_passive.select(item)
