@@ -48,6 +48,13 @@ func host_server():
 	
 	start_game.rpc()
 
+func leave_server():
+	multiplayer.set_multiplayer_peer(null)
+	enet_peer = null
+	
+	multiplayer.peer_connected.disconnect(add_player)
+	multiplayer.peer_disconnected.disconnect(remove_player)
+
 @rpc("call_local")
 func start_game():
 	game_started = true

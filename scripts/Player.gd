@@ -303,8 +303,7 @@ func _on_foot_body_exited(_area):
 
 
 func _on_leave_pressed():
-	multiplayer.set_multiplayer_peer(null)
-	Network.enet_peer = ENetMultiplayerPeer.new()
+	Network.leave_server()
 	
 	for child in Temporary.get_children():
 		child.queue_free()
