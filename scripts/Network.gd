@@ -40,7 +40,7 @@ func host_server():
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(remove_player)
 	
-	add_player(multiplayer.get_unique_id())
+	# add_player(multiplayer.get_unique_id())
 	
 	while time_till_start > 0:
 		await get_tree().create_timer(1).timeout
