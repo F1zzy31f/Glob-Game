@@ -255,7 +255,7 @@ popup/item_1/text = "MP5"
 popup/item_1/id = 1
 popup/item_2/text = "AWM"
 popup/item_2/id = 2
-popup/item_3/text = "Remington 870"
+popup/item_3/text = "M90"
 popup/item_3/id = 3
 
 [node name="ItemSecondary" type="Control" parent="Menus/CustomizeMenu/Content"]
@@ -297,7 +297,7 @@ popup/item_1/text = "MP5"
 popup/item_1/id = 1
 popup/item_2/text = "AWM"
 popup/item_2/id = 2
-popup/item_3/text = "Remington 870"
+popup/item_3/text = "M90"
 popup/item_3/id = 3
 
 [node name="AbilityPassive" type="Control" parent="Menus/CustomizeMenu/Content"]
