@@ -207,6 +207,7 @@ firerate = 8
 pellet_count = 12
 accuracy = 10
 mag_size = 2
+reload_time = 1
 speed_multiplier = 1.2
 
 [node name="M1A" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
