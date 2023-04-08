@@ -53,16 +53,16 @@ func activate():
 				activate_style()
 		
 		AbilityType.Active:
-			player.shield += 8
-			
 			if recharge_timer > active_recharge:
+				player.shield += 8
+				
 				recharge_timer = 0
 				activate_style()
 		
 		AbilityType.Ultimate:
-			player.shield += 16
-			
 			if ultimate_charge:
+				player.shield += 16
+				
 				ultimate_charge = false
 				activate_style()
 

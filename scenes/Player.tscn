@@ -263,7 +263,6 @@ summon_count = 3
 summon_delay = 0.2
 
 [node name="Golem" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
-type = 2
 style = 2
 active_recharge = 64
 summon_scene = ExtResource("8_0m88f")
