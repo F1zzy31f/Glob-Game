@@ -115,7 +115,7 @@ position = Vector2(1208, 32)
 position = Vector2(1352, 64)
 
 [node name="UltimateCharger" parent="." instance=ExtResource("3_oet26")]
-position = Vector2(104, -263)
+position = Vector2(116, -619)
 
 [node name="UltimateCharger2" parent="." instance=ExtResource("3_oet26")]
-position = Vector2(681, -231)
+position = Vector2(758, -564)
