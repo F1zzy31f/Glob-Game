@@ -59,7 +59,7 @@ func clear_data():
 	data["ability_passive"] = "Fast Feet"
 	data["ability_active1"] ="Fireball"
 	data["ability_active2"] = "Stimulant"
-	data["ability_ultimate"] = "Mortar Strike"
+	data["ability_ultimate"] = "Firestorm"
 	data["score"] = 0
 	data["kills"] = 0
 	data["deaths"] = 0
