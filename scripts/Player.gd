@@ -3,10 +3,12 @@ extends CharacterBody2D
 @export var dormant = false
 @export var username = ""
 
+@export var health = 32
+@export var shield = 0
+
 @export var speed = 96
 @export var jump_height = 47
 @export var climb_speed = 128
-@export var health = 32
 @export var item : Node = null
 @export var team_index = 0
 @export var ambient_healing_timer = 0
@@ -29,7 +31,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ultimate_abilities = $Abilities/Ultimate
 @onready var ui = $CanvasLayer/UI
 @onready var time_till_start = $CanvasLayer/UI/TimeTillStart
-@onready var healthbar_inner = $CanvasLayer/UI/Healthbar
+@onready var healthbar = $CanvasLayer/UI/Healthbar
+@onready var shieldbar = $CanvasLayer/UI/Shieldbar
 @onready var item_info = $CanvasLayer/UI/ItemInfo
 @onready var inventory = $CanvasLayer/UI/Inventory
 @onready var ability_ui_active1 = $CanvasLayer/UI/Abilities/Active1
@@ -101,7 +104,8 @@ func _process(delta):
 	if Network.time_till_start <= 0:
 		time_till_start.visible = false
 	
-	healthbar_inner.value = health
+	healthbar.value = health
+	shieldbar.value = shield
 	
 	$CanvasLayer/UI/TeamIndex.text = "Team: " + str(team_index + 1)
 	
@@ -257,7 +261,10 @@ func hurt(amount):
 	
 	recent_damager = multiplayer.get_remote_sender_id()
 	
-	health -= amount
+	shield -= amount
+	if shield < 0:
+		health += shield
+		shield = 0
 	ambient_healing_timer = 0
 
 @rpc("any_peer", "call_local")

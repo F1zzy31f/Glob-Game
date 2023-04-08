@@ -27,6 +27,7 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export var buff_permenent = false
 @export var buff_duration = 16
 @export var buff_health = 0
+@export var buff_shield = 0
 @export var buff_speed = 0
 @export var buff_jump_height = 0
 @export_subgroup("Summon")
@@ -89,6 +90,7 @@ func projectile(spawn_name, spawn_position, aim_normal):
 
 func buff():
 	player.health += buff_health
+	player.shield += buff_shield
 	player.speed += buff_speed
 	player.jump_height += buff_jump_height
 	
@@ -96,6 +98,7 @@ func buff():
 	
 	if not buff_permenent:
 		player.health -= buff_health
+		player.shield -= buff_shield
 		player.speed -= buff_speed
 		player.jump_height -= buff_jump_height
 

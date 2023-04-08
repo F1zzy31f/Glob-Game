@@ -286,7 +286,23 @@ offset_bottom = -48.0
 grow_vertical = 0
 scale = Vector2(4, 4)
 max_value = 32.0
-value = 7.0
+value = 32.0
+texture_under = ExtResource("6_k8qsi")
+texture_progress = ExtResource("7_4wlsm")
+
+[node name="Shieldbar" type="TextureProgressBar" parent="CanvasLayer/UI"]
+self_modulate = Color(0, 1.5, 1.5, 1)
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -128.0
+offset_right = 64.0
+offset_bottom = -112.0
+grow_vertical = 0
+scale = Vector2(4, 4)
+max_value = 32.0
 texture_under = ExtResource("6_k8qsi")
 texture_progress = ExtResource("7_4wlsm")
 
@@ -295,9 +311,9 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -128.0
+offset_top = -192.0
 offset_right = 256.0
-offset_bottom = -64.0
+offset_bottom = -128.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 28
 text = "AK-47: 0 / 30"
