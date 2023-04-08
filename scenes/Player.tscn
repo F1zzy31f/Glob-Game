@@ -78,6 +78,9 @@ properties/9/sync = true
 properties/10/path = NodePath("Sprite:flip_h")
 properties/10/spawn = true
 properties/10/sync = true
+properties/11/path = NodePath(".:shield")
+properties/11/spawn = true
+properties/11/sync = true
 
 [node name="Player" type="CharacterBody2D" groups=["Hurtable", "Player"]]
 script = ExtResource("1_3vl4j")
