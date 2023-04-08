@@ -144,6 +144,7 @@ position_smoothing_speed = 3.0
 position = Vector2(12, 0)
 
 [node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+visible = false
 self_modulate = Color(0.333333, 1, 0, 1)
 z_index = 4
 texture = ExtResource("2_432dd")
@@ -154,6 +155,7 @@ firerate = 12
 accuracy = 2
 
 [node name="MP5" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+visible = false
 self_modulate = Color(1, 0, 0.117647, 1)
 z_index = 4
 texture = ExtResource("2_432dd")
@@ -163,9 +165,10 @@ damage = 2
 firerate = 18
 accuracy = 5
 mag_size = 45
-speed_multiplier = 1.2
+speed_multiplier = 1.1
 
 [node name="AWM" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+visible = false
 self_modulate = Color(0.833333, 1, 0, 1)
 z_index = 4
 texture = ExtResource("2_432dd")
@@ -179,6 +182,7 @@ can_destroy_terrain = true
 speed_multiplier = 0.8
 
 [node name="M90" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+visible = false
 self_modulate = Color(100, 100, 100, 1)
 z_index = 4
 texture = ExtResource("2_432dd")
@@ -190,6 +194,33 @@ pellet_count = 12
 accuracy = 8
 mag_size = 5
 speed_multiplier = 0.8
+
+[node name="Sawn Off" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+visible = false
+self_modulate = Color(0.8, 0.5, 0.3, 1)
+z_index = 4
+texture = ExtResource("2_432dd")
+region_enabled = true
+region_rect = Rect2(126, 18, 18, 18)
+damage = 3
+firerate = 8
+pellet_count = 12
+accuracy = 10
+mag_size = 2
+speed_multiplier = 1.2
+
+[node name="M1A" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+visible = false
+self_modulate = Color(0.6, 0.2, 0, 1)
+z_index = 4
+texture = ExtResource("2_432dd")
+region_enabled = true
+region_rect = Rect2(126, 18, 18, 18)
+damage = 5
+firerate = 6
+accuracy = 1
+mag_size = 12
+speed_multiplier = 0.9
 
 [node name="Abilities" type="Node2D" parent="."]
 
@@ -223,23 +254,29 @@ style = 1
 buff_permenent = true
 buff_health = 16
 
-[node name="Ultimate" type="Node2D" parent="Abilities"]
-
-[node name="Goblins" parent="Abilities/Ultimate" instance=ExtResource("6_1ee1w")]
-type = 2
+[node name="Goblins" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
 style = 2
-ultimate_charge = false
+active_recharge = 64
 summon_scene = ExtResource("7_qhgxf")
 summon_count = 3
 summon_delay = 0.2
 
-[node name="Golem" parent="Abilities/Ultimate" instance=ExtResource("6_1ee1w")]
+[node name="Golem" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
 type = 2
 style = 2
-ultimate_charge = false
+active_recharge = 64
 summon_scene = ExtResource("8_0m88f")
 summon_count = 1
 summon_delay = 0.2
+
+[node name="Ultimate" type="Node2D" parent="Abilities"]
+
+[node name="Firestorm" parent="Abilities/Ultimate" instance=ExtResource("6_1ee1w")]
+type = 2
+ultimate_charge = false
+projectile_speed = 512
+projectile_count = 12
+projectile_delay = 0.1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

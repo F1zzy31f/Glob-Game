@@ -247,7 +247,7 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 4
+item_count = 6
 selected = 0
 popup/item_0/text = "AK-47"
 popup/item_0/id = 0
@@ -257,6 +257,10 @@ popup/item_2/text = "AWM"
 popup/item_2/id = 2
 popup/item_3/text = "M90"
 popup/item_3/id = 3
+popup/item_4/text = "Sawn Off"
+popup/item_4/id = 4
+popup/item_5/text = "M1A"
+popup/item_5/id = 5
 
 [node name="ItemSecondary" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
@@ -289,7 +293,7 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 4
+item_count = 6
 selected = 1
 popup/item_0/text = "AK-47"
 popup/item_0/id = 0
@@ -299,6 +303,10 @@ popup/item_2/text = "AWM"
 popup/item_2/id = 2
 popup/item_3/text = "M90"
 popup/item_3/id = 3
+popup/item_4/text = "Sawn Off"
+popup/item_4/id = 4
+popup/item_5/text = "M1A"
+popup/item_5/id = 5
 
 [node name="AbilityPassive" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
@@ -369,7 +377,7 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 3
+item_count = 5
 selected = 0
 popup/item_0/text = "Fireball"
 popup/item_0/id = 0
@@ -377,6 +385,10 @@ popup/item_1/text = "Stimulant"
 popup/item_1/id = 1
 popup/item_2/text = "Heal"
 popup/item_2/id = 2
+popup/item_3/text = "Goblins"
+popup/item_3/id = 3
+popup/item_4/text = "Golem"
+popup/item_4/id = 4
 
 [node name="AbilityActive2" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
@@ -409,7 +421,7 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 3
+item_count = 5
 selected = 1
 popup/item_0/text = "Fireball"
 popup/item_0/id = 0
@@ -417,6 +429,10 @@ popup/item_1/text = "Stimulant"
 popup/item_1/id = 1
 popup/item_2/text = "Heal"
 popup/item_2/id = 2
+popup/item_3/text = "Goblins"
+popup/item_3/id = 3
+popup/item_4/text = "Golem"
+popup/item_4/id = 4
 
 [node name="AbilityUltimate" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
@@ -449,12 +465,10 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 2
+item_count = 1
 selected = 0
-popup/item_0/text = "Goblins"
+popup/item_0/text = "Firestorm"
 popup/item_0/id = 0
-popup/item_1/text = "Golem"
-popup/item_1/id = 1
 
 [node name="Spacer" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(250, 31)

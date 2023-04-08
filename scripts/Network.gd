@@ -16,7 +16,7 @@ var item_secondary = "MP5"
 var ability_passive = "Fast Feet"
 var ability_active1 = "Fireball"
 var ability_active2 = "Stimulant"
-var ability_ultimate = "Goblins"
+var ability_ultimate = "Mortar Strike"
 
 var score = 0
 var kills = 0

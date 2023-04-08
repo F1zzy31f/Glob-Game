@@ -67,11 +67,10 @@ func activate():
 				activate_style()
 
 func activate_style():
-	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
-	
 	match style:
 		AbilityStyle.Projectile:
 			for i in projectile_count:
+				var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 				projectile.rpc(str(multiplayer.get_unique_id()) + "_" + name + str(randi_range(1000, 9999)), global_position - (mouse_normal * 24), mouse_normal)
 				await get_tree().create_timer(projectile_delay).timeout
 		
@@ -80,6 +79,7 @@ func activate_style():
 		
 		AbilityStyle.Summon:
 			for i in summon_count:
+				var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 				summon.rpc(str(multiplayer.get_unique_id()) + "_" + name + str(randi_range(1000, 9999)), global_position - mouse_normal * 24, player.team_index)
 				await get_tree().create_timer(summon_delay).timeout
 

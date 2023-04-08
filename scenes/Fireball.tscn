@@ -24,6 +24,7 @@ properties/2/spawn = true
 properties/2/sync = true
 
 [node name="Fireball" type="RigidBody2D"]
+collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_5nlex")
 max_contacts_reported = 1
 contact_monitor = true
