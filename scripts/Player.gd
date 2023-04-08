@@ -143,7 +143,9 @@ func _process(delta):
 	
 	if ambient_healing_timer > 3:
 		health += (delta * 32) / 32 # x / Time to heal
+		
 	health = clamp(health, 0, 32)
+	shield = clamp(shield, 0, 32)
 	
 	# Score
 	Network.score = (100 * Network.kills) + (-50 * Network.deaths)
@@ -227,6 +229,7 @@ func on_die():
 	# Reset
 	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
 	health = 32
+	shield = 0
 	
 	for child in hand.get_children():
 		child.reset()
