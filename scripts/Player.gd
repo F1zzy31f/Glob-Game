@@ -8,10 +8,14 @@ extends CharacterBody2D
 
 @export var speed = 96
 @export var jump_height = 47
+@export var jump_times = 1
 @export var climb_speed = 128
+@export var regen_delay = 3
+@export var regen_time = 32
+@export var damage_multiplier = 1
+
 @export var item : Node = null
 @export var team_index = 0
-@export var ambient_healing_timer = 0
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 @export var inventory_item = preload("res://scenes/InventoryItem.tscn")
 @export var explosion_effect = preload("res://scenes/ExplosionEffect.tscn")
@@ -52,6 +56,9 @@ var ability_ultimate = null
 var is_dead = false
 var on_climbable = false
 var recent_damager = null
+
+var regen_timer = 0
+var jumps_left = 0
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int(), true)
@@ -139,10 +146,10 @@ func _process(delta):
 	if not Network.game_started : return
 	
 	# Update
-	ambient_healing_timer += delta
+	regen_timer += delta
 	
-	if ambient_healing_timer > 3:
-		health += (delta * 32) / 32 # x / Time to heal
+	if regen_timer > regen_delay:
+		health += (delta * 32) / regen_time
 		
 	health = clamp(health, 0, 32)
 	shield = clamp(shield, 0, 32)
@@ -172,11 +179,14 @@ func _physics_process(delta):
 		# Movement
 		if not is_on_floor():
 			velocity.y += gravity * delta
+		else:
+			jumps_left = jump_times
 		
 		if Input.is_action_pressed("jump") and on_climbable:
 			velocity.y = -climb_speed
-		elif Input.is_action_just_pressed("jump") and is_on_floor():
-				velocity.y = -sqrt(jump_height * 2 * gravity)
+		elif Input.is_action_just_pressed("jump") and jumps_left > 0:
+			jumps_left -= 1
+			velocity.y = -sqrt(jump_height * 2 * gravity)
 		
 		var direction = Input.get_axis("move_left", "move_right")
 		if direction:
@@ -264,11 +274,14 @@ func hurt(amount):
 	
 	recent_damager = multiplayer.get_remote_sender_id()
 	
+	amount *= damage_multiplier
+	
 	shield -= amount
 	if shield < 0:
 		health += shield
 		shield = 0
-	ambient_healing_timer = 0
+		
+	regen_timer = 0
 
 @rpc("any_peer", "call_local")
 func knockback(vector):
