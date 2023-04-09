@@ -12,7 +12,7 @@ extends CharacterBody2D
 @export var climb_speed = 128
 @export var regen_delay = 9
 @export var regen_time = 32
-@export var damage_multiplier = 1
+@export var damage_multiplier = float(1)
 
 @export var item : Node = null
 @export var team_index = 0
@@ -133,7 +133,7 @@ func _process(delta):
 	inventory.add_child(secondary_item)
 	
 	ability_ui_active1.get_child(0).text = ability_active1.name
-	ability_ui_active1.get_child(1).value =ability_active1.recharge_timer
+	ability_ui_active1.get_child(1).value = ability_active1.recharge_timer
 	ability_ui_active1.get_child(1).max_value = ability_active1.active_recharge
 	
 	ability_ui_active2.get_child(0).text = ability_active2.name
