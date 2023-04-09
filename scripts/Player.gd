@@ -10,7 +10,7 @@ extends CharacterBody2D
 @export var jump_height = 47
 @export var jump_times = 1
 @export var climb_speed = 128
-@export var regen_delay = 3
+@export var regen_delay = 9
 @export var regen_time = 32
 @export var damage_multiplier = 1
 
@@ -18,7 +18,7 @@ extends CharacterBody2D
 @export var team_index = 0
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 @export var inventory_item = preload("res://scenes/InventoryItem.tscn")
-@export var explosion_effect = preload("res://scenes/ExplosionEffect.tscn")
+@export var explosion_effect = preload("res://scenes/ExplosionEffect(32).tscn")
 
 @export var score = 0
 

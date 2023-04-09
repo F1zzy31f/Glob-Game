@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var explosion_effect = preload("res://scenes/ExplosionEffect.tscn")
+@export var explosion_effect = preload("res://scenes/ExplosionEffect(32).tscn")
 
 func _on_detection_area_body_entered(body):
 	if body and body.is_in_group("Player"):

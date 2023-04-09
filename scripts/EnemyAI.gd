@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var initialized = false
-@export var explosion_effect = preload("res://scenes/ExplosionEffect.tscn")
+@export var explosion_effect = preload("res://scenes/ExplosionEffect(32).tscn")
 
 @export var speed = 96
 @export var jump_height = 48

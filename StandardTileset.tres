@@ -1174,7 +1174,7 @@ texture_region_size = Vector2i(18, 18)
 16:1/0/terrains_peering_bit/bottom_side = 2
 
 [resource]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 5
 physics_layer_1/collision_layer = 2
 physics_layer_1/collision_mask = 2
 terrain_set_0/mode = 2

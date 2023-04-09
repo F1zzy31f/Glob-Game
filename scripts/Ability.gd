@@ -12,7 +12,7 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export_subgroup("Passive")
 @export var activated_passive = false
 @export_subgroup("Active")
-@export var active_recharge = 32
+@export var active_recharge = 0
 @export_subgroup("Ultimate")
 @export var ultimate_charge = false
 
@@ -20,9 +20,9 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 
 @export_subgroup("Projectile")
 @export var projectile_scene = preload("res://scenes/Fireball.tscn")
-@export var projectile_speed = 256
-@export var projectile_count = 1
-@export var projectile_delay = 0.2
+@export var projectile_speed = 0
+@export var projectile_count = 0
+@export var projectile_delay = float(0)
 @export_subgroup("Buff")
 @export var buff_permenent = false
 @export var buff_duration = 16
@@ -30,10 +30,14 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export var buff_shield = 0
 @export var buff_speed = 0
 @export var buff_jump_height = 0
+@export var buff_jump_times = 0
+@export var buff_regen_delay = 0
+@export var buff_regen_time = 0
+@export var buff_damage_multiplier = float(0)
 @export_subgroup("Summon")
 @export var summon_scene = preload("res://scenes/Goblin.tscn")
-@export var summon_count = 1
-@export var summon_delay = 0.2
+@export var summon_count = 0
+@export var summon_delay = float(0)
 
 @onready var player = $"../../.."
 
@@ -97,6 +101,10 @@ func buff():
 	player.shield += buff_shield
 	player.speed += buff_speed
 	player.jump_height += buff_jump_height
+	player.jump_times += buff_jump_times
+	player.regen_delay += buff_regen_delay
+	player.regen_time += buff_regen_time
+	player.damage_multiplier += buff_damage_multiplier
 	
 	await get_tree().create_timer(buff_duration).timeout
 	
@@ -105,6 +113,10 @@ func buff():
 		player.shield -= buff_shield
 		player.speed -= buff_speed
 		player.jump_height -= buff_jump_height
+		player.jump_times -= buff_jump_times
+		player.regen_delay -= buff_regen_delay
+		player.regen_time -= buff_regen_time
+		player.damage_multiplier -= buff_damage_multiplier
 
 @rpc("any_peer", "call_local")
 func summon(spawn_name, spawn_position, spawn_team):

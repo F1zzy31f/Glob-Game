@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d3i2wa4q6gepu"]
+[gd_scene load_steps=19 format=3 uid="uid://d3i2wa4q6gepu"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://c8sg8bew2kv4q" path="res://scenes/Ability.tscn" id="6_1ee1w"]
 [ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="6_k8qsi"]
 [ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="7_4wlsm"]
-[ext_resource type="PackedScene" uid="uid://c3v7kbpa17in0" path="res://scenes/Goblin.tscn" id="7_qhgxf"]
+[ext_resource type="Script" path="res://scripts/Ability.gd" id="7_kb7ry"]
 [ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Golem.tscn" id="8_0m88f"]
+[ext_resource type="PackedScene" uid="uid://smf4n4sj3o45" path="res://scenes/Molotov.tscn" id="8_lgeg0"]
+[ext_resource type="PackedScene" uid="uid://du8vabsqs0lau" path="res://scenes/ForcefieldGenerator.tscn" id="10_qfffp"]
 [ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="10_ur7w6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
@@ -83,6 +85,8 @@ properties/11/spawn = true
 properties/11/sync = true
 
 [node name="Player" type="CharacterBody2D" groups=["Hurtable", "Player"]]
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_3vl4j")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -227,56 +231,101 @@ speed_multiplier = 0.9
 
 [node name="Passive" type="Node2D" parent="Abilities"]
 
-[node name="Fast Feet" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
+[node name="Speedy" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
 type = 1
 style = 1
+active_recharge = 32
 buff_permenent = true
 buff_speed = 32
 
-[node name="Strong Feet" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
+[node name="Jumpy" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
 type = 1
 style = 1
 buff_permenent = true
 buff_jump_height = 32
 
-[node name="Active" type="Node2D" parent="Abilities"]
-
-[node name="Fireball" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
-active_recharge = 16
-projectile_count = 1
-projectile_delay = 0.2
-
-[node name="Stimulant" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
-style = 1
-buff_speed = 32
-
-[node name="Heal" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+[node name="Healthy" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
+type = 1
 style = 1
 buff_permenent = true
-buff_health = 16
+buff_jump_height = 32
+buff_regen_delay = -3
+buff_regen_time = -16
 
-[node name="Goblins" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+[node name="Fortified" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
+type = 1
+style = 1
+active_recharge = 32
+buff_permenent = true
+buff_damage_multiplier = -0.1
+
+[node name="Feather Foot" parent="Abilities/Passive" instance=ExtResource("6_1ee1w")]
+type = 1
+style = 1
+active_recharge = 32
+buff_permenent = true
+buff_jump_times = 1
+
+[node name="Active" type="Node2D" parent="Abilities"]
+
+[node name="Swarm" type="Node2D" parent="Abilities/Active"]
+script = ExtResource("7_kb7ry")
 style = 2
-active_recharge = 64
-summon_scene = ExtResource("7_qhgxf")
+active_recharge = 32
 summon_count = 3
 summon_delay = 0.2
 
-[node name="Golem" parent="Abilities/Active" instance=ExtResource("6_1ee1w")]
+[node name="Molotov" type="Node2D" parent="Abilities/Active"]
+script = ExtResource("7_kb7ry")
+active_recharge = 48
+projectile_scene = ExtResource("8_lgeg0")
+projectile_speed = 256
+projectile_count = 3
+projectile_delay = 0.2
+
+[node name="Medic" type="Node2D" parent="Abilities/Active"]
+script = ExtResource("7_kb7ry")
+style = 1
+active_recharge = 24
+buff_permenent = true
+buff_health = 16
+
+[node name="Dash" type="Node2D" parent="Abilities/Active"]
+script = ExtResource("7_kb7ry")
+style = 1
+active_recharge = 24
+buff_duration = 2
+buff_speed = 96
+
+[node name="Tremor" type="Node2D" parent="Abilities/Active"]
+script = ExtResource("7_kb7ry")
 style = 2
-active_recharge = 64
+active_recharge = 48
 summon_scene = ExtResource("8_0m88f")
 summon_count = 1
-summon_delay = 0.2
+
+[node name="Fireball" type="Node2D" parent="Abilities/Active"]
+script = ExtResource("7_kb7ry")
+active_recharge = 32
+projectile_speed = 512
+projectile_count = 1
+
+[node name="Shield" type="Node2D" parent="Abilities/Active"]
+script = ExtResource("7_kb7ry")
+active_recharge = 32
+projectile_scene = ExtResource("10_qfffp")
+projectile_speed = 64
+projectile_count = 1
 
 [node name="Ultimate" type="Node2D" parent="Abilities"]
 
-[node name="Firestorm" parent="Abilities/Ultimate" instance=ExtResource("6_1ee1w")]
+[node name="Firestorm" type="Node2D" parent="Abilities/Ultimate"]
+script = ExtResource("7_kb7ry")
 type = 2
-ultimate_charge = false
+projectile_scene = ExtResource("8_lgeg0")
 projectile_speed = 512
-projectile_count = 12
-projectile_delay = 0.1
+projectile_count = 16
+projectile_delay = 0.2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

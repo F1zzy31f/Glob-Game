@@ -56,9 +56,9 @@ func clear_data():
 	data["username"] = "Guest_" + str(randi_range(1000, 9999))
 	data["item_primary"] = "AK-47"
 	data["item_secondary"] = "MP5"
-	data["ability_passive"] = "Fast Feet"
-	data["ability_active1"] ="Fireball"
-	data["ability_active2"] = "Stimulant"
+	data["ability_passive"] = "Speedy"
+	data["ability_active1"] = "Swarm"
+	data["ability_active2"] = "Dash"
 	data["ability_ultimate"] = "Firestorm"
 	data["score"] = 0
 	data["kills"] = 0
