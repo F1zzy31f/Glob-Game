@@ -27,9 +27,8 @@ Peers="*res://scenes/Peers.tscn"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=3
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
@@ -94,6 +93,8 @@ ability_ultimate={
 
 2d_physics/layer_1="Main"
 2d_physics/layer_2="Climbable"
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Bulletwall"
 
 [physics]
 
