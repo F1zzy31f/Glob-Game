@@ -33,6 +33,8 @@ func set_server_address(new):
 func join_server():
 	enet_peer.create_client(address, port)
 	multiplayer.multiplayer_peer = enet_peer
+	
+	PhysicsServer2D.set_active(false)
 
 func host_server():
 	enet_peer.create_server(port)
@@ -41,6 +43,8 @@ func host_server():
 	multiplayer.peer_disconnected.connect(remove_player)
 	
 	# add_player(multiplayer.get_unique_id())
+	
+	PhysicsServer2D.set_active(false)
 	
 	while time_till_start > 0:
 		await get_tree().create_timer(1).timeout
@@ -54,9 +58,13 @@ func leave_server():
 	
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(remove_player)
+	
+	PhysicsServer2D.set_active(true)
 
 @rpc("call_local")
 func start_game():
+	PhysicsServer2D.set_active(true)
+	
 	game_started = true
 	on_start_game.emit()
 
