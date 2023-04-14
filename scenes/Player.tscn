@@ -314,7 +314,6 @@ projectile_count = 1
 script = ExtResource("7_kb7ry")
 active_recharge = 32
 projectile_scene = ExtResource("10_qfffp")
-projectile_speed = 64
 projectile_count = 1
 
 [node name="Ultimate" type="Node2D" parent="Abilities"]
