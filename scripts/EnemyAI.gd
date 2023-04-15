@@ -17,7 +17,6 @@ extends CharacterBody2D
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var navigation_agent = $NavigationAgent2D
 @onready var sprite = $Sprite
 @onready var hurt_sound = $HurtSound
 
@@ -64,23 +63,19 @@ func _process(delta):
 	
 	var target_vector = global_position - target.global_position
 	
-	navigation_agent.target_position = target.global_position
-	var target_position = navigation_agent.get_next_path_position()
-	
-	if not navigation_agent.is_navigation_finished():
-		if target_position.x > global_position.x:
-			ai_input.move_right = 1
-		else:
-			ai_input.move_left = 1
+	if target_vector.x > 24:
+		ai_input.move_left = 1
+	elif target_vector.x < -24:
+		ai_input.move_right = 1
 		
-		if target_position.y < global_position.y:
-			ai_input.jump = 1
+		if target_vector.length() < attack_range and knockback_timer > knockback_delay:
+			knockback_timer = 0
+			
+			target.knockback.rpc(Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y))
+			target.hurt.rpc(damage)
 	
-	if target_vector.length() < attack_range and knockback_timer > knockback_delay:
-		knockback_timer = 0
-		
-		target.knockback.rpc(Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y))
-		target.hurt.rpc(damage)
+	if target_vector.y > 16:
+		ai_input.jump = true
 
 func _physics_process(delta):
 	if not is_multiplayer_authority() or not initialized: return

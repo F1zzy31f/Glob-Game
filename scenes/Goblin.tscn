@@ -60,14 +60,6 @@ attack_range = 28
 position = Vector2(0, 3.5)
 shape = SubResource("CapsuleShape2D_n0ndp")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 24.0
-target_desired_distance = 24.0
-path_max_distance = 256.0
-radius = 24.0
-neighbor_distance = 512.0
-max_neighbors = 8
-
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 z_index = 3
 sprite_frames = SubResource("SpriteFrames_58adv")
