@@ -26,9 +26,6 @@ func save_data():
 	data["ability_active1"] = Network.ability_active1
 	data["ability_active2"] = Network.ability_active2
 	data["ability_ultimate"] = Network.ability_ultimate
-	data["score"] = Network.score
-	data["kills"] = Network.kills
-	data["deaths"] = Network.deaths
 	
 	save_binary()
 	
@@ -44,9 +41,6 @@ func load_data():
 	Network.ability_active1 = data["ability_active1"]
 	Network.ability_active2 = data["ability_active2"]
 	Network.ability_ultimate = data["ability_ultimate"]
-	Network.score = data["score"]
-	Network.kills = data["kills"]
-	Network.deaths = data["deaths"]
 	
 	save_loaded.emit()
 	
@@ -60,9 +54,6 @@ func clear_data():
 	data["ability_active1"] = "Swarm"
 	data["ability_active2"] = "Dash"
 	data["ability_ultimate"] = "Firestorm"
-	data["score"] = 0
-	data["kills"] = 0
-	data["deaths"] = 0
 	
 	save_binary()
 	
