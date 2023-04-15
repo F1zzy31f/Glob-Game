@@ -68,11 +68,11 @@ func _process(delta):
 	elif target_vector.x < -24:
 		ai_input.move_right = 1
 		
-		if target_vector.length() < attack_range and knockback_timer > knockback_delay:
-			knockback_timer = 0
-			
-			target.knockback.rpc(Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y))
-			target.hurt.rpc(damage)
+	if target_vector.length() < attack_range and knockback_timer > knockback_delay:
+		knockback_timer = 0
+		
+		target.knockback.rpc(Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y))
+		target.hurt.rpc(damage)
 	
 	if target_vector.y > 16:
 		ai_input.jump = true
