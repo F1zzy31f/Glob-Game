@@ -330,6 +330,13 @@ projectile_speed = 512
 projectile_count = 16
 projectile_delay = 0.2
 
+[node name="Tsunami" type="Node2D" parent="Abilities/Ultimate"]
+script = ExtResource("7_kb7ry")
+type = 2
+style = 2
+summon_count = 12
+summon_delay = 0.2
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" type="Control" parent="CanvasLayer"]
