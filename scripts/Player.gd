@@ -173,14 +173,16 @@ func _process(delta):
 		if str(item.name) == "Fists": return
 		
 		if item == item_primary:
+			change_item.rpc(str(item_primary), "Fists")
 			item_primary = hand.get_node("Fists")
-			change_item.rpc(null, "Fists")
 		elif item == item_secondary:
+			change_item.rpc(str(item_secondary), "Fists")
 			item_secondary = hand.get_node("Fists")
-			change_item.rpc(null, "Fists")
 		
 		var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 		drop_item.rpc(global_position - mouse_normal * 24, str(item.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+		
+		item = hand.get_node("Fists")
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -321,9 +323,13 @@ func charge_ultimate():
 func pickup_item(item_name):
 	if str(item_primary.name) == "Fists":
 		item_primary = hand.get_node(item_name)
+		change_item.rpc(str(item.name), item_name)
+		item = item_primary
 		return true
-	elif str(item_secondary.name) == "Fists":
+	if str(item_secondary.name) == "Fists":
 		item_secondary = hand.get_node(item_name)
+		change_item.rpc(str(item.name), item_name)
+		item = item_secondary
 		return true
 	
 	return false
