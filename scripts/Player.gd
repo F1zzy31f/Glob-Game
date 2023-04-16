@@ -63,6 +63,7 @@ var jumps_left = 0
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int(), true)
+	#Input.set_custom_mouse_cursor(load("res://assets/Crosshair.png"))
 
 func _ready():
 	disappear()
@@ -160,7 +161,9 @@ func _process(delta):
 	score = Network.score
 	
 	# Aiming
-	Input.warp_mouse(get_viewport().get_mouse_position() + Vector2(Input.get_axis("aim_left", "aim_right"), Input.get_axis("aim_up", "aim_down")) * 16)
+	var aim_axis = Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_X), Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y))
+	if aim_axis.length() > 0.1:
+		Input.warp_mouse(hand_pivot.get_global_transform_with_canvas().origin + (aim_axis * 128))
 	
 	# Abilities
 	if not is_dead:
