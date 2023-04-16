@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmsdtck10hpf8"]
+[gd_scene load_steps=8 format=3 uid="uid://dmsdtck10hpf8"]
 
 [ext_resource type="TileSet" uid="uid://etaumxter5v1" path="res://StandardTileset.tres" id="1_56c62"]
 [ext_resource type="Environment" uid="uid://dmru5chb61n77" path="res://WorldEnviroment.tres" id="1_wcr3b"]
 [ext_resource type="PackedScene" uid="uid://be7yfv3dm4vr1" path="res://scenes/UltimateCharger.tscn" id="3_oet26"]
 [ext_resource type="Script" path="res://scripts/PreviewCamera.gd" id="3_yp8nl"]
+[ext_resource type="PackedScene" uid="uid://wfd5e0hqp4yk" path="res://scenes/ItemPickup.tscn" id="5_jwnbk"]
 
 [sub_resource type="Gradient" id="Gradient_f81du"]
 colors = PackedColorArray(0, 0.501961, 1, 1, 0.501961, 0.752941, 1, 1)
@@ -120,3 +121,25 @@ position = Vector2(116, -619)
 
 [node name="UltimateCharger2" parent="." instance=ExtResource("3_oet26")]
 position = Vector2(758, -564)
+
+[node name="ItemPickup" parent="." instance=ExtResource("5_jwnbk")]
+position = Vector2(137, -261)
+item_name = "M90"
+
+[node name="ItemPickup2" parent="." instance=ExtResource("5_jwnbk")]
+position = Vector2(526, -405)
+
+[node name="ItemPickup3" parent="." instance=ExtResource("5_jwnbk")]
+position = Vector2(82, -813)
+item_name = "Sawn Off"
+
+[node name="ItemPickup4" parent="." instance=ExtResource("5_jwnbk")]
+position = Vector2(724, -809)
+item_name = "M1A"
+
+[node name="ItemPickup5" parent="." instance=ExtResource("5_jwnbk")]
+position = Vector2(2433, -862)
+
+[node name="ItemPickup6" parent="." instance=ExtResource("5_jwnbk")]
+position = Vector2(-1597, -862)
+item_name = "AWM"
