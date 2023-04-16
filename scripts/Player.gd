@@ -19,6 +19,7 @@ extends CharacterBody2D
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 @export var inventory_item = preload("res://scenes/InventoryItem.tscn")
 @export var explosion_effect = preload("res://scenes/ExplosionEffect(32).tscn")
+@export var item_pickup = preload("res://scenes/ItemPickup.tscn")
 
 @export var score = 0
 
@@ -166,6 +167,21 @@ func _process(delta):
 			ability_active2.activate()
 		if Input.is_action_just_pressed("ability_ultimate"):
 			ability_ultimate.activate()
+	
+	# Drop Item
+	if Input.is_action_just_pressed("drop_item"):
+		if str(item.name) == "Fists": return
+		
+		if item == item_primary:
+			change_item.rpc(str(item_primary.name), str(item_secondary.name))
+			item_primary = hand.get_node("Fists")
+		elif item == item_secondary:
+			change_item.rpc(str(item_secondary.name), str(item_primary.name))
+			item_primary = hand.get_node("Fists")
+		
+		var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
+		
+		drop_item.rpc(global_position - mouse_normal * 24, str(item.name), str(name) + "_ItemPickup" + str(randi_range(1000, 9999)))
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -214,6 +230,14 @@ func _physics_process(delta):
 		elif Input.is_action_just_pressed("item_secondary"):
 			change_item.rpc(str(item.name), str(item_secondary.name))
 			item = item_secondary
+
+@rpc("call_local")
+func drop_item(pickup_position, item_name, pickup_name):
+	var new_pickup = item_pickup.instantiate()
+	new_pickup.name = pickup_name
+	Temporary.add_child(new_pickup)
+	
+	new_pickup.initialize.rpc(pickup_position, item_name)
 
 @rpc("call_local")
 func on_die():

@@ -6,7 +6,7 @@ extends Node
 
 signal on_start_game
 @export var game_started = false
-@export var time_till_start = 15
+@export var time_till_start = 5
 
 var address = ""
 
