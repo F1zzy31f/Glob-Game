@@ -124,22 +124,28 @@ position = Vector2(758, -564)
 
 [node name="ItemPickup" parent="." instance=ExtResource("5_jwnbk")]
 position = Vector2(137, -261)
+initialized = true
 item_name = "M90"
 
 [node name="ItemPickup2" parent="." instance=ExtResource("5_jwnbk")]
 position = Vector2(526, -405)
+initialized = true
 
 [node name="ItemPickup3" parent="." instance=ExtResource("5_jwnbk")]
 position = Vector2(82, -813)
+initialized = true
 item_name = "Sawn Off"
 
 [node name="ItemPickup4" parent="." instance=ExtResource("5_jwnbk")]
 position = Vector2(724, -809)
+initialized = true
 item_name = "M1A"
 
 [node name="ItemPickup5" parent="." instance=ExtResource("5_jwnbk")]
 position = Vector2(2433, -862)
+initialized = true
 
 [node name="ItemPickup6" parent="." instance=ExtResource("5_jwnbk")]
 position = Vector2(-1597, -862)
+initialized = true
 item_name = "AWM"
