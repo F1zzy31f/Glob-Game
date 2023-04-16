@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmsdtck10hpf8"]
+[gd_scene load_steps=9 format=3 uid="uid://dmsdtck10hpf8"]
 
 [ext_resource type="TileSet" uid="uid://etaumxter5v1" path="res://StandardTileset.tres" id="1_56c62"]
 [ext_resource type="Environment" uid="uid://dmru5chb61n77" path="res://WorldEnviroment.tres" id="1_wcr3b"]
 [ext_resource type="PackedScene" uid="uid://be7yfv3dm4vr1" path="res://scenes/UltimateCharger.tscn" id="3_oet26"]
 [ext_resource type="Script" path="res://scripts/PreviewCamera.gd" id="3_yp8nl"]
 [ext_resource type="PackedScene" uid="uid://wfd5e0hqp4yk" path="res://scenes/ItemPickup.tscn" id="5_jwnbk"]
+[ext_resource type="PackedScene" path="res://scenes/BuffPickup.tscn" id="6_e1nos"]
 
 [sub_resource type="Gradient" id="Gradient_f81du"]
 colors = PackedColorArray(0, 0.501961, 1, 1, 0.501961, 0.752941, 1, 1)
@@ -149,3 +150,44 @@ initialized = true
 position = Vector2(-1597, -862)
 initialized = true
 item_name = "AWM"
+
+[node name="BuffPickup" parent="." instance=ExtResource("6_e1nos")]
+position = Vector2(-1239, -299)
+initialized = true
+buff_health = 16
+
+[node name="BuffPickup2" parent="." instance=ExtResource("6_e1nos")]
+position = Vector2(-398, -508)
+initialized = true
+buff_health = 16
+
+[node name="BuffPickup3" parent="." instance=ExtResource("6_e1nos")]
+position = Vector2(507, -651)
+initialized = true
+buff_shield = 16
+
+[node name="BuffPickup4" parent="." instance=ExtResource("6_e1nos")]
+position = Vector2(2284, -299)
+initialized = true
+buff_health = 8
+buff_shield = 8
+
+[node name="BuffPickup5" parent="." instance=ExtResource("6_e1nos")]
+position = Vector2(2459, -507)
+initialized = true
+buff_health = 16
+
+[node name="BuffPickup6" parent="." instance=ExtResource("6_e1nos")]
+position = Vector2(2475, -672)
+initialized = true
+buff_shield = 16
+
+[node name="BuffPickup7" parent="." instance=ExtResource("6_e1nos")]
+position = Vector2(-1636, -762)
+initialized = true
+buff_health = 16
+
+[node name="BuffPickup8" parent="." instance=ExtResource("6_e1nos")]
+position = Vector2(-1854, -546)
+initialized = true
+buff_shield = 16
