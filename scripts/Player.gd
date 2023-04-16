@@ -159,6 +159,9 @@ func _process(delta):
 	Network.score = (100 * Network.kills) + (-50 * Network.deaths)
 	score = Network.score
 	
+	# Aiming
+	Input.warp_mouse(get_viewport().get_mouse_position() + Vector2(Input.get_axis("aim_left", "aim_right"), Input.get_axis("aim_up", "aim_down")) * 16)
+	
 	# Abilities
 	if not is_dead:
 		if Input.is_action_just_pressed("ability_active_1"):
