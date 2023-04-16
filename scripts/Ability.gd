@@ -94,7 +94,6 @@ func projectile(spawn_name, spawn_position, aim_normal):
 	Temporary.add_child(new_projectile)
 	
 	new_projectile.initialize.rpc(spawn_position, -aim_normal * projectile_speed)
-	
 
 func buff():
 	player.health += buff_health
