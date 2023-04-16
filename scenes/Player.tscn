@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://d3i2wa4q6gepu"]
+[gd_scene load_steps=20 format=3 uid="uid://d3i2wa4q6gepu"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
 [ext_resource type="Texture2D" uid="uid://c1xc5rm58asqs" path="res://assets/player_0.png" id="2_uf8iu"]
 [ext_resource type="Texture2D" uid="uid://cfkkmh44xxfnv" path="res://assets/player_1.png" id="3_pdcv2"]
 [ext_resource type="PackedScene" uid="uid://b1fya3pffgkcm" path="res://scenes/Firearm.tscn" id="3_rid25"]
+[ext_resource type="Script" path="res://scripts/Fists.gd" id="4_w5sf8"]
 [ext_resource type="PackedScene" uid="uid://c8sg8bew2kv4q" path="res://scenes/Ability.tscn" id="6_1ee1w"]
 [ext_resource type="Texture2D" uid="uid://fhdr6r5xp6m6" path="res://assets/hearts_empty.png" id="6_k8qsi"]
 [ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="7_4wlsm"]
@@ -146,6 +147,9 @@ position_smoothing_speed = 3.0
 
 [node name="Hand" type="Node2D" parent="HandPivot"]
 position = Vector2(12, 0)
+
+[node name="Fists" type="Sprite2D" parent="HandPivot/Hand"]
+script = ExtResource("4_w5sf8")
 
 [node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 visible = false

@@ -78,8 +78,8 @@ func _ready():
 	ability_active2 = active_abilities.get_node(Network.ability_active2)
 	ability_ultimate = ultimate_abilities.get_node(Network.ability_ultimate)
 	
-	item_primary = hand.get_node(Network.item_primary)
-	item_secondary = hand.get_node(Network.item_secondary)
+	item_primary = hand.get_node("Fists")
+	item_secondary = hand.get_node("Fists")
 	
 	item = item_primary
 	change_item.rpc(null, str(item.name))
@@ -293,6 +293,16 @@ func charge_ultimate():
 	if ability_ultimate.ultimate_charge == false:
 		ability_ultimate.ultimate_charge = true
 		return true
+	return false
+
+func pickup_item(item_name):
+	if str(item_primary.name) == "Fists":
+		item_primary = hand.get_node(item_name)
+		return true
+	elif str(item_secondary.name) == "Fists":
+		item_secondary = hand.get_node(item_name)
+		return true
+	
 	return false
 
 func update_scoreboard():
