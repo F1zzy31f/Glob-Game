@@ -35,7 +35,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var active_abilities = $Abilities/Active
 @onready var ultimate_abilities = $Abilities/Ultimate
 @onready var ui = $CanvasLayer/UI
-@onready var time_till_start = $CanvasLayer/UI/TimeTillStart
+@onready var start_countdown = $CanvasLayer/UI/StartCountdown
 @onready var healthbar = $CanvasLayer/UI/Healthbar
 @onready var shieldbar = $CanvasLayer/UI/Shieldbar
 @onready var item_info = $CanvasLayer/UI/ItemInfo
@@ -109,9 +109,11 @@ func _process(delta):
 		camera.position = Vector2.ZERO
 	
 	# UI
-	time_till_start.text = str(Network.time_till_start) + "..."
-	if Network.time_till_start <= 0:
-		time_till_start.visible = false
+	start_countdown.text = str(Network.time_till_start) + "..."
+	if Network.time_till_start == -1:
+		start_countdown.text = "Intermission"
+	if Network.time_till_start == 0:
+		start_countdown.visible = false
 	
 	healthbar.value = health
 	shieldbar.value = shield

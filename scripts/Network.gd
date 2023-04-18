@@ -6,7 +6,7 @@ extends Node
 
 signal on_start_game
 @export var game_started = false
-@export var time_till_start = 5
+@export var time_till_start = -1
 
 var address = ""
 
@@ -23,6 +23,10 @@ var kills = 0
 var deaths = 0
 
 var enet_peer = ENetMultiplayerPeer.new()
+
+@onready var server_ui = $CanvasLayer/ServerUI
+@onready var start_game_button = $CanvasLayer/ServerUI/StartGame
+@onready var start_countdown = $CanvasLayer/ServerUI/StartCountdown
 
 func set_username(new):
 	username = new
@@ -44,13 +48,9 @@ func host_server():
 	
 	# add_player(multiplayer.get_unique_id())
 	
+	server_ui.visible = true
+	
 	PhysicsServer2D.set_active(false)
-	
-	while time_till_start > 0:
-		await get_tree().create_timer(1).timeout
-		time_till_start -= 1
-	
-	start_game.rpc()
 
 func leave_server():
 	multiplayer.set_multiplayer_peer(null)
@@ -86,3 +86,17 @@ func remove_player(peer_id):
 		await get_tree().create_timer(1).timeout
 		
 		old_player.queue_free()
+
+func _on_start_game_pressed():
+	start_game_button.visible = false
+	start_countdown.visible = false
+	
+	time_till_start = 10
+	while time_till_start > 0:
+		await get_tree().create_timer(1).timeout
+		time_till_start -= 1
+		start_countdown.text = str(time_till_start)
+	
+	start_game.rpc()
+	
+	start_countdown.visible = false
