@@ -89,7 +89,7 @@ func remove_player(peer_id):
 
 func _on_start_game_pressed():
 	start_game_button.visible = false
-	start_countdown.visible = false
+	start_countdown.visible = true
 	
 	time_till_start = 10
 	while time_till_start > 0:
@@ -100,3 +100,10 @@ func _on_start_game_pressed():
 	start_game.rpc()
 	
 	start_countdown.visible = false
+
+func _on_instant_start_game_pressed():
+	start_game_button.visible = false
+	start_countdown.visible = false
+	
+	time_till_start = 0
+	start_game.rpc()
