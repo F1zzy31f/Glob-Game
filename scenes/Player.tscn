@@ -89,6 +89,7 @@ properties/11/sync = true
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_3vl4j")
+speed = 128
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_swevk")
@@ -151,6 +152,19 @@ position = Vector2(12, 0)
 [node name="Fists" type="Sprite2D" parent="HandPivot/Hand"]
 script = ExtResource("4_w5sf8")
 
+[node name="M1911" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+self_modulate = Color(0, 0, 0, 1)
+z_index = 4
+texture = ExtResource("2_432dd")
+region_enabled = true
+region_rect = Rect2(126, 18, 18, 18)
+damage = 3
+firerate = 6
+accuracy = 2
+mag_size = 7
+dropped_on_death = false
+speed_multiplier = 0.9
+
 [node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 visible = false
 self_modulate = Color(0.333333, 1, 0, 1)
@@ -161,6 +175,7 @@ region_rect = Rect2(126, 18, 18, 18)
 damage = 2
 firerate = 12
 accuracy = 2
+speed_multiplier = 0.7
 
 [node name="MP5" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 visible = false
@@ -173,7 +188,7 @@ damage = 2
 firerate = 18
 accuracy = 5
 mag_size = 45
-speed_multiplier = 1.1
+speed_multiplier = 0.8
 
 [node name="AWM" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 visible = false
@@ -187,7 +202,7 @@ firerate = 1
 accuracy = 0
 mag_size = 3
 can_destroy_terrain = true
-speed_multiplier = 0.8
+speed_multiplier = 0.5
 
 [node name="M90" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 visible = false
@@ -201,7 +216,7 @@ firerate = 2
 pellet_count = 12
 accuracy = 8
 mag_size = 5
-speed_multiplier = 0.8
+speed_multiplier = 0.6
 
 [node name="Sawn Off" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 visible = false
@@ -216,7 +231,7 @@ pellet_count = 28
 accuracy = 12
 mag_size = 2
 reload_time = 1
-speed_multiplier = 1.2
+speed_multiplier = 0.8
 
 [node name="M1A" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 visible = false
@@ -229,7 +244,7 @@ damage = 5
 firerate = 6
 accuracy = 1
 mag_size = 12
-speed_multiplier = 0.9
+speed_multiplier = 0.7
 
 [node name="Abilities" type="Node2D" parent="."]
 

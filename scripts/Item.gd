@@ -1,6 +1,7 @@
 extends Sprite2D
 class_name Item
 
+@export var dropped_on_death = true
 @export var speed_multiplier = 1.0
 
 var is_equip = false

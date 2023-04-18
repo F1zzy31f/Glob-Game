@@ -80,7 +80,7 @@ func _ready():
 	ability_active2 = active_abilities.get_node(Network.ability_active2)
 	ability_ultimate = ultimate_abilities.get_node(Network.ability_ultimate)
 	
-	item_primary = hand.get_node("Fists")
+	item_primary = hand.get_node("M1911")
 	item_secondary = hand.get_node("Fists")
 	
 	item = item_primary
@@ -267,10 +267,10 @@ func on_die():
 	
 	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 	
-	if str(item_primary.name) != "Fists":
+	if str(item_primary.name) != "Fists" and item_primary.dropped_on_death:
 		drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 		item_primary = hand.get_node("Fists")
-	if str(item_secondary.name) != "Fists":
+	if str(item_secondary.name) != "Fists" and item_secondary.dropped_on_death:
 		drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 		item_secondary = hand.get_node("Fists")
 	change_item.rpc(str(item.name), "Fists")
