@@ -149,7 +149,7 @@ initialized = true
 [node name="ItemPickup6" parent="." instance=ExtResource("5_jwnbk")]
 position = Vector2(-1597, -862)
 initialized = true
-item_name = "AWM"
+item_name = "AWP"
 
 [node name="BuffPickup" parent="." instance=ExtResource("6_e1nos")]
 position = Vector2(-1239, -299)
