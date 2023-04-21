@@ -42,6 +42,7 @@ region_enabled = true
 region_rect = Rect2(144, 108, 18, 18)
 
 [node name="BlastRadius" type="Area2D" parent="."]
+collision_mask = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlastRadius"]
 shape = SubResource("CircleShape2D_ngss2")
