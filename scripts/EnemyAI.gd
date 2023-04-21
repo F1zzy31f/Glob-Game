@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var jump_height = 48
 @export var climb_speed = 128
 @export var health = 16
-@export var team_index = 0
+@export var team_index = -1
 
 @export var detection_range = 256
 @export var attack_range = 36
