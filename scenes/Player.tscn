@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d3i2wa4q6gepu"]
+[gd_scene load_steps=22 format=3 uid="uid://d3i2wa4q6gepu"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bxijeinbbgcn2" path="res://assets/hearts_full.png" id="7_4wlsm"]
 [ext_resource type="Texture2D" uid="uid://d07qbv84fd3xn" path="res://assets/sprites/items/guns/AWP.png" id="7_dvbs6"]
 [ext_resource type="Script" path="res://scripts/Ability.gd" id="7_kb7ry"]
+[ext_resource type="Texture2D" uid="uid://bk3208vpyd8j8" path="res://assets/sprites/items/guns/AK-47.png" id="7_legyi"]
 [ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Golem.tscn" id="8_0m88f"]
 [ext_resource type="PackedScene" uid="uid://smf4n4sj3o45" path="res://scenes/Molotov.tscn" id="8_lgeg0"]
 [ext_resource type="PackedScene" uid="uid://du8vabsqs0lau" path="res://scenes/ForcefieldGenerator.tscn" id="10_qfffp"]
@@ -169,10 +170,9 @@ speed_multiplier = 0.9
 
 [node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
 visible = false
-self_modulate = Color(0.333333, 1, 0, 1)
 z_index = 4
-texture = ExtResource("2_432dd")
-region_enabled = true
+position = Vector2(24, 0)
+texture = ExtResource("7_legyi")
 region_rect = Rect2(126, 18, 18, 18)
 damage = 2
 firerate = 12
@@ -193,6 +193,7 @@ mag_size = 45
 speed_multiplier = 0.8
 
 [node name="AWP" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+visible = false
 z_index = 4
 texture = ExtResource("7_dvbs6")
 offset = Vector2(32, 0)
