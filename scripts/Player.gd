@@ -332,7 +332,8 @@ func knockback(vector):
 	velocity += vector
 
 func charge_ultimate():
-	if not is_multiplayer_authority() : return
+	if not is_multiplayer_authority(): return
+	if is_dead: return
 	
 	if ability_ultimate.ultimate_charge == false:
 		ability_ultimate.ultimate_charge = true
@@ -340,6 +341,8 @@ func charge_ultimate():
 	return false
 
 func pickup_item(item_name):
+	if is_dead: return false
+	
 	if str(item_primary.name) == "Fists":
 		item_primary = hand.get_node(item_name)
 		change_item.rpc(str(item.name), item_name)
