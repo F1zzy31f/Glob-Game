@@ -1,11 +1,14 @@
 extends Item
 
+enum AmmoType { Light, Medium, Heavy}
+
 @export var damage = 10
 @export var firerate = 10
 @export var pellet_count = 1
 @export var accuracy = 3
 @export var mag_size = 30
 @export var reload_time = 2
+@export var ammo_type = AmmoType.Medium
 @export var can_destroy_terrain = false
 @export var bullet_impact_particles = preload("res://scenes/BulletImpactParticles.tscn")
 
@@ -37,7 +40,14 @@ func get_item_info():
 	if is_reloading:
 		item_info += "Reloading..."
 	else:
-		item_info += str(mag_contents) + " / "+ str(mag_size)
+		item_info += str(mag_contents) + " / "
+		
+		if ammo_type == AmmoType.Light:
+			item_info += str(player.ammo_light)
+		if ammo_type == AmmoType.Medium:
+			item_info += str(player.ammo_medium)
+		if ammo_type == AmmoType.Heavy:
+			item_info += str(player.ammo_heavy)
 	
 	return item_info
 
@@ -76,8 +86,35 @@ func _process(_delta):
 		await get_tree().create_timer(reload_time).timeout
 		
 		mag_contents = mag_size
+		if ammo_type == AmmoType.Light:
+			player.ammo_light -= mag_size
+			if player.ammo_light < 0:
+				mag_contents += player.ammo_light
+				player.ammo_light = 0
+		if ammo_type == AmmoType.Medium:
+			player.ammo_medium -= mag_size
+			if player.ammo_medium < 0:
+				mag_contents += player.ammo_medium
+				player.ammo_medium = 0
+		if ammo_type == AmmoType.Heavy:
+			player.ammo_heavy -= mag_size
+			if player.ammo_heavy < 0:
+				mag_contents += player.ammo_heavy
+				player.ammo_heavy = 0
 		
 		is_reloading = false
+
+func able_to_fire():
+	if not can_fire: return false
+	if is_reloading: return false
+	if mag_contents <= 0: return false
+	
+	if ammo_type == AmmoType.Light:
+		if player.ammo_light <= 0: return false
+	if ammo_type == AmmoType.Medium:
+		if player.ammo_medium <= 0: return false
+	if ammo_type == AmmoType.Heavy:
+		if player.ammo_heavy <= 0: return false
 
 @rpc("any_peer", "call_local")
 func destroy_terrain(point):
