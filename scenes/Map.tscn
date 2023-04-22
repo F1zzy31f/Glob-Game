@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmsdtck10hpf8"]
+[gd_scene load_steps=11 format=3 uid="uid://dmsdtck10hpf8"]
 
 [ext_resource type="TileSet" uid="uid://etaumxter5v1" path="res://StandardTileset.tres" id="1_56c62"]
 [ext_resource type="Environment" uid="uid://dmru5chb61n77" path="res://WorldEnviroment.tres" id="1_wcr3b"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://wfd5e0hqp4yk" path="res://scenes/ItemPickup.tscn" id="5_jwnbk"]
 [ext_resource type="PackedScene" uid="uid://cta5jvc8vmtkt" path="res://scenes/BuffPickup.tscn" id="6_e1nos"]
 [ext_resource type="PackedScene" uid="uid://co3vhsg7550ab" path="res://scenes/LoadoutPickup.tscn" id="7_b4qyj"]
+[ext_resource type="PackedScene" uid="uid://d1ubnom5ppb2c" path="res://scenes/AmmoPickup.tscn" id="8_dib5s"]
 
 [sub_resource type="Gradient" id="Gradient_f81du"]
 colors = PackedColorArray(0, 0.501961, 1, 1, 0.501961, 0.752941, 1, 1)
@@ -238,14 +239,14 @@ buff_shield = 16
 position = Vector2(303, -524)
 initialized = true
 
-[node name="LoadoutPickup4" parent="." instance=ExtResource("7_b4qyj")]
-position = Vector2(303, -524)
-initialized = true
-
 [node name="LoadoutPickup2" parent="." instance=ExtResource("7_b4qyj")]
 position = Vector2(-1025, -428)
 initialized = true
 
 [node name="LoadoutPickup3" parent="." instance=ExtResource("7_b4qyj")]
 position = Vector2(404, -812)
+initialized = true
+
+[node name="AmmoPickup" parent="." instance=ExtResource("8_dib5s")]
+position = Vector2(126, -560)
 initialized = true

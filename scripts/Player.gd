@@ -49,9 +49,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var item_primary = null
 var item_secondary = null
 
-var ammo_light = 20
-var ammo_medium = 30
-var ammo_heavy = 10
+var ammo_light = 24
+var ammo_medium = 32
+var ammo_heavy = 8
 
 var ability_passive = null
 var ability_active1 = null
@@ -290,9 +290,9 @@ func on_die():
 	health = 32
 	shield = 0
 	
-	ammo_light = 20
-	ammo_medium = 30
-	ammo_heavy = 10
+	ammo_light = 24
+	ammo_medium = 32
+	ammo_heavy = 8
 	
 	for child in hand.get_children():
 		child.reset()

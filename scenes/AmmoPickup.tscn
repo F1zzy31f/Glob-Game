@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1ubnom5ppb2c"]
+
+[ext_resource type="Script" path="res://scripts/AmmoPickup.gd" id="1_iojd4"]
+[ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_1i6aa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sxq2"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_af71x"]
+size = Vector2(18, 18)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4kihn"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(".:initialized")
+properties/2/spawn = true
+properties/2/sync = true
+
+[node name="AmmoPickup" type="RigidBody2D"]
+max_contacts_reported = 2346
+contact_monitor = true
+script = ExtResource("1_iojd4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 3
+texture = ExtResource("2_1i6aa")
+region_enabled = true
+region_rect = Rect2(144, 18, 18, 18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6sxq2")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_af71x")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_4kihn")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
