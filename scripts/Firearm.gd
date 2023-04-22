@@ -85,19 +85,21 @@ func _process(_delta):
 		
 		await get_tree().create_timer(reload_time).timeout
 		
+		var ammo_taken = mag_size - mag_contents
+		
 		mag_contents = mag_size
 		if ammo_type == AmmoType.Light:
-			player.ammo_light -= mag_size
+			player.ammo_light -= ammo_taken
 			if player.ammo_light < 0:
 				mag_contents += player.ammo_light
 				player.ammo_light = 0
 		if ammo_type == AmmoType.Medium:
-			player.ammo_medium -= mag_size
+			player.ammo_medium -= ammo_taken
 			if player.ammo_medium < 0:
 				mag_contents += player.ammo_medium
 				player.ammo_medium = 0
 		if ammo_type == AmmoType.Heavy:
-			player.ammo_heavy -= mag_size
+			player.ammo_heavy -= ammo_taken
 			if player.ammo_heavy < 0:
 				mag_contents += player.ammo_heavy
 				player.ammo_heavy = 0
