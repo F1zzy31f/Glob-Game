@@ -35,12 +35,18 @@ func set_server_address(new):
 	address = new
 
 func join_server():
+	Logger.log_simple("NETW", "Joining server...")
+	
 	enet_peer.create_client(address, port)
 	multiplayer.multiplayer_peer = enet_peer
 	
 	PhysicsServer2D.set_active(false)
+	
+	Logger.log_simple("NETW", "Server joined")
 
 func host_server():
+	Logger.log_simple("NETW", "Server creating...")
+	
 	enet_peer.create_server(port)
 	multiplayer.multiplayer_peer = enet_peer
 	multiplayer.peer_connected.connect(add_player)
@@ -51,6 +57,8 @@ func host_server():
 	server_ui.visible = true
 	
 	PhysicsServer2D.set_active(false)
+	
+	Logger.log_simple("NETW", "Server created")
 
 func leave_server():
 	multiplayer.set_multiplayer_peer(null)
@@ -60,6 +68,8 @@ func leave_server():
 	multiplayer.peer_disconnected.disconnect(remove_player)
 	
 	PhysicsServer2D.set_active(true)
+	
+	Logger.log_simple("NETW", "Left server")
 
 @rpc("call_local")
 func start_game():
@@ -69,6 +79,12 @@ func start_game():
 	on_start_game.emit()
 
 func add_player(peer_id):
+	Logger.log_complex("NETW", "New connection", [
+		["Peer ID", str(peer_id)],
+		["Connection IP address", enet_peer.get_peer(peer_id).get_remote_address()],
+		["Connection port", str(enet_peer.get_peer(peer_id).get_remote_port())]
+	])
+	
 	if not game_started:
 		await get_tree().create_timer(1).timeout
 		
@@ -77,8 +93,16 @@ func add_player(peer_id):
 		Peers.add_child(new_player)
 	else:
 		enet_peer.get_peer(peer_id).peer_disconnect_now()
+		
+		Logger.log_simple("NETW", "Peer[%s] was kicked, game started" % peer_id)
 
 func remove_player(peer_id):
+	Logger.log_complex("NETW", "Connection lost", [
+		"Peer ID", str(peer_id),
+		"Connection IP address", enet_peer.get_peer(peer_id).get_remote_address(),
+		"Connection port", str(enet_peer.get_peer(peer_id).get_remote_port())
+	])
+	
 	var old_player = Peers.get_node_or_null(str(peer_id))
 	if old_player:
 		old_player.dormant = true

@@ -29,7 +29,7 @@ func save_data():
 	
 	save_binary()
 	
-	print("[SAVE] : Data saved")
+	Logger.log_simple("SAVE", "Data saved")
 
 func load_data():
 	load_binary()
@@ -44,7 +44,7 @@ func load_data():
 	
 	save_loaded.emit()
 	
-	print("[SAVE] : Data loaded")
+	Logger.log_simple("SAVE", "Data loaded")
 
 func clear_data():
 	data["username"] = "Guest_" + str(randi_range(1000, 9999))
@@ -57,7 +57,7 @@ func clear_data():
 	
 	save_binary()
 	
-	print("[SAVE] : Data cleared")
+	Logger.log_simple("SAVE", "Data cleared")
 	
 	Save.load_data()
 
@@ -68,7 +68,7 @@ func save_binary():
 
 func load_binary():
 	if not FileAccess.file_exists("user://save.dat"):
-		print("[SAVE] : No save file")
+		Logger.log_simple("SAVE", "No save file")
 		save_data()
 	var file = FileAccess.open_encrypted_with_pass("user://save.dat", FileAccess.READ, "CatCombat")
 	data = file.get_var()
