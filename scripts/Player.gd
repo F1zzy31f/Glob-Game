@@ -290,6 +290,10 @@ func on_die():
 	health = 32
 	shield = 0
 	
+	ammo_light = 20
+	ammo_medium = 30
+	ammo_heavy = 10
+	
 	for child in hand.get_children():
 		child.reset()
 	is_dead = false
