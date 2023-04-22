@@ -104,6 +104,7 @@ func _process(delta):
 	if not is_multiplayer_authority() : return
 	
 	if is_dead and recent_damager:
+		global_position = Vector2(0, 16)
 		camera.global_position = Peers.get_node(str(recent_damager)).global_position
 	else:
 		camera.position = Vector2.ZERO
@@ -267,10 +268,10 @@ func on_die():
 	
 	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 	
-	if str(item_primary.name) != "Fists" and item_primary.dropped_on_death:
+	if item_primary.dropped_on_death:
 		drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
-		item_primary = hand.get_node("Fists")
-	if str(item_secondary.name) != "Fists" and item_secondary.dropped_on_death:
+		item_primary = hand.get_node("M1911")
+	if item_secondary.dropped_on_death:
 		drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 		item_secondary = hand.get_node("Fists")
 	change_item.rpc(str(item.name), "Fists")
