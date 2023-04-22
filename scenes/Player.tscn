@@ -165,7 +165,6 @@ damage = 3
 firerate = 6
 accuracy = 2
 mag_size = 7
-dropped_on_death = false
 speed_multiplier = 0.9
 
 [node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
