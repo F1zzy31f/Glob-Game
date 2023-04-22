@@ -360,16 +360,23 @@ func pickup_loadout():
 	if is_dead: return false
 	
 	var used = false
+	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 	
 	if str(item_primary.name) != Network.item_primary:
+		drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+		
 		item_primary = hand.get_node(Network.item_primary)
 		change_item.rpc(str(item.name), Network.item_primary)
 		item = item_primary
+		
 		used = true
 	if str(item_secondary.name) != Network.item_secondary:
+		drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+		
 		item_secondary = hand.get_node(Network.item_secondary)
 		change_item.rpc(str(item.name), Network.item_secondary)
 		item = item_secondary
+		
 		used = true
 	
 	return used

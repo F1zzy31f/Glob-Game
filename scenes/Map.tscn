@@ -236,12 +236,16 @@ buff_shield = 16
 
 [node name="LoadoutPickup" parent="." instance=ExtResource("7_b4qyj")]
 position = Vector2(303, -524)
+initialized = true
 
 [node name="LoadoutPickup4" parent="." instance=ExtResource("7_b4qyj")]
 position = Vector2(303, -524)
+initialized = true
 
 [node name="LoadoutPickup2" parent="." instance=ExtResource("7_b4qyj")]
 position = Vector2(-1025, -428)
+initialized = true
 
 [node name="LoadoutPickup3" parent="." instance=ExtResource("7_b4qyj")]
 position = Vector2(404, -812)
+initialized = true
