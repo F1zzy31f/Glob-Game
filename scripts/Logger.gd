@@ -14,9 +14,17 @@ func log_complex(system, title, details):
 	
 	print(output)
 	
+	var longest_detail = 0
+	for detail in details:
+		if len(detail[0]) > longest_detail:
+			longest_detail = len(detail[0])
+	print(longest_detail)
+	
 	for detail in details:
 		output = " -> "
-		output += "[%s] - " % detail[0]
+		output += "[%s]" % detail[0]
+		output += repeat_string(" ", longest_detail - len(detail[0]))
+		output += " = "
 		output += detail[1]
 		
 		print(output)
@@ -24,3 +32,9 @@ func log_complex(system, title, details):
 func get_time_formatted():
 	var time = Time.get_time_dict_from_system()
 	return "%02d:%02d:%02d" % [time.hour, time.minute, time.second]
+
+func repeat_string(_str, count):
+	var str = ""
+	for i in range(count):
+		str += _str
+	return str

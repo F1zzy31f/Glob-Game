@@ -98,9 +98,9 @@ func add_player(peer_id):
 
 func remove_player(peer_id):
 	Logger.log_complex("NETW", "Connection lost", [
-		"Peer ID", str(peer_id),
-		"Connection IP address", enet_peer.get_peer(peer_id).get_remote_address(),
-		"Connection port", str(enet_peer.get_peer(peer_id).get_remote_port())
+		["Peer ID", str(peer_id)],
+		["Connection IP address", enet_peer.get_peer(peer_id).get_remote_address()],
+		["Connection port", str(enet_peer.get_peer(peer_id).get_remote_port())]
 	])
 	
 	var old_player = Peers.get_node_or_null(str(peer_id))
