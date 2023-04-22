@@ -356,6 +356,24 @@ func pickup_item(item_name):
 	
 	return false
 
+func pickup_loadout():
+	if is_dead: return false
+	
+	var used = false
+	
+	if str(item_primary.name) != Network.item_primary:
+		item_primary = hand.get_node(Network.item_primary)
+		change_item.rpc(str(item.name), Network.item_primary)
+		item = item_primary
+		used = true
+	if str(item_secondary.name) != Network.item_secondary:
+		item_secondary = hand.get_node(Network.item_secondary)
+		change_item.rpc(str(item.name), Network.item_secondary)
+		item = item_secondary
+		used = true
+	
+	return used
+
 func update_scoreboard():
 	for child in scoreboard.get_children():
 		if not child.is_class("Timer"):
