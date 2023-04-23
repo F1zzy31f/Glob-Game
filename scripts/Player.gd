@@ -108,7 +108,7 @@ func _process(delta):
 	if not is_multiplayer_authority() : return
 	
 	if is_dead and recent_damager:
-		global_position = Vector2(0, 16)
+		global_position = Vector2(0, 0)
 		camera.global_position = Peers.get_node(str(recent_damager)).global_position
 	else:
 		camera.position = Vector2.ZERO
@@ -272,10 +272,10 @@ func on_die():
 	
 	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 	
-	if item_primary.dropped_on_death:
+	if item_primary.droppable:
 		drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 		item_primary = hand.get_node("M1911")
-	if item_secondary.dropped_on_death:
+	if item_secondary.droppable:
 		drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 		item_secondary = hand.get_node("Fists")
 	change_item.rpc(str(item.name), "Fists")
@@ -372,7 +372,8 @@ func pickup_loadout():
 	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 	
 	if str(item_primary.name) != Network.item_primary:
-		drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+		if item_primary.droppable:
+			drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 		
 		item_primary = hand.get_node(Network.item_primary)
 		change_item.rpc(str(item.name), Network.item_primary)
@@ -380,7 +381,8 @@ func pickup_loadout():
 		
 		used = true
 	if str(item_secondary.name) != Network.item_secondary:
-		drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+		if item_primary.droppable:
+			drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 		
 		item_secondary = hand.get_node(Network.item_secondary)
 		change_item.rpc(str(item.name), Network.item_secondary)
