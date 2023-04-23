@@ -278,8 +278,9 @@ func on_die():
 	if item_secondary.droppable:
 		drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 	item_secondary = hand.get_node("Fists")
-	change_item.rpc(str(item.name), "Fists")
-	item = hand.get_node("Fists")
+	
+	change_item.rpc(str(item.name), "M1911")
+	item = hand.get_node("M1911")
 	
 	disappear.rpc()
 	await get_tree().create_timer(4).timeout
@@ -371,15 +372,6 @@ func pickup_loadout():
 	var used = false
 	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 	
-	if str(item_primary.name) != Network.item_primary:
-		if item_primary.droppable:
-			drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
-		
-		item_primary = hand.get_node(Network.item_primary)
-		change_item.rpc(str(item.name), Network.item_primary)
-		item = item_primary
-		
-		used = true
 	if str(item_secondary.name) != Network.item_secondary:
 		if item_primary.droppable:
 			drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
@@ -387,6 +379,16 @@ func pickup_loadout():
 		item_secondary = hand.get_node(Network.item_secondary)
 		change_item.rpc(str(item.name), Network.item_secondary)
 		item = item_secondary
+		
+		used = true
+	
+	if str(item_primary.name) != Network.item_primary:
+		if item_primary.droppable:
+			drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+		
+		item_primary = hand.get_node(Network.item_primary)
+		change_item.rpc(str(item.name), Network.item_primary)
+		item = item_primary
 		
 		used = true
 	
