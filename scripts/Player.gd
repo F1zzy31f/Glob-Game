@@ -274,10 +274,10 @@ func on_die():
 	
 	if item_primary.droppable:
 		drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
-		item_primary = hand.get_node("M1911")
+	item_primary = hand.get_node("M1911")
 	if item_secondary.droppable:
 		drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
-		item_secondary = hand.get_node("Fists")
+	item_secondary = hand.get_node("Fists")
 	change_item.rpc(str(item.name), "Fists")
 	item = hand.get_node("Fists")
 	
