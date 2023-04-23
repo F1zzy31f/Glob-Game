@@ -116,6 +116,9 @@ func _on_start_game_pressed():
 	start_countdown.visible = true
 	
 	time_till_start = 10
+	
+	start_countdown.text = str(time_till_start)
+	
 	while time_till_start > 0:
 		await get_tree().create_timer(1).timeout
 		time_till_start -= 1
