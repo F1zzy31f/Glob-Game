@@ -2,15 +2,16 @@ extends Item
 
 enum AmmoType { Light, Medium, Heavy}
 
-@export var damage = 10
-@export var firerate = 10
-@export var pellet_count = 1
-@export var accuracy = 3
-@export var mag_size = 30
-@export var reload_time = 2
-@export var ammo_type = AmmoType.Medium
-@export var can_destroy_terrain = false
 @export var bullet_impact_particles = preload("res://scenes/BulletImpactParticles.tscn")
+
+var damage = 0
+var firerate = 0
+var pellet_count = 0
+var accuracy = 0
+var mag_size = 0
+var reload_time = 0
+var ammo_type = AmmoType.Light
+var can_destroy_terrain = false
 
 var can_fire = true
 var is_reloading = false
@@ -23,6 +24,17 @@ var mag_contents = 0
 
 func _ready():
 	tracer.top_level = true
+	
+	var stats = Stats.stats["items"]["guns"][str(name)]
+	damage = stats["damage"]
+	firerate = stats["firerate"]
+	pellet_count = stats["pellet_count"]
+	accuracy = stats["accuracy"]
+	mag_size = stats["mag_size"]
+	reload_time = stats["reload_time"]
+	ammo_type = stats["ammo_type"]
+	can_destroy_terrain = stats["can_destroy_terrain"]
+	
 	reset()
 
 func reset():

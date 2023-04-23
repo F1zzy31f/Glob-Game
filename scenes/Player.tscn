@@ -161,11 +161,6 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 3
-firerate = 6
-accuracy = 2
-mag_size = 7
-ammo_type = 0
 speed_multiplier = 0.9
 
 [node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -174,9 +169,6 @@ z_index = 4
 position = Vector2(24, 0)
 texture = ExtResource("7_legyi")
 region_rect = Rect2(126, 18, 18, 18)
-damage = 2
-firerate = 12
-accuracy = 2
 speed_multiplier = 0.7
 
 [node name="MP5" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -186,11 +178,6 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 2
-firerate = 18
-accuracy = 5
-mag_size = 45
-ammo_type = 0
 speed_multiplier = 0.8
 
 [node name="AWP" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -198,12 +185,6 @@ visible = false
 z_index = 4
 texture = ExtResource("7_dvbs6")
 offset = Vector2(32, 0)
-damage = 32
-firerate = 1
-accuracy = 0
-mag_size = 3
-ammo_type = 2
-can_destroy_terrain = true
 speed_multiplier = 0.5
 
 [node name="M90" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -213,12 +194,6 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 2
-firerate = 2
-pellet_count = 12
-accuracy = 8
-mag_size = 5
-ammo_type = 2
 speed_multiplier = 0.6
 
 [node name="Sawn Off" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -228,13 +203,6 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 1
-firerate = 6
-pellet_count = 28
-accuracy = 12
-mag_size = 2
-reload_time = 1
-ammo_type = 2
 speed_multiplier = 0.8
 
 [node name="M1A" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -244,11 +212,6 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
-damage = 5
-firerate = 6
-accuracy = 1
-mag_size = 12
-ammo_type = 2
 speed_multiplier = 0.7
 
 [node name="Abilities" type="Node2D" parent="."]
