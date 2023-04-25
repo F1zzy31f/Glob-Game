@@ -315,9 +315,9 @@ func got_kill():
 
 @rpc("call_local")
 func change_item(old_node, new_node):
-	if old_node:
+	if hand.get_node(old_node):
 		hand.get_node(old_node).on_unequip()
-	if new_node:
+	if hand.get_node(new_node):
 		hand.get_node(new_node).on_equip()
 
 @rpc("any_peer", "call_local")
