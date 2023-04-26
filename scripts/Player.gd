@@ -23,6 +23,9 @@ extends CharacterBody2D
 
 @export var score = 0
 
+@export var mirrored = false
+@export var disappeared = false
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
@@ -70,7 +73,7 @@ func _enter_tree():
 	#Input.set_custom_mouse_cursor(load("res://assets/Crosshair.png"))
 
 func _ready():
-	disappear()
+	disappeared = true
 	
 	if not is_multiplayer_authority(): return
 	
@@ -102,9 +105,20 @@ func _ready():
 	Network.on_start_game.connect(self.on_game_start)
 
 func on_game_start():
-	appear.rpc()
+	disappeared = false
 
 func _process(delta):
+	visible = true
+	
+	if multiplayer.get_unique_id() == 1: return
+	
+	if Network.get_local_player() and mirrored != Network.get_local_player().mirrored:
+		visible = false
+	if disappeared:
+		visible = false
+	
+	get_node("Collider").set_deferred("disabled", not visible)
+	
 	if not is_multiplayer_authority() : return
 	
 	if is_dead and recent_damager:
@@ -196,6 +210,10 @@ func _process(delta):
 		drop_item.rpc(global_position - mouse_normal * 24, str(item.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 		
 		item = hand.get_node("Fists")
+	
+	mirrored = false
+	if Input.is_action_pressed("mirror"):
+		mirrored = true
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -282,9 +300,9 @@ func on_die():
 	change_item.rpc(str(item.name), "M1911")
 	item = hand.get_node("M1911")
 	
-	disappear.rpc()
+	disappeared = true
 	await get_tree().create_timer(4).timeout
-	appear.rpc()
+	disappeared = false
 	
 	# Reset
 	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
@@ -298,16 +316,6 @@ func on_die():
 	for child in hand.get_children():
 		child.reset()
 	is_dead = false
-
-@rpc("call_local")
-func disappear():
-	visible = false
-	get_node("Collider").set_deferred("disabled", true)
-
-@rpc("call_local")
-func appear():
-	visible = true
-	get_node("Collider").set_deferred("disabled", false)
 
 @rpc("any_peer")
 func got_kill():

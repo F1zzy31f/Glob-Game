@@ -28,6 +28,13 @@ var enet_peer = ENetMultiplayerPeer.new()
 @onready var start_game_button = $CanvasLayer/ServerUI/StartGame
 @onready var start_countdown = $CanvasLayer/ServerUI/StartCountdown
 
+var local_player
+func get_local_player():
+	if local_player == null:
+		local_player = Peers.get_node(str(multiplayer.get_unique_id()))
+	
+	return local_player
+
 func set_username(new):
 	username = new
 

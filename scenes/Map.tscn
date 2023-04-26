@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmsdtck10hpf8"]
+[gd_scene load_steps=12 format=3 uid="uid://dmsdtck10hpf8"]
 
 [ext_resource type="TileSet" uid="uid://etaumxter5v1" path="res://StandardTileset.tres" id="1_56c62"]
+[ext_resource type="Script" path="res://scripts/Map.gd" id="1_h4qrn"]
 [ext_resource type="Environment" uid="uid://dmru5chb61n77" path="res://WorldEnviroment.tres" id="1_wcr3b"]
 [ext_resource type="PackedScene" uid="uid://be7yfv3dm4vr1" path="res://scenes/UltimateCharger.tscn" id="3_oet26"]
 [ext_resource type="Script" path="res://scripts/PreviewCamera.gd" id="3_yp8nl"]
@@ -19,6 +20,7 @@ height = 1536
 fill_to = Vector2(1, 1)
 
 [node name="Map" type="Node2D"]
+script = ExtResource("1_h4qrn")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_wcr3b")

@@ -86,6 +86,12 @@ properties/10/sync = true
 properties/11/path = NodePath(".:shield")
 properties/11/spawn = true
 properties/11/sync = true
+properties/12/path = NodePath(".:mirrored")
+properties/12/spawn = true
+properties/12/sync = true
+properties/13/path = NodePath(".:disappeared")
+properties/13/spawn = true
+properties/13/sync = true
 
 [node name="Player" type="CharacterBody2D" groups=["Hurtable", "Player"]]
 collision_layer = 4
