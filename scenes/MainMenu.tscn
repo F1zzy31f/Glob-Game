@@ -247,7 +247,7 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 6
+item_count = 7
 selected = 0
 popup/item_0/text = "AK-47"
 popup/item_0/id = 0
@@ -261,6 +261,8 @@ popup/item_4/text = "Sawn Off"
 popup/item_4/id = 4
 popup/item_5/text = "M1A"
 popup/item_5/id = 5
+popup/item_6/text = "Minigun"
+popup/item_6/id = 6
 
 [node name="ItemSecondary" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)
@@ -293,7 +295,7 @@ anchor_bottom = 1.0
 offset_left = -101.0
 grow_horizontal = 0
 grow_vertical = 2
-item_count = 6
+item_count = 7
 selected = 1
 popup/item_0/text = "AK-47"
 popup/item_0/id = 0
@@ -307,6 +309,8 @@ popup/item_4/text = "Sawn Off"
 popup/item_4/id = 4
 popup/item_5/text = "M1A"
 popup/item_5/id = 5
+popup/item_6/text = "Minigun"
+popup/item_6/id = 6
 
 [node name="AbilityPassive" type="Control" parent="Menus/CustomizeMenu/Content"]
 custom_minimum_size = Vector2(384, 31)

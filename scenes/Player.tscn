@@ -221,6 +221,15 @@ region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
 speed_multiplier = 0.7
 
+[node name="Minigun" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
+visible = false
+self_modulate = Color(0.15, 0.15, 0.15, 1)
+z_index = 4
+texture = ExtResource("2_432dd")
+region_enabled = true
+region_rect = Rect2(126, 18, 18, 18)
+speed_multiplier = 0.4
+
 [node name="Abilities" type="Node2D" parent="."]
 
 [node name="Passive" type="Node2D" parent="Abilities"]
