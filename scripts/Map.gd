@@ -8,13 +8,20 @@ func _ready():
 	mirror_map = map.duplicate()
 	mirror_map.name = "MirrorMap"
 	mirror_map.modulate = Color8(51, 51, 51)
+	mirror_map.visible = false
 	add_child(mirror_map)
 
 func _process(delta):
+	if multiplayer.get_unique_id() == 1: return
+	
 	if Network.get_local_player():
 		if Network.get_local_player().mirrored:
 			map.global_position = Vector2(0, 8192)
+			map.visible = false
 			mirror_map.global_position = Vector2(0, 0)
+			mirror_map.visible = true
 		else:
 			map.global_position = Vector2(0, 0)
+			map.visible = true
 			mirror_map.global_position = Vector2(0, 8192)
+			mirror_map.visible = false

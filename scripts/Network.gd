@@ -30,7 +30,7 @@ var enet_peer = ENetMultiplayerPeer.new()
 
 var local_player
 func get_local_player():
-	if local_player == null:
+	if local_player == null and multiplayer.get_unique_id() != 1:
 		local_player = Peers.get_node(str(multiplayer.get_unique_id()))
 	
 	return local_player
