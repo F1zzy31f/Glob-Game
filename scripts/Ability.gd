@@ -50,6 +50,8 @@ func _process(delta):
 	recharge_timer += delta
 
 func activate():
+	if player.mirrored: return
+	
 	match type:
 		AbilityType.Passive:
 			if not activated_passive:

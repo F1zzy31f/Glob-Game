@@ -27,6 +27,8 @@ var knockback_timer = 0
 
 var is_dead = false
 
+var disappeared = false
+
 class input:
 	var move_left = 0
 	var move_right = 0
@@ -46,6 +48,15 @@ func initialize(spawn_position, spawn_team):
 	team_index = spawn_team
 
 func _process(delta):
+	visible = true
+	
+	if disappeared:
+		visible = false
+	if Network.get_local_player() and Network.get_local_player().mirrored == true:
+		visible = false
+	
+	get_node("CollisionShape2D").set_deferred("disabled", not visible)
+	
 	if not is_multiplayer_authority() or not initialized: return
 	
 	knockback_timer += delta
@@ -125,9 +136,7 @@ func hurt(amount):
 	
 @rpc("any_peer", "call_local")
 func destroy():
-	visible = false
-	set_deferred("freeze", true)
-	get_node("CollisionShape2D").set_deferred("disabled", true)
+	disappeared = true
 	
 	var new_explosion = explosion_effect.instantiate()
 	new_explosion.global_position = global_position
@@ -136,7 +145,6 @@ func destroy():
 	await get_tree().create_timer(1).timeout
 	
 	queue_free()
-
 
 func _on_foot_body_entered(_area):
 	on_climbable = true
