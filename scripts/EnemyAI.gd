@@ -120,9 +120,10 @@ func _physics_process(delta):
 func is_valid_target(player):
 	if player == null : return false
 	
-	if player.team_index == team_index : return false                                               # Not ally player
-	if global_position.distance_to(player.global_position) > detection_range : return false         # Within detection range
-	if player.health <= 0 : return false                                                            # Player alive
+	if player.team_index == team_index: return false                                               # Not ally player
+	if global_position.distance_to(player.global_position) > detection_range: return false         # Within detection range
+	if player.health <= 0: return false                                                            # Player alive
+	if player.mirrored: return false                                                               # Can't see mirrored players
 	
 	return true
 
