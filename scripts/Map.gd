@@ -16,12 +16,16 @@ func _process(delta):
 	
 	if Network.get_local_player():
 		if Network.get_local_player().mirrored:
-			map.global_position = Vector2(0, 8192)
+			if map.global_position != Vector2(0, 8192):
+				map.global_position = Vector2(0, 8192)
 			map.visible = false
-			mirror_map.global_position = Vector2(0, 0)
+			if mirror_map.global_position != Vector2(0, 0):
+				mirror_map.global_position = Vector2(0, 0)
 			mirror_map.visible = true
 		else:
-			map.global_position = Vector2(0, 0)
+			if map.global_position != Vector2(0, 0):
+				map.global_position = Vector2(0, 0)
 			map.visible = true
-			mirror_map.global_position = Vector2(0, 8192)
+			if mirror_map.global_position != Vector2(0, 8192):
+				mirror_map.global_position = Vector2(0, 8192)
 			mirror_map.visible = false
