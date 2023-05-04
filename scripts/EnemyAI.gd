@@ -28,6 +28,7 @@ var knockback_timer = 0
 var is_dead = false
 
 var disappeared = false
+var frozen = false
 
 class input:
 	var move_left = 0
@@ -55,9 +56,17 @@ func _process(delta):
 	if Network.get_local_player() and Network.get_local_player().mirrored == true:
 		visible = false
 	
+	var owner = Peers.get_node(str(get_multiplayer_authority()))
+	if owner and owner.mirrored:
+		modulate = Color8(51, 51, 51)
+		frozen = true
+	else:
+		modulate = Color.WHITE
+		frozen = false
+	
 	get_node("CollisionShape2D").set_deferred("disabled", not visible)
 	
-	if not is_multiplayer_authority() or not initialized: return
+	if not is_multiplayer_authority() or not initialized or frozen: return
 	
 	knockback_timer += delta
 	
@@ -89,7 +98,7 @@ func _process(delta):
 		ai_input.jump = true
 
 func _physics_process(delta):
-	if not is_multiplayer_authority() or not initialized: return
+	if not is_multiplayer_authority() or not initialized or frozen: return
 	
 	# Dying
 	if (health <= 0 or global_position.y > 64) and not is_dead:
