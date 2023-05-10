@@ -58,17 +58,20 @@ func _process(delta):
 	if Network.get_local_player() and dimension != Network.get_local_player().dimension:
 		visible = false
 	
-	var owner = Peers.get_node(str(get_multiplayer_authority()))
-	if owner and dimension != owner.dimension:
-		modulate = Color8(51, 51, 51)
-		frozen = true
-	else:
-		modulate = Color.WHITE
-		frozen = false
+	if get_multiplayer_authority() != 1:
+		var owner = Peers.get_node(str(get_multiplayer_authority()))
+		if owner and dimension != owner.dimension:
+			modulate = Color8(51, 51, 51)
+			frozen = true
+		else:
+			modulate = Color.WHITE
+			frozen = false
 	
 	get_node("CollisionShape2D").set_deferred("disabled", not visible)
 	
 	if not is_multiplayer_authority() or not initialized or frozen: return
+	
+	print("do the yes")
 	
 	knockback_timer += delta
 	

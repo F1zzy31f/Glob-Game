@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmsdtck10hpf8"]
+[gd_scene load_steps=13 format=3 uid="uid://dmsdtck10hpf8"]
 
 [ext_resource type="TileSet" uid="uid://etaumxter5v1" path="res://StandardTileset.tres" id="1_56c62"]
 [ext_resource type="Script" path="res://scripts/Map.gd" id="1_h4qrn"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cta5jvc8vmtkt" path="res://scenes/BuffPickup.tscn" id="6_e1nos"]
 [ext_resource type="PackedScene" uid="uid://co3vhsg7550ab" path="res://scenes/LoadoutPickup.tscn" id="7_b4qyj"]
 [ext_resource type="PackedScene" uid="uid://d1ubnom5ppb2c" path="res://scenes/AmmoPickup.tscn" id="8_dib5s"]
+[ext_resource type="PackedScene" uid="uid://cr3wjn77mr8jp" path="res://scenes/Fractal.tscn" id="10_m028b"]
 
 [sub_resource type="Gradient" id="Gradient_f81du"]
 colors = PackedColorArray(0, 0.501961, 1, 1, 0.501961, 0.752941, 1, 1)
@@ -306,4 +307,8 @@ initialized = true
 
 [node name="AmmoPickup" parent="Pickups" instance=ExtResource("8_dib5s")]
 position = Vector2(126, -560)
+initialized = true
+
+[node name="1_Fractal" parent="." instance=ExtResource("10_m028b")]
+position = Vector2(-88, -843)
 initialized = true

@@ -308,6 +308,7 @@ func on_die():
 	disappeared = false
 	
 	# Reset
+	velocity = Vector2.ZERO
 	global_position = get_node("/root/Map/Spawns").get_child(randi_range(0, get_node("/root/Map/Spawns").get_child_count() - 1)).global_position
 	health = 32
 	shield = 0
@@ -337,7 +338,9 @@ func hurt(amount):
 	
 	if not is_multiplayer_authority(): return
 	
-	recent_damager = multiplayer.get_remote_sender_id()
+	var new_recent_damager = Peers.get_node(str(multiplayer.get_remote_sender_id()))
+	if new_recent_damager:
+		recent_damager = new_recent_damager
 	
 	amount *= damage_multiplier
 	
