@@ -71,8 +71,6 @@ func _process(delta):
 	
 	if not is_multiplayer_authority() or not initialized or frozen: return
 	
-	print("do the yes")
-	
 	knockback_timer += delta
 	
 	if not is_valid_target(target):
