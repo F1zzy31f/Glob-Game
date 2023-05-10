@@ -61,6 +61,9 @@ properties/3/sync = true
 properties/4/path = NodePath(".:initialized")
 properties/4/spawn = true
 properties/4/sync = true
+properties/5/path = NodePath(".:dimension")
+properties/5/spawn = true
+properties/5/sync = true
 
 [node name="Golem" type="CharacterBody2D" groups=["Hurtable"]]
 script = ExtResource("1_357vm")

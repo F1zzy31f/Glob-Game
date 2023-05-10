@@ -50,7 +50,7 @@ func _process(delta):
 	recharge_timer += delta
 
 func activate():
-	if player.mirrored: return
+	if player.dimension == Globals.dimension.Mirror: return
 	
 	match type:
 		AbilityType.Passive:

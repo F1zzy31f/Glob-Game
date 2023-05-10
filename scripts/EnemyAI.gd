@@ -14,6 +14,7 @@ extends CharacterBody2D
 @export var knockback_delay = 1
 @export var knockback = Vector2(512, 128)
 @export var damage = 4
+@export var dimension = Globals.dimension.Material
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -53,11 +54,12 @@ func _process(delta):
 	
 	if disappeared:
 		visible = false
-	if Network.get_local_player() and Network.get_local_player().mirrored == true:
+	
+	if Network.get_local_player() and dimension != Network.get_local_player().dimension:
 		visible = false
 	
 	var owner = Peers.get_node(str(get_multiplayer_authority()))
-	if owner and owner.mirrored:
+	if owner and dimension != owner.dimension:
 		modulate = Color8(51, 51, 51)
 		frozen = true
 	else:
@@ -132,7 +134,7 @@ func is_valid_target(player):
 	if player.team_index == team_index: return false                                               # Not ally player
 	if global_position.distance_to(player.global_position) > detection_range: return false         # Within detection range
 	if player.health <= 0: return false                                                            # Player alive
-	if player.mirrored: return false                                                               # Can't see mirrored players
+	if player.dimension != dimension: return false                                                 # Can't see players in other dimension
 	
 	return true
 

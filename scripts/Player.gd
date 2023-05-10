@@ -23,7 +23,7 @@ extends CharacterBody2D
 
 @export var score = 0
 
-@export var mirrored = false
+@export var dimension = Globals.dimension.Material
 @export var disappeared = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -112,7 +112,7 @@ func _process(delta):
 	
 	if multiplayer.get_unique_id() == 1: return
 	
-	if Network.get_local_player() and mirrored != Network.get_local_player().mirrored:
+	if Network.get_local_player() and dimension != Network.get_local_player().dimension:
 		visible = false
 	if disappeared:
 		visible = false
@@ -211,9 +211,12 @@ func _process(delta):
 		
 		item = hand.get_node("Fists")
 	
-	mirrored = false
-	if Input.is_action_pressed("mirror"):
-		mirrored = true
+	if Input.is_action_just_pressed("mirror") and dimension !=  Globals.dimension.Mirror:
+		dimension = Globals.dimension.Mirror
+		
+		await get_tree().create_timer(3).timeout
+		
+		dimension = Globals.dimension.Material
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
