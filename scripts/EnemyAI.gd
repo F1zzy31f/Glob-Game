@@ -59,8 +59,8 @@ func _process(delta):
 		visible = false
 	
 	if get_multiplayer_authority() != 1:
-		var owner = Peers.get_node(str(get_multiplayer_authority()))
-		if owner and dimension != owner.dimension:
+		var tamer = Peers.get_node(str(get_multiplayer_authority()))
+		if tamer and dimension != tamer.dimension:
 			modulate = Color8(51, 51, 51)
 			frozen = true
 		else:
@@ -78,11 +78,12 @@ func _process(delta):
 	
 	ai_input = input.new()
 	
-	if target == null:
+	if target == null or target == Network.get_local_player():
 		for child in Peers.get_children():
 			if child.is_class("CharacterBody2D") and is_valid_target(child):
 				target = child
-		return
+	else:
+		target = Network.get_local_player()
 	
 	var target_vector = global_position - target.global_position
 	
@@ -91,7 +92,7 @@ func _process(delta):
 	elif target_vector.x < -24:
 		ai_input.move_right = 1
 		
-	if target_vector.length() < attack_range and knockback_timer > knockback_delay:
+	if target != Network.get_local_player() and target_vector.length() < attack_range and knockback_timer > knockback_delay:
 		knockback_timer = 0
 		
 		target.knockback.rpc(Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y))

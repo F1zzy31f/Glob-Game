@@ -11,7 +11,7 @@ func _ready():
 	mirror_map.visible = false
 	add_child(mirror_map)
 
-func _process(delta):
+func _process(_delta):
 	if multiplayer.get_unique_id() == 1: return
 	
 	if Network.get_local_player():

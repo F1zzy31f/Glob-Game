@@ -33,8 +33,8 @@ func get_time_formatted():
 	var time = Time.get_time_dict_from_system()
 	return "%02d:%02d:%02d" % [time.hour, time.minute, time.second]
 
-func repeat_string(_str, count):
-	var str = ""
+func repeat_string(_string, count):
+	var string = ""
 	for i in range(count):
-		str += _str
-	return str
+		string += _string
+	return string

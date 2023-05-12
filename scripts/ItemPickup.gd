@@ -5,7 +5,7 @@ extends RigidBody2D
 
 @onready var item_name_ui = $OverheadUI/ItemName
 
-func _process(delta):
+func _process(_delta):
 	item_name_ui.text = item_name
 
 @rpc("any_peer", "call_local")
