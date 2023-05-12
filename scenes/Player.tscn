@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://d3i2wa4q6gepu"]
+[gd_scene load_steps=25 format=3 uid="uid://d3i2wa4q6gepu"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
 [ext_resource type="Texture2D" uid="uid://knrljhby7qr2" path="res://assets/sprites/entities/player/default.png" id="2_y344g"]
+[ext_resource type="PackedScene" uid="uid://7y38ipi36dg6" path="res://scenes/OffscreenMarker.tscn" id="3_5os71"]
 [ext_resource type="PackedScene" uid="uid://b1fya3pffgkcm" path="res://scenes/Firearm.tscn" id="3_rid25"]
 [ext_resource type="Script" path="res://scripts/Fists.gd" id="4_w5sf8"]
 [ext_resource type="PackedScene" uid="uid://c8sg8bew2kv4q" path="res://scenes/Ability.tscn" id="6_1ee1w"]
@@ -153,6 +154,8 @@ z_index = 4096
 position = Vector2(0, -28)
 scale = Vector2(0.1, 0.1)
 texture = SubResource("ViewportTexture_qqooj")
+
+[node name="OffscreenMarker" parent="." instance=ExtResource("3_5os71")]
 
 [node name="Camera" type="Camera2D" parent="."]
 offset = Vector2(0, -32)

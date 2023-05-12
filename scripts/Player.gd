@@ -29,8 +29,9 @@ extends CharacterBody2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
-@onready var camera = $Camera
 @onready var overhead_username = $OverheadUI/Username
+@onready var offscreen_marker = $OffscreenMarker
+@onready var camera = $Camera
 @onready var audio_listener = $Camera/AudioListener
 @onready var hand_pivot = $HandPivot
 @onready var hand = $HandPivot/Hand
@@ -116,6 +117,10 @@ func _process(delta):
 		visible = false
 	if disappeared:
 		visible = false
+	
+	if Network.get_local_player():
+		offscreen_marker.visible = team_index == Network.get_local_player().team_index
+	offscreen_marker.modulate = Color.from_hsv(float(team_index) / Globals.team_count, 0.8, 1)
 	
 	get_node("Collider").set_deferred("disabled", not visible)
 	
