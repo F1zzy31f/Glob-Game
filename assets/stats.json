@@ -9,8 +9,7 @@
 		"mag_size": 7,
 		"reload_time": 2,
 		"ammo_type": 0,
-		"can_destroy_terrain": false,
-		"two_handed": false
+		"can_destroy_terrain": false
 	  },
 	   "AK-47": {
 		"damage": 3,
@@ -20,8 +19,7 @@
 		"mag_size": 30,
 		"reload_time": 2,
 		"ammo_type": 1,
-		"can_destroy_terrain": false,
-		"two_handed": false
+		"can_destroy_terrain": false
 	  },
 	   "MP5": {
 		"damage": 2,
@@ -31,8 +29,7 @@
 		"mag_size": 45,
 		"reload_time": 2,
 		"ammo_type": 0,
-		"can_destroy_terrain": false,
-		"two_handed": false
+		"can_destroy_terrain": false
 	  },
 	   "AWP": {
 		"damage": 32,
@@ -42,8 +39,7 @@
 		"mag_size": 3,
 		"reload_time": 2,
 		"ammo_type": 2,
-		"can_destroy_terrain": true,
-		"two_handed": false
+		"can_destroy_terrain": true
 	  },
 	   "M90": {
 		"damage": 2,
@@ -53,8 +49,7 @@
 		"mag_size": 5,
 		"reload_time": 2,
 		"ammo_type": 2,
-		"can_destroy_terrain": false,
-		"two_handed": false
+		"can_destroy_terrain": false
 	  },
 	   "Sawn Off": {
 		"damage": 1,
@@ -64,8 +59,7 @@
 		"mag_size": 2,
 		"reload_time": 2,
 		"ammo_type": 2,
-		"can_destroy_terrain": false,
-		"two_handed": false
+		"can_destroy_terrain": false
 	  },
 	   "M1A": {
 		"damage": 5,
@@ -75,8 +69,7 @@
 		"mag_size": 12,
 		"reload_time": 2,
 		"ammo_type": 2,
-		"can_destroy_terrain": false,
-		"two_handed": false
+		"can_destroy_terrain": false
 	  },
 	   "Minigun": {
 		"damage": 1,
@@ -86,8 +79,7 @@
 		"mag_size": 128,
 		"reload_time": 5,
 		"ammo_type": 1,
-		"can_destroy_terrain": false,
-		"two_handed": true
+		"can_destroy_terrain": false
 	  }
 	}
   }

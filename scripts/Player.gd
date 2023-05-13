@@ -204,18 +204,12 @@ func _process(delta):
 	if Input.is_action_just_pressed("drop_item"):
 		if str(item.name) == "Fists": return
 		
-		if item_primary.two_handed == false:
-			if item == item_primary:
-				change_item.rpc(str(item_primary), "Fists")
-				item_primary = hand.get_node("Fists")
-			elif item == item_secondary:
-				change_item.rpc(str(item_secondary), "Fists")
-				item_secondary = hand.get_node("Fists")
-		else:
-			if item == item_primary:
-				change_item.rpc(str(item_primary), "Fists")
-				item_primary = hand.get_node("Fists")
-				item_secondary = hand.get_node("Fists")
+		if item == item_primary:
+			change_item.rpc(str(item_primary), "Fists")
+			item_primary = hand.get_node("Fists")
+		elif item == item_secondary:
+			change_item.rpc(str(item_secondary), "Fists")
+			item_secondary = hand.get_node("Fists")
 		
 		var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 		drop_item.rpc(global_position - mouse_normal * 24, str(item.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
@@ -304,11 +298,16 @@ func on_die():
 	
 	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 	
-	if item_primary.droppable:
-		drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+	if item_primary.two_handed == false:
+		if item_primary.droppable:
+			drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+		if item_secondary.droppable:
+			drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+	else:
+		if item_primary.droppable:
+			drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+	
 	item_primary = hand.get_node("M1911")
-	if item_secondary.droppable:
-		drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 	item_secondary = hand.get_node("Fists")
 	
 	change_item.rpc(str(item.name), "M1911")
@@ -378,24 +377,16 @@ func charge_ultimate():
 func pickup_item(item_name):
 	if is_dead: return false
 	
-	if hand.get_node(item_name).two_handed == false:
-		if str(item_primary.name) == "Fists":
-			item_primary = hand.get_node(item_name)
-			change_item.rpc(str(item.name), item_name)
-			item = item_primary
-			return true
-		if str(item_secondary.name) == "Fists":
-			item_secondary = hand.get_node(item_name)
-			change_item.rpc(str(item.name), item_name)
-			item = item_secondary
-			return true
-	else:
-		if str(item_primary.name) == "Fists" and str(item_secondary.name) == "Fists":
-			item_primary = hand.get_node(item_name)
-			item_secondary = hand.get_node(item_name)
-			change_item.rpc(str(item.name), item_name)
-			item = item_primary
-			return true
+	if str(item_primary.name) == "Fists":
+		item_primary = hand.get_node(item_name)
+		change_item.rpc(str(item.name), item_name)
+		item = item_primary
+		return true
+	if str(item_secondary.name) == "Fists":
+		item_secondary = hand.get_node(item_name)
+		change_item.rpc(str(item.name), item_name)
+		item = item_secondary
+		return true
 	
 	return false
 
@@ -405,45 +396,25 @@ func pickup_loadout():
 	var used = false
 	var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 	
-	if hand.get_node(Network.item_primary).two_handed == false and hand.get_node(Network.item_secondary).two_handed == false:
-		if str(item_secondary.name) != Network.item_secondary:
-			if item_secondary.droppable:
-				drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
-			
-			item_secondary = hand.get_node(Network.item_secondary)
-			change_item.rpc(str(item.name), Network.item_secondary)
-			item = item_secondary
-			
-			used = true
+	if str(item_secondary.name) != Network.item_secondary:
+		if item_secondary.droppable:
+			drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
 		
-		if str(item_primary.name) != Network.item_primary:
-			if item_primary.droppable:
-				drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
-			
-			item_primary = hand.get_node(Network.item_primary)
-			change_item.rpc(str(item.name), Network.item_primary)
-			item = item_primary
-			
-			used = true
-	else:
-		if str(item_primary.name) != Network.item_primary:
-			if item_secondary.droppable:
-				drop_item.rpc(global_position - mouse_normal * 24, str(item_secondary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
-			if item_primary.droppable:
-				drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
-			
-			if hand.get_node(Network.item_primary).two_handed:
-				item_primary = hand.get_node(Network.item_primary)
-				item_secondary = hand.get_node(Network.item_primary)
-				change_item.rpc(str(item.name), Network.item_primary)
-				item = item_primary
-			else:
-				item_primary = hand.get_node(Network.item_secondary)
-				item_secondary = hand.get_node(Network.item_secondary)
-				change_item.rpc(str(item.name), Network.item_secondary)
-				item = item_secondary
-			
-			used = true
+		item_secondary = hand.get_node(Network.item_secondary)
+		change_item.rpc(str(item.name), Network.item_secondary)
+		item = item_secondary
+		
+		used = true
+	
+	if str(item_primary.name) != Network.item_primary:
+		if item_primary.droppable:
+			drop_item.rpc(global_position - mouse_normal * 24, str(item_primary.name), str(name) + "_ItemPickup_" + str(randi_range(1000, 9999)))
+		
+		item_primary = hand.get_node(Network.item_primary)
+		change_item.rpc(str(item.name), Network.item_primary)
+		item = item_primary
+		
+		used = true
 	
 	return used
 
