@@ -82,7 +82,8 @@ func _process(delta):
 		for child in Peers.get_children():
 			if child.is_class("CharacterBody2D") and is_valid_target(child):
 				target = child
-	else:
+	
+	if target == null:
 		target = Network.get_local_player()
 	
 	if target == null:
