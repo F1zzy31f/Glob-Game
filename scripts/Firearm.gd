@@ -34,6 +34,7 @@ func _ready():
 	reload_time = stats["reload_time"]
 	ammo_type = stats["ammo_type"]
 	can_destroy_terrain = stats["can_destroy_terrain"]
+	two_handed = stats["two_handed"]
 	
 	reset()
 
