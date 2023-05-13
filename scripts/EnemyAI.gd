@@ -85,6 +85,9 @@ func _process(delta):
 	else:
 		target = Network.get_local_player()
 	
+	if target == null:
+		return
+	
 	var target_vector = global_position - target.global_position
 	
 	if target_vector.x > 24:
