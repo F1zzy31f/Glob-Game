@@ -86,7 +86,7 @@ func _process(_delta):
 					if (raycast.get_collider().team_index != player.team_index):
 						raycast.get_collider().hurt.rpc(damage)
 				if raycast.get_collider() is TileMap and can_destroy_terrain:
-					destroy_terrain.rpc(raycast.get_collider().local_to_map(raycast.get_collision_point() - raycast.get_collision_normal()), player.mirrored)
+					destroy_terrain.rpc(raycast.get_collider().local_to_map(raycast.get_collision_point() - raycast.get_collision_normal()), player.dimension)
 				draw_tracer.rpc(raycast.get_collision_point(), raycast.get_collision_normal())
 		
 		await get_tree().create_timer(float(1) / firerate).timeout
@@ -131,8 +131,8 @@ func able_to_fire():
 		if player.ammo_heavy <= 0: return false
 
 @rpc("any_peer", "call_local")
-func destroy_terrain(point, is_mirror):
-	if is_mirror:
+func destroy_terrain(point, dimension):
+	if dimension == Globals.dimension.Mirror:
 		get_node("/root/Map/MirrorMap").erase_cell(0, point)
 	else:
 		get_node("/root/Map/Map").erase_cell(0, point)
