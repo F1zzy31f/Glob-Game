@@ -3,6 +3,7 @@ extends Item
 enum AmmoType { Light, Medium, Heavy}
 
 @export var bullet_impact_particles = preload("res://scenes/BulletImpactParticles.tscn")
+@export var fire_sound_file = preload("res://assets/sounds/guns/medium_gun.wav")
 
 var damage = 0
 var firerate = 0
@@ -35,6 +36,8 @@ func _ready():
 	ammo_type = stats["ammo_type"]
 	can_destroy_terrain = stats["can_destroy_terrain"]
 	two_handed = stats["two_handed"]
+	
+	fire_sound.stream = fire_sound_file
 	
 	reset()
 

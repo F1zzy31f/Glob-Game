@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1fya3pffgkcm"]
+[gd_scene load_steps=3 format=3 uid="uid://b1fya3pffgkcm"]
 
 [ext_resource type="Script" path="res://scripts/Firearm.gd" id="1_6f8g4"]
-[ext_resource type="AudioStream" uid="uid://ci3y1205yqga0" path="res://assets/fire.wav" id="2_qcel3"]
 
 [sub_resource type="Curve" id="Curve_rjpho"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -23,4 +22,3 @@ default_color = Color(1.5, 1, 0, 1)
 end_cap_mode = 2
 
 [node name="FireSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_qcel3")

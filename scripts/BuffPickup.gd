@@ -4,6 +4,8 @@ extends RigidBody2D
 @export var buff_health = 0
 @export var buff_shield = 0
 
+@onready var pickup_sound = $PickupSound
+
 @rpc("any_peer", "call_local")
 func initialize(pickup_position, buff_pickup_health, buff_pickup_shield):
 	if not is_multiplayer_authority(): return
@@ -25,6 +27,8 @@ func _on_detection_area_body_entered(body):
 
 @rpc("any_peer", "call_local")
 func destroy():
+	pickup_sound.play()
+	
 	visible = false
 	set_deferred("freeze", true)
 	get_node("CollisionShape2D").set_deferred("disabled", true)

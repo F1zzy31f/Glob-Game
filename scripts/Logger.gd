@@ -18,7 +18,6 @@ func log_complex(system, title, details):
 	for detail in details:
 		if len(detail[0]) > longest_detail:
 			longest_detail = len(detail[0])
-	print(longest_detail)
 	
 	for detail in details:
 		output = " -> "

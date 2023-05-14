@@ -40,6 +40,7 @@ enum AbilityStyle{ Projectile, Buff, Summon }
 @export var summon_delay = float(0)
 
 @onready var player = $"../../.."
+@onready var ability_sound  = $"../../../AbilitySound"
 
 var recharge_timer = 0
 
@@ -73,6 +74,8 @@ func activate():
 				activate_style()
 
 func activate_style():
+	play_sound.rpc()
+	
 	match style:
 		AbilityStyle.Projectile:
 			for i in projectile_count:
@@ -88,6 +91,10 @@ func activate_style():
 				var mouse_normal = (global_position - get_global_mouse_position()).normalized().limit_length(1)
 				summon.rpc(str(multiplayer.get_unique_id()) + "_" + name + str(randi_range(1000, 9999)), global_position - mouse_normal * 24, player.team_index)
 				await get_tree().create_timer(summon_delay).timeout
+
+@rpc("call_local")
+func play_sound():
+	ability_sound.play()
 
 @rpc("any_peer", "call_local")
 func projectile(spawn_name, spawn_position, aim_normal):

@@ -4,6 +4,7 @@ extends RigidBody2D
 @export var item_name = "AK-47"
 
 @onready var item_name_ui = $OverheadUI/ItemName
+@onready var pickup_sound = $PickupSound
 
 func _process(_delta):
 	item_name_ui.text = item_name
@@ -27,6 +28,8 @@ func _on_detection_area_body_entered(body):
 
 @rpc("any_peer", "call_local")
 func destroy():
+	pickup_sound.play()
+	
 	visible = false
 	set_deferred("freeze", true)
 	get_node("CollisionShape2D").set_deferred("disabled", true)

@@ -49,6 +49,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ability_ui_ultimate = $CanvasLayer/UI/Abilities/Ultimate
 @onready var scoreboard = $CanvasLayer/UI/Scoreboard
 @onready var hurt_sound = $HurtSound
+@onready var jump_sound = $JumpSound
 
 var item_primary = null
 var item_secondary = null
@@ -252,6 +253,8 @@ func _physics_process(delta):
 		elif Input.is_action_just_pressed("jump") and jumps_left > 0:
 			jumps_left -= 1
 			velocity.y = -sqrt(jump_height * 2 * gravity)
+			
+			play_jump_sound.rpc()
 		
 		var direction = Input.get_axis("move_left", "move_right")
 		if direction:
@@ -480,6 +483,9 @@ func _on_foot_body_entered(_area):
 func _on_foot_body_exited(_area):
 	on_climbable = false
 
+@rpc("call_local")
+func play_jump_sound():
+	jump_sound.play()
 
 func _on_leave_pressed():
 	Network.leave_server()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d3i2wa4q6gepu"]
+[gd_scene load_steps=30 format=3 uid="uid://d3i2wa4q6gepu"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_3vl4j"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_432dd"]
@@ -13,10 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://d07qbv84fd3xn" path="res://assets/sprites/items/guns/AWP.png" id="7_dvbs6"]
 [ext_resource type="Script" path="res://scripts/Ability.gd" id="7_kb7ry"]
 [ext_resource type="Texture2D" uid="uid://bk3208vpyd8j8" path="res://assets/sprites/items/guns/AK-47.png" id="7_legyi"]
+[ext_resource type="AudioStream" uid="uid://6ro3ws1b0vr" path="res://assets/sounds/guns/light_gun.wav" id="7_mwrua"]
 [ext_resource type="PackedScene" uid="uid://cfm3bcjgjqtck" path="res://scenes/Golem.tscn" id="8_0m88f"]
 [ext_resource type="PackedScene" uid="uid://smf4n4sj3o45" path="res://scenes/Molotov.tscn" id="8_lgeg0"]
 [ext_resource type="PackedScene" uid="uid://du8vabsqs0lau" path="res://scenes/ForcefieldGenerator.tscn" id="10_qfffp"]
-[ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="10_ur7w6"]
+[ext_resource type="AudioStream" uid="uid://snrsrpsyy8uj" path="res://assets/sounds/guns/heavy_gun.wav" id="11_x554h"]
+[ext_resource type="AudioStream" uid="uid://bkv56m6vc546a" path="res://assets/sounds/player/hurt.wav" id="17_diejl"]
+[ext_resource type="AudioStream" uid="uid://mhnmsosbwvle" path="res://assets/sounds/player/jump.wav" id="20_pg26x"]
+[ext_resource type="AudioStream" uid="uid://bknym874bw2s2" path="res://assets/sounds/player/ability.wav" id="21_mwlrl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
 radius = 12.0
@@ -180,6 +184,7 @@ droppable = false
 z_index = 4
 texture = ExtResource("6_n5tj0")
 region_rect = Rect2(126, 18, 18, 18)
+fire_sound_file = ExtResource("7_mwrua")
 speed_multiplier = 0.9
 
 [node name="AK-47" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -197,6 +202,7 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
+fire_sound_file = ExtResource("7_mwrua")
 speed_multiplier = 0.8
 
 [node name="AWP" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -204,6 +210,7 @@ visible = false
 z_index = 4
 texture = ExtResource("7_dvbs6")
 offset = Vector2(16, 0)
+fire_sound_file = ExtResource("11_x554h")
 speed_multiplier = 0.5
 
 [node name="M90" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -213,6 +220,7 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
+fire_sound_file = ExtResource("11_x554h")
 speed_multiplier = 0.6
 
 [node name="Sawn Off" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -222,6 +230,7 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
+fire_sound_file = ExtResource("11_x554h")
 speed_multiplier = 0.8
 
 [node name="M1A" parent="HandPivot/Hand" instance=ExtResource("3_rid25")]
@@ -240,6 +249,7 @@ z_index = 4
 texture = ExtResource("2_432dd")
 region_enabled = true
 region_rect = Rect2(126, 18, 18, 18)
+fire_sound_file = ExtResource("7_mwrua")
 speed_multiplier = 0.4
 
 [node name="Abilities" type="Node2D" parent="."]
@@ -625,7 +635,13 @@ wait_time = 0.5
 autostart = true
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_ur7w6")
+stream = ExtResource("17_diejl")
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_pg26x")
+
+[node name="AbilitySound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_mwlrl")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4ei3r")

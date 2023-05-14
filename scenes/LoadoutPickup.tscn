@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://co3vhsg7550ab"]
+[gd_scene load_steps=7 format=3 uid="uid://co3vhsg7550ab"]
 
 [ext_resource type="Script" path="res://scripts/LoadoutPickup.gd" id="1_avpkp"]
 [ext_resource type="Texture2D" uid="uid://d26fo4r3s0got" path="res://assets/StandardTileset.png" id="2_gkjdd"]
+[ext_resource type="AudioStream" uid="uid://cp2r7ai3wswds" path="res://assets/sounds/player/pickup.wav" id="3_v5bay"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6sxq2"]
 size = Vector2(16, 16)
@@ -43,5 +44,8 @@ shape = SubResource("RectangleShape2D_af71x")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_4kihn")
+
+[node name="PickupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_v5bay")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

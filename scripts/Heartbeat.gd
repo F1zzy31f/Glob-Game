@@ -13,7 +13,7 @@ func _ready():
 			arguments[key_value[0].lstrip("--")] = key_value[1]
 	
 	if arguments.has("server") and arguments["server"] == "true":
-		public_ip_request.request("https://api.ipify.org")
+		public_ip_request.request("https://api64.ipify.org")
 
 func heartbeat():
 	if Network.game_started: return
