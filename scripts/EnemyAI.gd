@@ -50,7 +50,7 @@ func initialize(spawn_position, spawn_team):
 	team_index = spawn_team
 
 func _process(delta):
-	if not Peers.get_node(str(get_multiplayer_authority())) and get_multiplayer_authority() != 1:
+	if not (get_multiplayer_authority() != 1 and Peers.get_node(str(get_multiplayer_authority()))):
 		queue_free()
 	
 	visible = true
