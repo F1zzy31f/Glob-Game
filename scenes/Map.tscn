@@ -51,7 +51,7 @@ position_smoothing_enabled = true
 script = ExtResource("3_yp8nl")
 
 [node name="Spawns" type="Node2D" parent="."]
-position = Vector2(0, -304)
+position = Vector2(0, -640)
 scale = Vector2(2, 2)
 
 [node name="1" type="Node2D" parent="Spawns"]
