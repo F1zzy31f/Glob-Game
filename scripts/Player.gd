@@ -111,6 +111,9 @@ func on_game_start():
 func _process(delta):
 	visible = true
 	
+	if health <= 0:
+		visible = false
+	
 	if multiplayer.get_unique_id() == 1: return
 	
 	if Network.get_local_player() and dimension != Network.get_local_player().dimension:
