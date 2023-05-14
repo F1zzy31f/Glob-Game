@@ -139,7 +139,7 @@ func _on_get_server_list_request_request_completed(result, response_code, header
 		var new_listing = server_listing.instantiate()
 		new_listing.name = server["host"]
 		server_list.add_child(new_listing)
-		new_listing.get_child(1).text = server["host"] + " : " + str(server["port"])
+		new_listing.get_child(1).text = server["name"]
 		new_listing.get_child(2).text = str(server["players"]) + " / " + str(server["capacity"])
 		new_listing.get_child(3).pressed.connect(func():
 			get_tree().change_scene_to_file("res://scenes/Map.tscn")

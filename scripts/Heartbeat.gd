@@ -17,6 +17,7 @@ func _ready():
 
 func heartbeat():
 	heartbeat_request.request("http://" + Globals.discovery_server_ip + ":7770/?key=alex", [], HTTPClient.METHOD_POST, JSON.stringify({
+		"name": "Server" + str(randi_range(100, 999)),
 		"host": public_ip,
 		"port": Network.port,
 		"players": Peers.get_child_count(),
