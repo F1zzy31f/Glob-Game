@@ -20,7 +20,7 @@ func heartbeat():
 		"name": "Server" + str(randi_range(100, 999)),
 		"host": public_ip,
 		"port": Network.port,
-		"players": Peers.get_child_count(),
+		"players": Peers.get_child_count() - 1,
 		"capacity": 3
 	}))
 
