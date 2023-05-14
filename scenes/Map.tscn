@@ -312,3 +312,31 @@ initialized = true
 [node name="1_Fractal" parent="." instance=ExtResource("10_m028b")]
 position = Vector2(-88, -843)
 initialized = true
+
+[node name="1_Fractal2" parent="." instance=ExtResource("10_m028b")]
+position = Vector2(-402, -255)
+initialized = true
+
+[node name="1_Fractal3" parent="." instance=ExtResource("10_m028b")]
+position = Vector2(194, -527)
+initialized = true
+
+[node name="1_Fractal4" parent="." instance=ExtResource("10_m028b")]
+position = Vector2(571, -531)
+initialized = true
+
+[node name="1_Fractal5" parent="." instance=ExtResource("10_m028b")]
+position = Vector2(614, -290)
+initialized = true
+
+[node name="1_Fractal6" parent="." instance=ExtResource("10_m028b")]
+position = Vector2(1047, -259)
+initialized = true
+
+[node name="1_Fractal7" parent="." instance=ExtResource("10_m028b")]
+position = Vector2(841, -825)
+initialized = true
+
+[node name="1_Fractal8" parent="." instance=ExtResource("10_m028b")]
+position = Vector2(19, -480)
+initialized = true
