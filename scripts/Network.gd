@@ -1,6 +1,5 @@
 extends Node
 
-@export var port = 7777
 @export var player = preload("res://scenes/Player.tscn")
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 
@@ -8,7 +7,9 @@ signal on_start_game
 @export var game_started = false
 @export var time_till_start = -1
 
-var address = ""
+@export var port = 7771
+var address = "93.89.131.224"
+var start_on_join = false
 
 var username = "Username"
 var item_primary = "AK-47"
@@ -42,7 +43,10 @@ func set_server_address(new):
 	address = new
 
 func join_server():
-	Logger.log_simple("NETW", "Joining server...")
+	Logger.log_complex("NETW", "Joining server...", [
+		["host", str(address)],
+		["port", str(port)]
+	])
 	
 	enet_peer.create_client(address, port)
 	multiplayer.multiplayer_peer = enet_peer
@@ -52,7 +56,10 @@ func join_server():
 	Logger.log_simple("NETW", "Server joined")
 
 func host_server():
-	Logger.log_simple("NETW", "Server creating...")
+	Logger.log_complex("NETW", "Server creating...", [
+		["host", str(address)],
+		["port", str(port)]
+	])
 	
 	enet_peer.create_server(port)
 	multiplayer.multiplayer_peer = enet_peer
@@ -98,6 +105,9 @@ func add_player(peer_id):
 		var new_player = player.instantiate()
 		new_player.name = str(peer_id)
 		Peers.add_child(new_player)
+		
+		if start_on_join and time_till_start == -1:
+			_on_start_game_pressed()
 	else:
 		enet_peer.get_peer(peer_id).peer_disconnect_now()
 		

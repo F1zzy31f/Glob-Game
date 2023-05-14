@@ -109,7 +109,6 @@ layout_mode = 2
 text = "Quit"
 
 [node name="PlayMenu" type="Control" parent="Menus"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -153,22 +152,22 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="IPAddress" type="LineEdit" parent="Menus/PlayMenu/Content"]
+[node name="ServerList" type="Panel" parent="Menus/PlayMenu/Content"]
+custom_minimum_size = Vector2(750, 250)
 layout_mode = 2
-placeholder_text = "Server Address"
-alignment = 1
 
-[node name="JoinGame" type="Button" parent="Menus/PlayMenu/Content"]
-layout_mode = 2
-text = "Join Game"
-
-[node name="HostGame" type="Button" parent="Menus/PlayMenu/Content"]
-layout_mode = 2
-text = "Host Game
-"
+[node name="Content" type="VBoxContainer" parent="Menus/PlayMenu/Content/ServerList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Back" type="Button" parent="Menus/PlayMenu/Content"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Back"
 
 [node name="CustomizeMenu" type="Control" parent="Menus"]
@@ -591,14 +590,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
 
+[node name="GetServerListRequest" type="HTTPRequest" parent="."]
+
 [connection signal="text_changed" from="Menus/TitleMenu/Content/Username" to="." method="_on_username_text_changed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Customize" to="." method="_on_customize_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Quit" to="." method="_on_quit_pressed"]
-[connection signal="text_changed" from="Menus/PlayMenu/Content/IPAddress" to="." method="_on_ip_address_text_changed"]
-[connection signal="pressed" from="Menus/PlayMenu/Content/JoinGame" to="." method="_on_join_game_pressed"]
-[connection signal="pressed" from="Menus/PlayMenu/Content/HostGame" to="." method="_on_host_game_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemPrimary/Dropdown" to="." method="_on_item_primary_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemSecondary/Dropdown" to="." method="_on_item_secondary_item_selected"]
@@ -609,3 +607,4 @@ text = "Back"
 [connection signal="pressed" from="Menus/CustomizeMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Menus/SettingsMenu/Content/ClearSave/Button" to="." method="_on_clear_save_pressed"]
 [connection signal="pressed" from="Menus/SettingsMenu/Content/Back" to="." method="_on_back_pressed"]
+[connection signal="request_completed" from="GetServerListRequest" to="." method="_on_get_server_list_request_request_completed"]

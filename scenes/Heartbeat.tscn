@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://gray5e2wchx3"]
+
+[ext_resource type="Script" path="res://scripts/Heartbeat.gd" id="1_7f47i"]
+
+[node name="Heartbeat" type="Node"]
+script = ExtResource("1_7f47i")
+
+[node name="PublicIPRequest" type="HTTPRequest" parent="."]
+
+[node name="HeartbeatRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="PublicIPRequest" to="." method="_on_public_ip_request_request_completed"]
+[connection signal="request_completed" from="HeartbeatRequest" to="." method="_on_heartbeat_request_request_completed"]

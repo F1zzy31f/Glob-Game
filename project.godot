@@ -26,12 +26,17 @@ Save="*res://scripts/Save.gd"
 Temporary="*res://scenes/Temporary.tscn"
 Network="*res://scenes/Network.tscn"
 Peers="*res://scenes/Peers.tscn"
+Heartbeat="*res://scenes/Heartbeat.tscn"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+
+[editor]
+
+run/main_run_args="--arg=test"
 
 [editor_plugins]
 

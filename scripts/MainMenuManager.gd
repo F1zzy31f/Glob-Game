@@ -1,10 +1,14 @@
 extends Control
 
+@export var server_listing = preload("res://scenes/ServerListing.tscn")
+
 var has_save_loaded = false
 
 @onready var menus = $Menus
-@onready var username = $Menus/TitleMenu/Content/Username
+@onready var get_server_list_request = $GetServerListRequest
 
+@onready var server_list = $Menus/PlayMenu/Content/ServerList/Content
+@onready var username = $Menus/TitleMenu/Content/Username
 @onready var item_primary = $Menus/CustomizeMenu/Content/ItemPrimary/Dropdown
 @onready var item_secondary = $Menus/CustomizeMenu/Content/ItemSecondary/Dropdown
 @onready var ability_passive = $Menus/CustomizeMenu/Content/AbilityPassive/Dropdown
@@ -14,9 +18,27 @@ var has_save_loaded = false
 
 var menu_queue = []
 
+var servers = []
+
 func _ready():
 	Save.save_loaded.connect(self.save_loaded)
 	Save.load_data()
+	
+	get_server_list()
+	
+	var arguments = {}
+	for argument in OS.get_cmdline_args():
+		if argument.find("=") > -1:
+			var key_value = argument.split("=")
+			arguments[key_value[0].lstrip("--")] = key_value[1]
+	
+	if arguments.has("port"):
+		Network.port = int(arguments["port"])
+	if arguments.has("server") and arguments["server"] == "true":
+		Network.start_on_join = true
+		
+		get_tree().change_scene_to_file("res://scenes/Map.tscn")
+		Network.host_server()
 
 func save_loaded():
 	if has_save_loaded == false:
@@ -73,15 +95,13 @@ func _on_quit_pressed():
 func _on_back_pressed():
 	open_menu("Back")
 
-func _on_join_game_pressed():
+func _on_join_game_pressed(host, port):
 	get_tree().change_scene_to_file("res://scenes/Map.tscn")
+	
+	Network.address = host
+	Network.port = port
 	
 	Network.join_server()
-
-func _on_host_game_pressed():
-	get_tree().change_scene_to_file("res://scenes/Map.tscn")
-	
-	Network.host_server()
 
 func _on_ip_address_text_changed(new_text):
 	Network.set_server_address(new_text)
@@ -106,3 +126,27 @@ func _on_ability_ultimate_item_selected(index):
 
 func _on_clear_save_pressed():
 	Save.clear_data()
+
+func get_server_list():
+	get_server_list_request.request("http://" + Globals.discovery_server_ip + ":7770", [], HTTPClient.METHOD_GET)
+
+func _on_get_server_list_request_request_completed(result, response_code, headers, body):
+	servers = JSON.parse_string(body.get_string_from_utf8())
+	
+	for child in server_list.get_children():
+		child.queue_free()
+	for server in servers:
+		var new_listing = server_listing.instantiate()
+		new_listing.name = server["host"]
+		server_list.add_child(new_listing)
+		new_listing.get_child(1).text = server["host"] + " : " + str(server["port"])
+		new_listing.get_child(2).text = str(server["players"]) + " / " + str(server["capacity"])
+		new_listing.get_child(3).pressed.connect(func():
+			get_tree().change_scene_to_file("res://scenes/Map.tscn")
+			Network.address = server["host"]
+			Network.port = int(server["port"])
+			Network.join_server()
+		)
+	
+	await get_tree().create_timer(5).timeout
+	get_server_list()
