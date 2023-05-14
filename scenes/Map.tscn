@@ -26,8 +26,12 @@ script = ExtResource("1_h4qrn")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_wcr3b")
 
+[node name="PreviewCamera" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+script = ExtResource("3_yp8nl")
+
 [node name="Map" type="TileMap" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 tile_set = ExtResource("1_56c62")
 format = 2
 layer_0/name = "Main"
@@ -46,13 +50,9 @@ position = Vector2(0, -1024)
 scale = Vector2(3, 3)
 texture = SubResource("GradientTexture2D_bmrea")
 
-[node name="PreviewCamera" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-script = ExtResource("3_yp8nl")
-
 [node name="Spawns" type="Node2D" parent="."]
-position = Vector2(0, -640)
-scale = Vector2(2, 2)
+position = Vector2(0, -480)
+scale = Vector2(1.5, 1.5)
 
 [node name="1" type="Node2D" parent="Spawns"]
 position = Vector2(-600, 64)
@@ -145,7 +145,7 @@ position = Vector2(-1794, -573)
 position = Vector2(1356, 60)
 
 [node name="Pickups" type="Node2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 
 [node name="UltimateCharger" parent="Pickups" instance=ExtResource("3_oet26")]
 position = Vector2(116, -619)
@@ -313,7 +313,7 @@ position = Vector2(126, -560)
 initialized = true
 
 [node name="Enemies" type="Node2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 
 [node name="1_Fractal" parent="Enemies" instance=ExtResource("10_m028b")]
 position = Vector2(-88, -843)
