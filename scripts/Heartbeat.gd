@@ -16,12 +16,15 @@ func _ready():
 		public_ip_request.request("https://api.ipify.org")
 
 func heartbeat():
+	if Network.game_started: return
+	if Peers.get_child_count() - 1 >= Network.capacity: return
+	
 	heartbeat_request.request("http://" + Globals.discovery_server_ip + ":7770/?key=alex", [], HTTPClient.METHOD_POST, JSON.stringify({
 		"name": "Server" + str(randi_range(100, 999)),
 		"host": public_ip,
 		"port": Network.port,
 		"players": Peers.get_child_count() - 1,
-		"capacity": 3
+		"capacity": Network.capacity
 	}))
 
 func _on_public_ip_request_request_completed(result, response_code, headers, body):

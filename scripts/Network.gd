@@ -3,6 +3,8 @@ extends Node
 @export var player = preload("res://scenes/Player.tscn")
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 
+@export var capacity = 3
+
 signal on_start_game
 @export var game_started = false
 @export var time_till_start = -1
