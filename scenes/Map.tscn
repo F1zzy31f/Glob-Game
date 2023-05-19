@@ -319,6 +319,26 @@ scale = Vector2(1.5, 1.5)
 position = Vector2(-88, -843)
 initialized = true
 
+[node name="1_Fractal11" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(-3290.5, -421.5)
+initialized = true
+
+[node name="1_Fractal12" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(-2579, -993)
+initialized = true
+
+[node name="1_Fractal13" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(-1847, -872)
+initialized = true
+
+[node name="1_Fractal10" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(-1522.5, -613.5)
+initialized = true
+
+[node name="1_Fractal9" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(-984, -435)
+initialized = true
+
 [node name="1_Fractal2" parent="Enemies" instance=ExtResource("10_m028b")]
 position = Vector2(-402, -255)
 initialized = true
@@ -343,6 +363,43 @@ initialized = true
 position = Vector2(841, -825)
 initialized = true
 
+[node name="1_Fractal14" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(1887, -250)
+scale = Vector2(0.5, 0.5)
+initialized = true
+
 [node name="1_Fractal8" parent="Enemies" instance=ExtResource("10_m028b")]
 position = Vector2(19, -480)
+initialized = true
+
+[node name="1_Fractal16" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(-2158.5, -268)
+initialized = true
+
+[node name="1_Fractal19" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(3979, -248.5)
+initialized = true
+
+[node name="1_Fractal17" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(-1090.5, -275.5)
+initialized = true
+
+[node name="1_Fractal20" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(2634, -58)
+initialized = true
+
+[node name="1_Fractal21" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(2928.5, -267)
+initialized = true
+
+[node name="1_Fractal22" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(2528, -423.5)
+initialized = true
+
+[node name="1_Fractal18" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(3595, -423.5)
+initialized = true
+
+[node name="1_Fractal15" parent="Enemies" instance=ExtResource("10_m028b")]
+position = Vector2(2479.5, -869)
 initialized = true
