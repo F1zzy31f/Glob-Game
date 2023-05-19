@@ -15,6 +15,8 @@ var has_save_loaded = false
 @onready var ability_active1 = $Menus/CustomizeMenu/Content/AbilityActive1/Dropdown
 @onready var ability_active2 = $Menus/CustomizeMenu/Content/AbilityActive2/Dropdown
 @onready var ability_ultimate = $Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown
+@onready var address = $Menus/DirectConnectMenu/Content/Address
+@onready var port = $Menus/DirectConnectMenu/Content/Port
 
 var menu_queue = []
 
@@ -26,15 +28,9 @@ func _ready():
 	
 	get_server_list()
 	
-	var arguments = {}
-	for argument in OS.get_cmdline_args():
-		if argument.find("=") > -1:
-			var key_value = argument.split("=")
-			arguments[key_value[0].lstrip("--")] = key_value[1]
-	
-	if arguments.has("port"):
-		Network.port = int(arguments["port"])
-	if arguments.has("server") and arguments["server"] == "true":
+	if Globals.arguments.has("port"):
+		Network.port = int(Globals.arguments["port"])
+	if Globals.arguments.has("server"):
 		Network.start_on_join = true
 		
 		get_tree().change_scene_to_file("res://scenes/Map.tscn")
@@ -96,7 +92,12 @@ func _on_back_pressed():
 	open_menu("Back")
 
 func _on_join_game_pressed(host, port):
-	get_tree().change_scene_to_file("res://scenes/Map.tscn")
+	open_menu("LoadingMenu")
+	
+	await get_tree().create_timer(0.1).timeout
+	
+	print(host)
+	print(port)
 	
 	Network.address = host
 	Network.port = port
@@ -150,3 +151,10 @@ func _on_get_server_list_request_request_completed(result, response_code, header
 	
 	await get_tree().create_timer(5).timeout
 	get_server_list()
+
+
+func _on_direct_connect_pressed():
+	open_menu("DirectConnectMenu")
+
+func _on_connect_pressed():
+	_on_join_game_pressed(address.text, int(port.text))

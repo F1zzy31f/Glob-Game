@@ -52,10 +52,7 @@ func join_server():
 	
 	enet_peer.create_client(address, port)
 	multiplayer.multiplayer_peer = enet_peer
-	
-	PhysicsServer2D.set_active(false)
-	
-	Logger.log_simple("NETW", "Server joined")
+	multiplayer.connected_to_server.connect(connected_to_server)
 
 func host_server():
 	Logger.log_complex("NETW", "Server creating...", [
@@ -93,6 +90,12 @@ func start_game():
 	
 	game_started = true
 	on_start_game.emit()
+
+func connected_to_server():
+	get_tree().change_scene_to_file("res://scenes/Map.tscn")
+	PhysicsServer2D.set_active(false)
+	
+	Logger.log_simple("NETW", "Server joined")
 
 func add_player(peer_id):
 	Logger.log_complex("NETW", "New connection", [

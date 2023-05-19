@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds8hb370t0d72"]
+[gd_scene load_steps=6 format=3 uid="uid://ds8hb370t0d72"]
 
 [ext_resource type="Script" path="res://scripts/MainMenuManager.gd" id="1_cldox"]
 
@@ -8,6 +8,44 @@ outline_size = 6
 shadow_size = 6
 shadow_color = Color(0, 0, 0, 0.498039)
 shadow_offset = Vector2(3, 3)
+
+[sub_resource type="Animation" id="Animation_lehgd"]
+resource_name = "loading"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["Loading", " Loading.", "  Loading..", "   Loading...", "  Loading..", " Loading.", "Loading"]
+}
+
+[sub_resource type="Animation" id="Animation_nufg8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Loading"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ilivj"]
+_data = {
+"RESET": SubResource("Animation_nufg8"),
+"loading": SubResource("Animation_lehgd")
+}
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -164,6 +202,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="DirectConnect" type="Button" parent="Menus/PlayMenu/Content"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Direct Connect"
 
 [node name="Back" type="Button" parent="Menus/PlayMenu/Content"]
 custom_minimum_size = Vector2(250, 0)
@@ -499,6 +543,77 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
 
+[node name="DirectConnectMenu" type="Control" parent="Menus"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Menus/DirectConnectMenu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+text = "Direct Connect
+"
+label_settings = SubResource("LabelSettings_erero")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="ColorRect" parent="Menus/DirectConnectMenu/Title"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_right = -50.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 1, 1, 0.498039)
+
+[node name="Content" type="VBoxContainer" parent="Menus/DirectConnectMenu"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -27.5
+offset_right = 125.0
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Address" type="LineEdit" parent="Menus/DirectConnectMenu/Content"]
+layout_mode = 2
+placeholder_text = "Address"
+alignment = 1
+
+[node name="Port" type="LineEdit" parent="Menus/DirectConnectMenu/Content"]
+layout_mode = 2
+placeholder_text = "Port"
+alignment = 1
+
+[node name="Connect" type="Button" parent="Menus/DirectConnectMenu/Content"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Connect"
+
+[node name="Back" type="Button" parent="Menus/DirectConnectMenu/Content"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
+
 [node name="SettingsMenu" type="Control" parent="Menus"]
 visible = false
 layout_mode = 1
@@ -591,6 +706,34 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
 
+[node name="LoadingMenu" type="Control" parent="Menus"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Menus/LoadingMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Loading"
+label_settings = SubResource("LabelSettings_erero")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Menus/LoadingMenu"]
+root_node = NodePath("../Title")
+autoplay = "loading"
+libraries = {
+"": SubResource("AnimationLibrary_ilivj")
+}
+
 [node name="GetServerListRequest" type="HTTPRequest" parent="."]
 
 [connection signal="text_changed" from="Menus/TitleMenu/Content/Username" to="." method="_on_username_text_changed"]
@@ -598,6 +741,7 @@ text = "Back"
 [connection signal="pressed" from="Menus/TitleMenu/Content/Customize" to="." method="_on_customize_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Menus/PlayMenu/Content/DirectConnect" to="." method="_on_direct_connect_pressed"]
 [connection signal="pressed" from="Menus/PlayMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemPrimary/Dropdown" to="." method="_on_item_primary_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/ItemSecondary/Dropdown" to="." method="_on_item_secondary_item_selected"]
@@ -606,6 +750,8 @@ text = "Back"
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityActive2/Dropdown" to="." method="_on_ability_active_2_item_selected"]
 [connection signal="item_selected" from="Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown" to="." method="_on_ability_ultimate_item_selected"]
 [connection signal="pressed" from="Menus/CustomizeMenu/Content/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Menus/DirectConnectMenu/Content/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="Menus/DirectConnectMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Menus/SettingsMenu/Content/ClearSave/Button" to="." method="_on_clear_save_pressed"]
 [connection signal="pressed" from="Menus/SettingsMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="request_completed" from="GetServerListRequest" to="." method="_on_get_server_list_request_request_completed"]

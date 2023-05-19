@@ -6,13 +6,7 @@ var public_ip = ""
 @onready var heartbeat_request = $HeartbeatRequest
 
 func _ready():
-	var arguments = {}
-	for argument in OS.get_cmdline_args():
-		if argument.find("=") > -1:
-			var key_value = argument.split("=")
-			arguments[key_value[0].lstrip("--")] = key_value[1]
-	
-	if arguments.has("server") and arguments["server"] == "true":
+	if Globals.arguments.has("server"):
 		public_ip_request.request("https://api64.ipify.org")
 
 func heartbeat():
@@ -20,7 +14,7 @@ func heartbeat():
 	if Peers.get_child_count() - 1 >= Network.capacity: return
 	
 	heartbeat_request.request("http://" + Globals.discovery_server_ip + ":7770/?key=alex", [], HTTPClient.METHOD_POST, JSON.stringify({
-		"name": "Server" + str(randi_range(100, 999)),
+		"name": Globals.arguments["server"],
 		"host": public_ip,
 		"port": Network.port,
 		"players": Peers.get_child_count() - 1,
