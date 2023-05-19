@@ -143,10 +143,7 @@ func _on_get_server_list_request_request_completed(result, response_code, header
 		new_listing.get_child(1).text = server["name"]
 		new_listing.get_child(2).text = str(server["players"]) + " / " + str(server["capacity"])
 		new_listing.get_child(3).pressed.connect(func():
-			get_tree().change_scene_to_file("res://scenes/Map.tscn")
-			Network.address = server["host"]
-			Network.port = int(server["port"])
-			Network.join_server()
+			_on_join_game_pressed(server["host"], int(server["port"]))
 		)
 	
 	await get_tree().create_timer(5).timeout

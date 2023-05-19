@@ -7,7 +7,7 @@ enum dimension { Material, Mirror, UrMom }
 
 var arguments = {}
 
-func _ready():
+func _enter_tree():
 	for argument in OS.get_cmdline_args():
 		if argument.find("=") > -1:
 			var key_value = argument.split("=")
