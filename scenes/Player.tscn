@@ -23,7 +23,7 @@
 [ext_resource type="AudioStream" uid="uid://bknym874bw2s2" path="res://assets/sounds/player/ability.wav" id="21_mwlrl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_swevk"]
-radius = 12.0
+radius = 8.0
 height = 42.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rtibc"]
