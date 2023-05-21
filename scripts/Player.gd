@@ -51,7 +51,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var hurt_sound = $HurtSound
 @onready var jump_sound = $JumpSound
 
-var item_primary = null
+var item_primary = null 
 var item_secondary = null
 
 var ammo_light = 24
@@ -73,6 +73,9 @@ var jumps_left = 0
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int(), true)
 	#Input.set_custom_mouse_cursor(load("res://assets/Crosshair.png"))
+	
+	if is_multiplayer_authority():
+		Network.local_player = self
 
 func _ready():
 	disappeared = true
@@ -117,13 +120,13 @@ func _process(delta):
 	
 	if multiplayer.get_unique_id() == 1: return
 	
-	if Network.get_local_player() and dimension != Network.get_local_player().dimension:
+	if Network.local_player and dimension != Network.local_player.dimension:
 		visible = false
 	if disappeared:
 		visible = false
 	
-	if Network.get_local_player():
-		offscreen_marker.visible = team_index == Network.get_local_player().team_index
+	if Network.local_player:
+		offscreen_marker.visible = team_index == Network.local_player.team_index
 	offscreen_marker.modulate = Color.from_hsv(float(team_index) / Globals.team_count, 0.8, 1)
 	
 	get_node("Collider").set_deferred("disabled", not visible)

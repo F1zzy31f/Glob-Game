@@ -58,7 +58,7 @@ func _process(delta):
 	if disappeared:
 		visible = false
 	
-	if Network.get_local_player() and dimension != Network.get_local_player().dimension:
+	if Network.local_player and dimension != Network.local_player.dimension:
 		visible = false
 	
 	if get_multiplayer_authority() != 1:
@@ -81,13 +81,13 @@ func _process(delta):
 	
 	ai_input = input.new()
 	
-	if target == null or target == Network.get_local_player():
+	if target == null or target == Network.local_player:
 		for child in Peers.get_children():
 			if child.is_class("CharacterBody2D") and is_valid_target(child):
 				target = child
 	
 	if target == null:
-		target = Network.get_local_player()
+		target = Network.local_player
 	
 	if target == null:
 		return
@@ -99,7 +99,7 @@ func _process(delta):
 	elif target_vector.x < -24:
 		ai_input.move_right = 1
 		
-	if target != Network.get_local_player() and target_vector.length() < attack_range and knockback_timer > knockback_delay:
+	if target != Network.local_player and target_vector.length() < attack_range and knockback_timer > knockback_delay:
 		knockback_timer = 0
 		
 		target.knockback.rpc(Vector2(-knockback.x, -knockback.y) if target_vector.x > 0 else Vector2(knockback.x, -knockback.y))

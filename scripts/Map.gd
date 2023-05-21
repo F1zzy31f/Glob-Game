@@ -14,8 +14,8 @@ func _ready():
 func _process(_delta):
 	if multiplayer.get_unique_id() == 1: return
 	
-	if Network.get_local_player():
-		if Network.get_local_player().dimension == Globals.dimension.Mirror:
+	if Network.local_player:
+		if Network.local_player.dimension == Globals.dimension.Mirror:
 			if map.global_position != Vector2(0, 8192):
 				map.global_position = Vector2(0, 8192)
 			map.visible = false

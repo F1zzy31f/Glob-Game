@@ -21,13 +21,13 @@ func heartbeat():
 		"capacity": Network.capacity
 	}))
 
-func _on_public_ip_request_request_completed(result, response_code, headers, body):
+func _on_public_ip_request_request_completed(_result, _response_code, _headers, body):
 	public_ip = body.get_string_from_utf8()
 	Logger.log_simple("HRTB", "Got public ip, %s" % public_ip)
 	
 	heartbeat()
 
-func _on_heartbeat_request_request_completed(result, response_code, headers, body):
+func _on_heartbeat_request_request_completed(_result, _response_code, _headers, _body):
 	Logger.log_simple("HRTB", "Completed heartbeat")
 	await get_tree().create_timer(5).timeout
 	heartbeat()

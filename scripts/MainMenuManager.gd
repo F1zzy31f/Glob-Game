@@ -15,8 +15,8 @@ var has_save_loaded = false
 @onready var ability_active1 = $Menus/CustomizeMenu/Content/AbilityActive1/Dropdown
 @onready var ability_active2 = $Menus/CustomizeMenu/Content/AbilityActive2/Dropdown
 @onready var ability_ultimate = $Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown
-@onready var address = $Menus/DirectConnectMenu/Content/Address
-@onready var port = $Menus/DirectConnectMenu/Content/Port
+@onready var direct_address = $Menus/DirectConnectMenu/Content/Address
+@onready var direct_port = $Menus/DirectConnectMenu/Content/Port
 
 var menu_queue = []
 
@@ -96,9 +96,6 @@ func _on_join_game_pressed(host, port):
 	
 	await get_tree().create_timer(0.1).timeout
 	
-	print(host)
-	print(port)
-	
 	Network.address = host
 	Network.port = port
 	
@@ -131,7 +128,7 @@ func _on_clear_save_pressed():
 func get_server_list():
 	get_server_list_request.request("http://" + Globals.discovery_server_ip + ":7770", [], HTTPClient.METHOD_GET)
 
-func _on_get_server_list_request_request_completed(result, response_code, headers, body):
+func _on_get_server_list_request_request_completed(_result, _response_code, _headers, body):
 	servers = JSON.parse_string(body.get_string_from_utf8())
 	
 	for child in server_list.get_children():
@@ -154,4 +151,4 @@ func _on_direct_connect_pressed():
 	open_menu("DirectConnectMenu")
 
 func _on_connect_pressed():
-	_on_join_game_pressed(address.text, int(port.text))
+	_on_join_game_pressed(direct_address.text, int(direct_port.text))
