@@ -6,8 +6,11 @@ extends Node
 @export var capacity = 3
 
 signal on_start_game
+signal on_end_game
 @export var game_started = false
+@export var game_ended = false
 @export var time_till_start = -1
+@export var time_till_end = float(120)
 
 @export var port = 7771
 var address = "93.89.131.224"
@@ -32,6 +35,15 @@ var enet_peer = ENetMultiplayerPeer.new()
 @onready var start_countdown = $CanvasLayer/ServerUI/StartCountdown
 
 var local_player
+
+func _process(delta):
+	if multiplayer.get_unique_id() != 1: return
+	
+	if game_started and not game_ended:
+		time_till_end -= delta
+		
+		if time_till_end <= 0:
+			end_game.rpc()
 
 func set_username(new):
 	username = new
@@ -85,6 +97,13 @@ func start_game():
 	
 	game_started = true
 	on_start_game.emit()
+
+@rpc("call_local")
+func end_game():
+	PhysicsServer2D.set_active(false)
+	
+	game_ended = true
+	on_end_game.emit()
 
 func connected_to_server():
 	get_tree().change_scene_to_file("res://scenes/Map.tscn")

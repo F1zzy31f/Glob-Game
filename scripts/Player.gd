@@ -40,6 +40,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ultimate_abilities = $Abilities/Ultimate
 @onready var ui = $CanvasLayer/UI
 @onready var start_countdown = $CanvasLayer/UI/StartCountdown
+@onready var end_countdown = $CanvasLayer/UI/EndCountdown
 @onready var healthbar = $CanvasLayer/UI/Healthbar
 @onready var shieldbar = $CanvasLayer/UI/Shieldbar
 @onready var item_info = $CanvasLayer/UI/ItemInfo
@@ -146,6 +147,15 @@ func _process(delta):
 	if Network.time_till_start == 0:
 		start_countdown.visible = false
 	
+	var minutes = floor(Network.time_till_end / 60)
+	var seconds = floor(fmod(Network.time_till_end, 60))
+	var time = str(minutes) + ":"
+	if seconds < 10:
+		time += "0"
+	time += str(seconds)
+	
+	end_countdown.text = time
+	
 	healthbar.value = health
 	shieldbar.value = shield
 	
@@ -238,7 +248,8 @@ func _process(delta):
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
-	if not Network.game_started : return
+	if not Network.game_started: return
+	if Network.game_ended: return
 	
 	# Dying
 	if health <= 0 or global_position.y > 64:
