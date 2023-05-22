@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/EnemyAI.gd" id="1_r2kpp"]
 [ext_resource type="Texture2D" uid="uid://cedxpbk8kxodo" path="res://assets/sprites/entities/enemies/fractal.png" id="2_iar2m"]
-[ext_resource type="AudioStream" uid="uid://celct40ulv0s" path="res://assets/hurt.wav" id="4_ypaqj"]
+[ext_resource type="AudioStream" uid="uid://bkv56m6vc546a" path="res://assets/sounds/player/hurt.wav" id="3_cneai"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n0ndp"]
 radius = 8.0
@@ -75,7 +75,7 @@ position = Vector2(0, 13.5)
 shape = SubResource("RectangleShape2D_w7m3h")
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_ypaqj")
+stream = ExtResource("3_cneai")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_g0pct")
