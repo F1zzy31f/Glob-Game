@@ -1,0 +1,37 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://cqe1n6p0ltokg"]
+
+[ext_resource type="Texture2D" uid="uid://c2l5ykjphywn3" path="res://assets/CharacterTileset.png" id="1_cj26a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66s81"]
+atlas = ExtResource("1_cj26a")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roa3y"]
+atlas = ExtResource("1_cj26a")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkq0q"]
+atlas = ExtResource("1_cj26a")
+region = Rect2(168, 0, 24, 24)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66s81")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roa3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkq0q")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
