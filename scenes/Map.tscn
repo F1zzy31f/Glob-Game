@@ -49,7 +49,10 @@ position = Vector2(0, -1024)
 scale = Vector2(3, 3)
 texture = SubResource("GradientTexture2D_bmrea")
 
-[node name="Spawn" type="Node2D" parent="."]
+[node name="Spawns" type="Node2D" parent="."]
+
+[node name="1" type="Node2D" parent="Spawns"]
+position = Vector2(192, -576)
 
 [node name="Pickups" type="Node2D" parent="."]
 

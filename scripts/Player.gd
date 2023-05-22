@@ -86,7 +86,7 @@ func _ready():
 	username = Network.username
 	overhead_username.text = username
 	
-	team_index = randi_range(0, Globals.team_count - 1)
+	team_index = randi_range(0, len(Globals.teams) - 1)
 	
 	ability_passive = passive_abilities.get_node(Network.ability_passive)
 	ability_active1 = active_abilities.get_node(Network.ability_active1)
@@ -119,6 +119,8 @@ func _process(delta):
 	if health <= 0:
 		visible = false
 	
+	sprite.sprite_frames = load("res://assets/animations/frames/player_%s.tres" % str(team_index))
+	
 	if multiplayer.get_unique_id() == 1: return
 	
 	if Network.local_player and dimension != Network.local_player.dimension:
@@ -128,7 +130,7 @@ func _process(delta):
 	
 	if Network.local_player:
 		offscreen_marker.visible = team_index == Network.local_player.team_index
-	offscreen_marker.modulate = Color.from_hsv(float(team_index) / Globals.team_count, 0.8, 1)
+	offscreen_marker.modulate = Globals.teams[team_index]["color"]
 	
 	get_node("Collider").set_deferred("disabled", not visible)
 	
@@ -159,7 +161,7 @@ func _process(delta):
 	healthbar.value = health
 	shieldbar.value = shield
 	
-	$CanvasLayer/UI/TeamIndex.text = "Team: " + str(team_index + 1)
+	$CanvasLayer/UI/TeamName.text = "Team: " + Globals.teams[team_index]["name"]
 	
 	item_info.text = item.get_item_info()
 	for child in inventory.get_children():
@@ -482,14 +484,6 @@ func update_scoreboard():
 			var new_item = scoreboard_item.instantiate()
 			new_item.name = child.name
 			scoreboard.add_child(new_item)
-
-func _on_team_up_pressed():
-	team_index = clamp(team_index + 1, 0, Globals.team_count - 1)
-	$CanvasLayer/UI/TeamUp.release_focus()
-
-func _on_team_down_pressed():
-	team_index = clamp(team_index - 1, 0, Globals.team_count - 1)
-	$CanvasLayer/UI/TeamDown.release_focus()
 
 func _on_foot_body_entered(_area):
 	on_climbable = true
