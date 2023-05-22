@@ -1,0 +1,57 @@
+[
+	{
+		"names": [
+			"the blue bloods",
+			"blue bloods",
+			"team 1"
+		],
+		"image_src": "res://assets/images/globapedia/player_0.png",
+		"title": "The Blue Bloods",
+		"type": "Player",
+		"description": "The elites of the material plane, the Blue bloods are a group of entrepreneurs, business owners, lords and barons intent on claiming the material plane for its natural resources. Using the most advanced weapons money can buy they have recently turned their attention to the mirror dimension in an attempt to harness its near limitless power. Only around half of the globs are actual Blue bloods, the others are simply highly trained mercenaries used to fight for the members of the Blue bloods who don’t want to get their hands dirty."
+	},
+	{
+		"names": [
+			"the oracles",
+			"oracles",
+			"team 2"
+		],
+		"image_src": "res://assets/images/globapedia/player_1.png",
+		"title": "The Oracles",
+		"type": "Player",
+		"description": "The oracles are a team of psions intent on studying and understanding the mirror dimension and those who occupy it. The oracles have an unusually high number of psions compared to other groups, allowing them to field large numbers of globs despite their smaller size. Oracles are recognised by their third eye which allows them increased power over the mirror dimension. Oracles are capable of summoning massive orbs of fire as well as buffing their own power and weakening those around them resulting in them being a force to be reckoned with on the field."
+	},
+	{
+		"names": [
+			"the beast lords",
+			"beast lords",
+			"team 3"
+		],
+		"image_src": "res://assets/images/globapedia/player_2.png",
+		"title": "The Beast Lords",
+		"type": "Player",
+		"description": "The Beast lords are a nomadic group of globs who live in touch with both nature and the mirror dimension. They are highly opposed to the Blue bloods and see them as Trespassing on holy land. The Beast lords are the main utilisers of the swarm and tremor ability and are known to always travel with a small pack of Globlets who they summon to protect themselves, Beast lord strongholds are filled with Globlets and Globures  almost drowning enemy forces in sheer numbers."
+	},
+	{
+		"names": [
+			"the midas magi",
+			"midas magi",
+			"team 4"
+		],
+		"image_src": "res://assets/images/globapedia/player_3.png",
+		"title": "The Midas Magi",
+		"type": "Player",
+		"description": "The Midas Magi the wealthiest group in all the realms crushing even the Blue Bloods in financial power. Midas Magi are easily distinguished due to their gold skin gained by a magical ritual performed on initiation to the group. The midas Magi are known for bringing powerful psions to battle able to summon tornadoes of molten gold or petrify victims in the fashion of their namesake. The Magi currently own the most territory due to their aggressive advances to claim fractal shards."
+	},
+	{
+		"names": [
+			"the technomancers",
+			"technomancers",
+			"team 5"
+		],
+		"image_src": "res://assets/images/globapedia/player_4.png",
+		"title": "The Technomancers",
+		"type": "Player",
+		"description": "The technomancers are a group of cybernetically altered globs Aiming to use the mirror dimension to finish their transformation to ‘perfect’ machines. They are highly dedicated and coordinated as well as being the most technologically advanced team in all the realms. They believe that by harnessing the mirror dimension they can create a power source capable of transforming them into immortal machines."
+	},
+]

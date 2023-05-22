@@ -21,12 +21,13 @@ config/icon="res://icon.svg"
 
 Logger="*res://scripts/Logger.gd"
 Globals="*res://scripts/Globals.gd"
-Stats="*res://scripts/Stats.gd"
 Save="*res://scripts/Save.gd"
 Temporary="*res://scenes/Temporary.tscn"
 Network="*res://scenes/Network.tscn"
 Peers="*res://scenes/Peers.tscn"
 Heartbeat="*res://scenes/Heartbeat.tscn"
+Stats="*res://scripts/Stats.gd"
+Globapedia="*res://scripts/Globapedia.gd"
 
 [display]
 

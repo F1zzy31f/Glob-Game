@@ -15,6 +15,10 @@ var has_save_loaded = false
 @onready var ability_active1 = $Menus/CustomizeMenu/Content/AbilityActive1/Dropdown
 @onready var ability_active2 = $Menus/CustomizeMenu/Content/AbilityActive2/Dropdown
 @onready var ability_ultimate = $Menus/CustomizeMenu/Content/AbilityUltimate/Dropdown
+@onready var globapedia_image = $Menus/GlobapediaMenu/Content/Info/Image
+@onready var globapedia_title = $Menus/GlobapediaMenu/Content/Info/Title
+@onready var globapedia_type = $Menus/GlobapediaMenu/Content/Info/Type
+@onready var globapedia_description = $Menus/GlobapediaMenu/Content/Info/DescriptionContainer/Description
 @onready var direct_address = $Menus/DirectConnectMenu/Content/Address
 @onready var direct_port = $Menus/DirectConnectMenu/Content/Port
 
@@ -152,3 +156,24 @@ func _on_direct_connect_pressed():
 
 func _on_connect_pressed():
 	_on_join_game_pressed(direct_address.text, int(direct_port.text))
+
+func _on_globapedia_pressed():
+	open_menu("GlobapediaMenu")
+
+func _on_globapedia_text_changed(new_text):
+	var result = {
+		"image_src": "res://assets/images/globapedia/na.png",
+		"title": "Nothing Found",
+		"type": "N / A",
+		"description": "There was nothing found so how could there be a description"
+	}
+	
+	for glob in Globapedia.globapedia:
+		for glob_name in glob["names"]:
+			if glob_name == new_text.to_lower():
+				result = glob
+	
+	globapedia_image.texture = load(result["image_src"])
+	globapedia_title.text = result["title"]
+	globapedia_type.text = result["type"]
+	globapedia_description.text = result["description"]
