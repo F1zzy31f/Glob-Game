@@ -553,6 +553,7 @@ size_flags_horizontal = 4
 text = "Back"
 
 [node name="GlobapediaMenu" type="Control" parent="Menus"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -881,7 +882,6 @@ size_flags_horizontal = 4
 text = "Back"
 
 [node name="LoadingMenu" type="Control" parent="Menus"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
