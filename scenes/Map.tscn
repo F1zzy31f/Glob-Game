@@ -54,6 +54,60 @@ texture = SubResource("GradientTexture2D_bmrea")
 [node name="1" type="Node2D" parent="Spawns"]
 position = Vector2(192, -576)
 
+[node name="spawn point 1" type="Node2D" parent="Spawn"]
+position = Vector2(-93, -255)
+
+[node name="spawn point 3" type="Node2D" parent="Spawn"]
+position = Vector2(-164, -734)
+
+[node name="spawn point 15" type="Node2D" parent="Spawn"]
+position = Vector2(-186, -510)
+
+[node name="spawn point 14" type="Node2D" parent="Spawn"]
+position = Vector2(-279, -765)
+
+[node name="spawn point 13" type="Node2D" parent="Spawn"]
+position = Vector2(2509, -307)
+
+[node name="spawn point 12" type="Node2D" parent="Spawn"]
+position = Vector2(-1659, -882)
+
+[node name="spawn point 11" type="Node2D" parent="Spawn"]
+position = Vector2(1755, -279)
+
+[node name="spawn point 10" type="Node2D" parent="Spawn"]
+position = Vector2(246, -1518)
+
+[node name="spawn point 9" type="Node2D" parent="Spawn"]
+position = Vector2(-1811, -404)
+
+[node name="spawn point 4" type="Node2D" parent="Spawn"]
+position = Vector2(4760, -179)
+
+[node name="spawn point 2" type="Node2D" parent="Spawn"]
+position = Vector2(550, -658)
+
+[node name="spawn point 5" type="Node2D" parent="Spawn"]
+position = Vector2(-943, -257)
+
+[node name="spawn point 6" type="Node2D" parent="Spawn"]
+position = Vector2(50, -437)
+
+[node name="spawn point 7" type="Node2D" parent="Spawn"]
+position = Vector2(96, -260)
+
+[node name="spawn point 8" type="Node2D" parent="Spawn"]
+position = Vector2(-118, -315)
+
+[node name="spawn point 16" type="Node2D" parent="Spawn"]
+position = Vector2(-2907, -276)
+
+[node name="spawn point 18" type="Node2D" parent="Spawn"]
+position = Vector2(-3652, -218)
+
+[node name="spawn point 17" type="Node2D" parent="Spawn"]
+position = Vector2(-2753, -1011)
+
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="UltimateCharger" parent="Pickups" instance=ExtResource("3_oet26")]
