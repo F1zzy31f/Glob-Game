@@ -52,6 +52,8 @@ func _process(delta):
 				if player.team_index == team:
 					teams[team] += player.score
 	winning_team = teams.max()
+	if winning_team == null:
+		winning_team = 0
 
 func set_username(new):
 	username = new
