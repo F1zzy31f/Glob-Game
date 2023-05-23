@@ -39,11 +39,10 @@ var local_player
 func _process(delta):
 	if multiplayer.get_unique_id() != 1: return
 	
-	if game_started and not game_ended:
+	if game_started and not game_ended and time_till_end <= 0:
 		time_till_end -= delta
-		
-		if time_till_end <= 0:
-			end_game.rpc()
+	else:
+		end_game.rpc()
 
 func set_username(new):
 	username = new

@@ -3,11 +3,11 @@ extends Node
 var discovery_server_ip = "93.89.131.224"
 
 var teams = [
-	{"name": "1", "color": Color.MEDIUM_SEA_GREEN},
-	{"name": "2", "color": Color.CORNFLOWER_BLUE},
-	{"name": "3", "color": Color.HOT_PINK},
-	{"name": "4", "color": Color.ORANGE},
-	{"name": "5", "color": Color.PALE_GOLDENROD},
+	{"name": "The Blue Bloods", "color": Color.MEDIUM_SEA_GREEN},
+	{"name": "The Oracles", "color": Color.CORNFLOWER_BLUE},
+	{"name": "The Beast Lords", "color": Color.HOT_PINK},
+	{"name": "The Midas Magi", "color": Color.ORANGE},
+	{"name": "The Technomancers", "color": Color.PALE_GOLDENROD},
 ]
 enum dimension { Material, Mirror, UrMom }
 

@@ -479,11 +479,11 @@ func update_scoreboard():
 		if not child.is_class("MultiplayerSpawner"):
 			peers.append(child)
 	peers.sort_custom(func(a, b): return a.score > b.score)
-	for child in peers:
-		if not child.is_class("MultiplayerSpawner"):
-			var new_item = scoreboard_item.instantiate()
-			new_item.name = child.name
-			scoreboard.add_child(new_item)
+	
+	for team in Globals.teams:
+		var new_item = scoreboard_item.instantiate()
+		new_item.name = team["name"]
+		scoreboard.add_child(new_item)
 
 func _on_foot_body_entered(_area):
 	on_climbable = true
