@@ -1,6 +1,17 @@
 [
 	{
 		"names": [
+			"ashton",
+			"tom"
+		],
+		"image_src": "res://assets/images/globapedia/na.png",
+		"title": "Dumbass",
+		"type": "Dumbass",
+		"description": "You retard"
+	},
+	
+	{
+		"names": [
 			"the blue bloods",
 			"blue bloods",
 			"team 1"
