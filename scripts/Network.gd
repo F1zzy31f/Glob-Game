@@ -41,10 +41,11 @@ func _process(delta):
 	if multiplayer.get_unique_id() != 1: return
 	
 	if game_started and not game_ended:
-		if time_till_end <= 0:
+		if time_till_end > 0:
 			time_till_end -= delta
 		else:
 			end_game.rpc()
+	
 	
 	var teams = []
 	for i in len(Globals.teams):
