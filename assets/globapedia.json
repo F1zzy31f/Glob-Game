@@ -65,4 +65,70 @@
 		"type": "Player",
 		"description": "The technomancers are a group of cybernetically altered globs Aiming to use the mirror dimension to finish their transformation to ‘perfect’ machines. They are highly dedicated and coordinated as well as being the most technologically advanced team in all the realms. They believe that by harnessing the mirror dimension they can create a power source capable of transforming them into immortal machines."
 	},
+	{
+		"names": [
+			"the psions",
+			"psions",
+			"psion"
+		],	
+		"image_src": "res://assets/images/globapedia/player_0.png",
+		"title": "Psions",
+		"type": "Player",
+		"description": "Psions are globs that have the ability to access the latent power of the mirror dimension to create powerful spell-like abilities. By collecting all the energy in a miniscule space in the infinitely folded maze of the mirror realm, they can gather enough energy to super heat the air to create fire, drag creatures through space to summon creatures or even heal their own injuries. Due to their power on the battlefield, all combatants are at least partial Psions being able to manifest abilities and access the mirror dimension directly. "
+	},
+		{
+		"names": [
+			"the mirror dimension",
+			"mirror dimension",
+			"mirror"
+		],
+		"image_src": "res://assets/images/globapedia/na.png",
+		"title": "The Mirror Dimension",
+		"type": "Dimension",
+		"description": "The mirror dimension or mirror realm is a parallel universe to what is now referred to as the material plane. The mirror realm is an infinite reflection of the real world and folds out in four dimensions, allowing multiple places to exist in the same area. Due to the amount of mass present in a single point in the mirror dimension, it contains a near infinite amount of energy allowing Globs to harness its power for their own uses. Sometimes this power gains sentience and wraps space around itself creating a fractal. "
+	},
+		{
+		"names": [
+			"the fractals",
+			"fractals",
+			"fractal"
+		],
+		"image_src": "res://assets/images/globapedia/fractal.png",
+		"title": "The Fractals",
+		"type": "Enemy",
+		"description": "Fractals are creatures that manifest in the mirror dimension and actively hunt any psion who attempts to physically enter it. Fractals manifest when high concentrations of energy enter or exit the mirror realm, they then proceed to wrap part of the mirror dimension around themselves to give them a semblance of a physical form. Due to their predatory nature, they are drawn to areas of  high magic use, such as battlefields, making entering the mirror dimension a risky tactic. "
+	},
+		{
+		"names": [
+			"the globs",
+			"globs",
+			"glob"
+		],
+		"image_src": "res://assets/images/globapedia/player_0.png",
+		"title": "The Globs",
+		"type": "Player",
+		"description": "Globs are the inhabitants of the material realm and are scattered across the realm being the prominent sentient species. Globs, as the name suggests, are globs of semi-amorphous material that are able to walk and talk. Due to their unusual nature, Globs cannot reproduce like most biological species, instead they must fashion a new Glob out of water, another globs ooze, kerosine, gelatin, a camel spleen and two bricks. For reasons yet unknown, all Globs are called Steve until told otherwise."
+	},
+		{
+		"names": [
+			"the globlets",
+			"globlets",
+			"globlet"
+		],
+		"image_src": "res://assets/images/globapedia/globlet.png",
+		"title": "The Globlets",
+		"type": "Minion",
+		"description": "Globlets are small turtle-like animals that the Globs use as pets and guard dogs. Globlets are very loyal and will travel extreme distances to get to their masters, beast Lord psions are renowned for summoning massive swarms of Globlets and crushing their opponents with sheer numbers. On the battlefield, a single Globlet is useful or little more than cannon fodder, however when summoned en masse by a dedicated summoner or even a small group of them, the Globlets will swarm out as an unstoppable typhoon to consume all those in its path. "
+	},
+		{
+		"names": [
+			"the globures",
+			"globures",
+			"globure"
+		],
+		"image_src": "res://assets/images/globapedia/globure.png",
+		"title": "The Globures",
+		"type": "Minion",
+		"description": "Globures are large warbeasts and beasts of burden related to Globets. They are massive creatures capable of taking massive damage and launching enemies into the air. They are often used by summoners to saturate swarms of Globlets as smaller minions shield the Globures from harm until they get into range, dealing massive damage. Non-summoners who know how to summon Globures often use them to block off choke points or stop pursuers due to their priority target status given to them by many teams. "
+	},
 ]
