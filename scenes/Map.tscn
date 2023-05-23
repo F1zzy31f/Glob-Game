@@ -144,6 +144,11 @@ position = Vector2(645, -1563)
 initialized = true
 item_name = "Sawn Off"
 
+[node name="ItemPickup14" parent="Pickups" instance=ExtResource("5_jwnbk")]
+position = Vector2(298, -1579)
+initialized = true
+item_name = "Minigun"
+
 [node name="ItemPickup7" parent="Pickups" instance=ExtResource("5_jwnbk")]
 position = Vector2(-2421, -317)
 initialized = true
