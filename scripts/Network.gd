@@ -48,11 +48,11 @@ func _process(delta):
 	var teams = []
 	for i in len(Globals.teams):
 		teams.append(-INF)
-	for team in teams:
+	for i in len(teams):
 		for player in Peers.get_children():
 			if not player.is_class("MultiplayerSpawner"):
-				if player.team_index == team:
-					teams[team] += player.score
+				if player.team_index == i:
+					teams[i] += player.score
 	winning_team = teams.max()
 	if winning_team == null:
 		winning_team = 0
