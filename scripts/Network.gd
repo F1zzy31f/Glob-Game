@@ -46,7 +46,9 @@ func _process(delta):
 		end_game.rpc()
 	
 	var teams = []
-	for team in range(len(Globals.teams)):
+	for i in len(Globals.teams):
+		teams.append(-INF)
+	for team in teams:
 		for player in Peers.get_children():
 			if not player.is_class("MultiplayerSpawner"):
 				if player.team_index == team:
