@@ -40,6 +40,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ultimate_abilities = $Abilities/Ultimate
 @onready var ui = $CanvasLayer/UI
 @onready var start_countdown = $CanvasLayer/UI/StartCountdown
+@onready var winner = $CanvasLayer/UI/Winner/Content
 @onready var end_countdown = $CanvasLayer/UI/EndCountdown
 @onready var healthbar = $CanvasLayer/UI/Healthbar
 @onready var shieldbar = $CanvasLayer/UI/Shieldbar
@@ -157,6 +158,10 @@ func _process(delta):
 	time += str(seconds)
 	
 	end_countdown.text = time
+	
+	if Network.game_ended:
+		winner.get_parent().visible = true
+		winner.text = "Winner: " + Globals.teams[Network.winning_team]["name"]
 	
 	healthbar.value = health
 	shieldbar.value = shield

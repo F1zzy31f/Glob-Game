@@ -3,8 +3,6 @@ extends Node
 @export var player = preload("res://scenes/Player.tscn")
 @export var scoreboard_item = preload("res://scenes/ScoreboardItem.tscn")
 
-@export var capacity = 3
-
 signal on_start_game
 signal on_end_game
 @export var game_started = false
@@ -12,6 +10,9 @@ signal on_end_game
 @export var time_till_start = -1
 @export var time_till_end = float(120)
 
+@export var winning_team = 0
+
+@export var capacity = 4
 @export var port = 7771
 var address = "93.89.131.224"
 var start_on_join = false
@@ -43,6 +44,14 @@ func _process(delta):
 		time_till_end -= delta
 	else:
 		end_game.rpc()
+	
+	var teams = []
+	for team in range(len(Globals.teams)):
+		for player in Peers.get_children():
+			if not player.is_class("MultiplayerSpawner"):
+				if player.team_index == team:
+					teams[team] += player.score
+	winning_team = teams.max()
 
 func set_username(new):
 	username = new
