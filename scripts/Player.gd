@@ -144,6 +144,7 @@ func _process(delta):
 		camera.position = Vector2.ZERO
 	
 	# UI
+	start_countdown.visible = true
 	start_countdown.text = str(Network.time_till_start) + "..."
 	if Network.time_till_start == -1:
 		start_countdown.text = "Intermission"

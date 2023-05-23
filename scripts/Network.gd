@@ -53,9 +53,10 @@ func _process(delta):
 			if not player.is_class("MultiplayerSpawner"):
 				if player.team_index == i:
 					teams[i] += player.score
-	winning_team = teams.max()
-	if winning_team == null:
-		winning_team = 0
+	winning_team = 0
+	for i in len(teams):
+		if teams[i] > teams[winning_team]:
+			winning_team = i
 
 func set_username(new):
 	username = new
