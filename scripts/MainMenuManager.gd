@@ -135,17 +135,18 @@ func get_server_list():
 func _on_get_server_list_request_request_completed(_result, _response_code, _headers, body):
 	servers = JSON.parse_string(body.get_string_from_utf8())
 	
-	for child in server_list.get_children():
-		child.queue_free()
-	for server in servers:
-		var new_listing = server_listing.instantiate()
-		new_listing.name = server["host"]
-		server_list.add_child(new_listing)
-		new_listing.get_child(1).text = server["name"]
-		new_listing.get_child(2).text = str(server["players"]) + " / " + str(server["capacity"])
-		new_listing.get_child(3).pressed.connect(func():
-			_on_join_game_pressed(server["host"], int(server["port"]))
-		)
+	if servers:
+		for child in server_list.get_children():
+			child.queue_free()
+		for server in servers:
+			var new_listing = server_listing.instantiate()
+			new_listing.name = server["host"]
+			server_list.add_child(new_listing)
+			new_listing.get_child(1).text = server["name"]
+			new_listing.get_child(2).text = str(server["players"]) + " / " + str(server["capacity"])
+			new_listing.get_child(3).pressed.connect(func():
+				_on_join_game_pressed(server["host"], int(server["port"]))
+			)
 	
 	await get_tree().create_timer(5).timeout
 	get_server_list()
