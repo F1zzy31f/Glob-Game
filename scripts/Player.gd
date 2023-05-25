@@ -362,7 +362,8 @@ func on_die():
 
 @rpc("any_peer")
 func got_kill():
-	Network.kills += 1
+	if is_multiplayer_authority():
+		Network.kills += 1
 
 @rpc("call_local")
 func change_item(old_node, new_node):
