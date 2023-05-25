@@ -378,7 +378,7 @@ func hurt(amount):
 	if not is_multiplayer_authority(): return
 	
 	var new_recent_damager = Peers.get_node(str(multiplayer.get_remote_sender_id()))
-	if new_recent_damager:
+	if new_recent_damager and new_recent_damager != self:
 		recent_damager = new_recent_damager
 	
 	amount *= damage_multiplier
