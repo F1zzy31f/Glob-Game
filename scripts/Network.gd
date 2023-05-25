@@ -54,6 +54,8 @@ func _process(delta):
 		for player in Peers.get_children():
 			if not player.is_class("MultiplayerSpawner"):
 				if player.team_index == i:
+					if teams[i] == -INF:
+						teams[i] = 0
 					teams[i] += player.score
 	winning_team = 0
 	for i in len(teams):
