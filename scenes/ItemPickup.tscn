@@ -28,6 +28,7 @@ properties/3/spawn = true
 properties/3/sync = true
 
 [node name="ItemPickup" type="RigidBody2D"]
+collision_layer = 0
 max_contacts_reported = 2346
 contact_monitor = true
 script = ExtResource("1_v7njb")

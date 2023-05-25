@@ -19,6 +19,7 @@ properties/1/spawn = true
 properties/1/sync = true
 
 [node name="UltimateCharger" type="RigidBody2D"]
+collision_layer = 0
 max_contacts_reported = 2346
 contact_monitor = true
 script = ExtResource("1_wtfv8")

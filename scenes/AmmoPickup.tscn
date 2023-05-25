@@ -22,6 +22,7 @@ properties/2/spawn = true
 properties/2/sync = true
 
 [node name="AmmoPickup" type="RigidBody2D"]
+collision_layer = 0
 max_contacts_reported = 2346
 contact_monitor = true
 script = ExtResource("1_iojd4")
