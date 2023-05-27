@@ -151,8 +151,8 @@ func _process(delta):
 	if Network.time_till_start == 0:
 		start_countdown.visible = false
 	
-	var minutes = floor(Network.time_till_end / 60)
-	var seconds = floor(fmod(Network.time_till_end, 60))
+	var minutes = max(floor(Network.time_till_end / 60), 0)
+	var seconds = max(floor(fmod(Network.time_till_end, 60)), 0)
 	var time = str(minutes) + ":"
 	if seconds < 10:
 		time += "0"
