@@ -407,6 +407,15 @@ func charge_ultimate():
 func pickup_item(item_name):
 	if is_dead: return false
 	
+	if item_name == item_primary.name:
+		if item_primary.ammo_type == 0:
+			ammo_light += item_primary.mag_size
+		if item_primary.ammo_type == 1:
+			ammo_medium += item_primary.mag_size
+		if item_primary.ammo_type == 2:
+			ammo_heavy += item_primary.mag_size
+		return true
+	
 	if hand.get_node(item_name).two_handed == false:
 		if str(item_primary.name) == "Fists":
 			item_primary = hand.get_node(item_name)
