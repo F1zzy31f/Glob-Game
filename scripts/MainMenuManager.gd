@@ -26,13 +26,12 @@ var display_name = ""
 @onready var direct_address = $Menus/DirectConnectMenu/Content/Address
 @onready var direct_port = $Menus/DirectConnectMenu/Content/Port
 
-var menu_queue = []
+var menu_queue = ["LoginMenu"]
 
 var servers = []
 
 func _ready():
 	Save.save_loaded.connect(self.save_loaded)
-	Save.load_data()
 	
 	get_server_list()
 	
@@ -48,11 +47,10 @@ func _ready():
 	Firebase.Auth.login_failed.connect(self.on_login_failure)
 	Firebase.Auth.signup_succeeded.connect(self.on_signup_success)
 	Firebase.Auth.signup_failed.connect(self.on_signup_failure)
-	Firebase.Auth.userdata_received.connect(self.on_get_user_data)
 
 func _process(delta):
 	if Network.display_name == "":
-		display_name_text = "Display Name: Not Logged In"
+		display_name_text.text = "Display Name: Not Logged In"
 	else:
 		display_name_text.text = "Display Name: " + Network.display_name
 
@@ -102,12 +100,17 @@ func on_login_success(auth_info):
 	var document = await accounts_collection.get_document
 	
 	Network.display_name = document["doc_fields"]["display_name"]
+	
+	await Save.load_data()
+	
+	open_menu("TitleMenu")
 
 func on_login_failure(code, message):
 	Logger.log_complex("AUTH", "Login failure", [
 		["code", str(code)],
 		["message", message]
 	])
+	print(menu_queue)
 	
 	_on_back_pressed()
 
@@ -121,11 +124,13 @@ func on_signup_success(auth_info):
 	accounts_collection.add(user_data["local_id"], {
 		"display_name": display_name
 	})
-	var document = await accounts_collection.get_document
+	await accounts_collection.add_document
 	
 	Network.display_name = display_name
 	
-	Firebase.Auth.get_user_data()
+	await Save.load_data()
+	
+	open_menu("TitleMenu")
 
 func on_signup_failure(code, message):
 	Logger.log_complex("AUTH", "Signup failure", [
@@ -133,12 +138,9 @@ func on_signup_failure(code, message):
 		["message", message]
 	])
 	
+	print(menu_queue)
+	
 	_on_back_pressed()
-
-func on_get_user_data(user_data):
-	_on_back_pressed()
-	open_menu("TitleMenu")
-
 
 func _on_login_pressed():
 	open_menu("LoadingMenu")

@@ -12,9 +12,7 @@ func _notification(notif):
 		quit()
 
 func quit():
-	save_data()
-	
-	await get_tree().create_timer(0.5).timeout
+	await save_data()
 	
 	get_tree().quit()
 
@@ -26,12 +24,12 @@ func save_data():
 	data["ability_active2"] = Network.ability_active2
 	data["ability_ultimate"] = Network.ability_ultimate
 	
-	save_binary()
+	await save_firebase()
 	
 	Logger.log_simple("SAVE", "Data saved")
 
 func load_data():
-	load_binary()
+	await load_firebase()
 	
 	Network.item_primary = data["item_primary"]
 	Network.item_secondary = data["item_secondary"]
@@ -52,21 +50,35 @@ func clear_data():
 	data["ability_active2"] = "Dash"
 	data["ability_ultimate"] = "Firestorm"
 	
-	save_binary()
+	await save_firebase()
 	
 	Logger.log_simple("SAVE", "Data cleared")
 	
-	Save.load_data()
+	await Save.load_data()
 
-func save_binary():
-	var file = FileAccess.open_encrypted_with_pass("user://save.dat", FileAccess.WRITE, "CatCombat")
-	file.store_var(data)
-	file.close()
+func save_firebase():
+	Firebase.Auth.get_user_data()
+	var user_data = await Firebase.Auth.userdata_received
+	
+	var accounts_collection = Firebase.Firestore.collection("accounts")
+	accounts_collection.update(user_data["local_id"], {
+		"item_primary": Network.item_primary,
+		"item_secondary": Network.item_secondary,
+		"ability_passive": Network.ability_passive,
+		"ability_active1": Network.ability_active1,
+		"ability_active2": Network.ability_active2,
+		"ability_ultimate": Network.ability_ultimate
+	})
+	await accounts_collection.update_document
 
-func load_binary():
-	if not FileAccess.file_exists("user://save.dat"):
-		Logger.log_simple("SAVE", "No save file")
-		save_data()
-	var file = FileAccess.open_encrypted_with_pass("user://save.dat", FileAccess.READ, "CatCombat")
-	data = file.get_var()
-	file.close()
+func load_firebase():
+	Firebase.Auth.get_user_data()
+	var user_data = await Firebase.Auth.userdata_received
+	
+	var accounts_collection = Firebase.Firestore.collection("accounts")
+	accounts_collection.get_doc(user_data["local_id"])
+	var document = await accounts_collection.get_document
+	
+	if not document["doc_fields"].has("item_primary"):
+		await clear_data()
+	data = document["doc_fields"]
