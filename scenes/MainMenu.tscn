@@ -80,8 +80,161 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TitleMenu" type="Control" parent="Menus"]
+[node name="LoginMenu" type="Control" parent="Menus"]
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Menus/LoginMenu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+text = "Login"
+label_settings = SubResource("LabelSettings_erero")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="ColorRect" parent="Menus/LoginMenu/Title"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_right = -50.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 1, 1, 0.498039)
+
+[node name="Content" type="VBoxContainer" parent="Menus/LoginMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 375.0
+offset_top = 150.0
+offset_right = -375.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EmailAddress" type="LineEdit" parent="Menus/LoginMenu/Content"]
+layout_mode = 2
+placeholder_text = "Email Address"
+alignment = 1
+
+[node name="Password" type="LineEdit" parent="Menus/LoginMenu/Content"]
+layout_mode = 2
+placeholder_text = "Password"
+alignment = 1
+secret = true
+
+[node name="Login" type="Button" parent="Menus/LoginMenu/Content"]
+layout_mode = 2
+text = "Login"
+
+[node name="Back" type="Button" parent="Menus/LoginMenu/Content"]
+layout_mode = 2
+text = "Back"
+
+[node name="Spacer" type="Control" parent="Menus/LoginMenu/Content"]
+custom_minimum_size = Vector2(250, 31)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Signup" type="Button" parent="Menus/LoginMenu/Content"]
+layout_mode = 2
+text = "Signup
+"
+
+[node name="SignupMenu" type="Control" parent="Menus"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Menus/SignupMenu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+text = "Signup"
+label_settings = SubResource("LabelSettings_erero")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="ColorRect" parent="Menus/SignupMenu/Title"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_right = -50.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 1, 1, 0.498039)
+
+[node name="Content" type="VBoxContainer" parent="Menus/SignupMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 375.0
+offset_top = 150.0
+offset_right = -375.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DisplayName" type="LineEdit" parent="Menus/SignupMenu/Content"]
+layout_mode = 2
+placeholder_text = "Display Name"
+alignment = 1
+max_length = 16
+
+[node name="EmailAddress" type="LineEdit" parent="Menus/SignupMenu/Content"]
+layout_mode = 2
+placeholder_text = "Email Address"
+alignment = 1
+
+[node name="Password" type="LineEdit" parent="Menus/SignupMenu/Content"]
+layout_mode = 2
+placeholder_text = "Password"
+alignment = 1
+secret = true
+
+[node name="Signup" type="Button" parent="Menus/SignupMenu/Content"]
+layout_mode = 2
+text = "Signup"
+
+[node name="Back" type="Button" parent="Menus/SignupMenu/Content"]
+layout_mode = 2
+text = "Back"
+
+[node name="Spacer" type="Control" parent="Menus/SignupMenu/Content"]
+custom_minimum_size = Vector2(250, 31)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Login" type="Button" parent="Menus/SignupMenu/Content"]
+layout_mode = 2
+text = "Login
+"
+
+[node name="TitleMenu" type="Control" parent="Menus"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,12 +277,6 @@ offset_right = -375.0
 offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Username" type="LineEdit" parent="Menus/TitleMenu/Content"]
-layout_mode = 2
-placeholder_text = "Username"
-alignment = 1
-max_length = 12
 
 [node name="Play" type="Button" parent="Menus/TitleMenu/Content"]
 layout_mode = 2
@@ -910,7 +1057,17 @@ libraries = {
 
 [node name="GetServerListRequest" type="HTTPRequest" parent="."]
 
-[connection signal="text_changed" from="Menus/TitleMenu/Content/Username" to="." method="_on_username_text_changed"]
+[connection signal="text_changed" from="Menus/LoginMenu/Content/EmailAddress" to="." method="_on_email_address_text_changed"]
+[connection signal="text_changed" from="Menus/LoginMenu/Content/Password" to="." method="_on_password_text_changed"]
+[connection signal="pressed" from="Menus/LoginMenu/Content/Login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="Menus/LoginMenu/Content/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Menus/LoginMenu/Content/Signup" to="." method="_on_to_signup_pressed"]
+[connection signal="text_changed" from="Menus/SignupMenu/Content/DisplayName" to="." method="_on_display_name_text_changed"]
+[connection signal="text_changed" from="Menus/SignupMenu/Content/EmailAddress" to="." method="_on_email_address_text_changed"]
+[connection signal="text_changed" from="Menus/SignupMenu/Content/Password" to="." method="_on_password_text_changed"]
+[connection signal="pressed" from="Menus/SignupMenu/Content/Signup" to="." method="_on_signup_pressed"]
+[connection signal="pressed" from="Menus/SignupMenu/Content/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Menus/SignupMenu/Content/Login" to="." method="_on_to_login_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Customize" to="." method="_on_customize_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Settings" to="." method="_on_settings_pressed"]

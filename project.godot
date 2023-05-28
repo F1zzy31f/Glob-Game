@@ -29,6 +29,7 @@ Peers="*res://scenes/Peers.tscn"
 Heartbeat="*res://scenes/Heartbeat.tscn"
 Stats="*res://scripts/Stats.gd"
 Globapedia="*res://scripts/Globapedia.gd"
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 
 [display]
 
@@ -42,7 +43,7 @@ run/main_run_args="--arg=test"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg")
 
 [input]
 
