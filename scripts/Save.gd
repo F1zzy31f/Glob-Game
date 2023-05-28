@@ -19,7 +19,6 @@ func quit():
 	get_tree().quit()
 
 func save_data():
-	data["display_name"] = Network.display_name
 	data["item_primary"] = Network.item_primary
 	data["item_secondary"] = Network.item_secondary
 	data["ability_passive"] = Network.ability_passive
@@ -34,7 +33,6 @@ func save_data():
 func load_data():
 	load_binary()
 	
-	Network.display_name = data["display_name"]
 	Network.item_primary = data["item_primary"]
 	Network.item_secondary = data["item_secondary"]
 	Network.ability_passive = data["ability_passive"]
@@ -47,7 +45,6 @@ func load_data():
 	Logger.log_simple("SAVE", "Data loaded")
 
 func clear_data():
-	data["display_name"] = "Guest_" + str(randi_range(1000, 9999))
 	data["item_primary"] = "AK-47"
 	data["item_secondary"] = "MP5"
 	data["ability_passive"] = "Speedy"

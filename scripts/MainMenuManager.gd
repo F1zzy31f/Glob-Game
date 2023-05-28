@@ -11,6 +11,7 @@ var display_name = ""
 @onready var menus = $Menus
 @onready var get_server_list_request = $GetServerListRequest
 
+@onready var display_name_text = $DisplayName
 @onready var server_list = $Menus/PlayMenu/Content/ServerList/Content
 @onready var item_primary = $Menus/CustomizeMenu/Content/ItemPrimary/Dropdown
 @onready var item_secondary = $Menus/CustomizeMenu/Content/ItemSecondary/Dropdown
@@ -48,6 +49,12 @@ func _ready():
 	Firebase.Auth.signup_succeeded.connect(self.on_signup_success)
 	Firebase.Auth.signup_failed.connect(self.on_signup_failure)
 	Firebase.Auth.userdata_received.connect(self.on_get_user_data)
+
+func _process(delta):
+	if Network.display_name == "":
+		display_name_text = "Display Name: Not Logged In"
+	else:
+		display_name_text.text = "Display Name: " + Network.display_name
 
 func save_loaded():
 	if has_save_loaded == false:

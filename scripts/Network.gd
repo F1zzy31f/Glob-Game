@@ -17,7 +17,7 @@ signal on_end_game
 var address = "93.89.131.224"
 var start_on_join = false
 
-var display_name = "display_name"
+var display_name = ""
 var item_primary = "AK-47"
 var item_secondary = "MP5"
 var ability_passive = "Speedy"
