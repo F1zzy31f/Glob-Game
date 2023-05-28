@@ -53,8 +53,6 @@ func clear_data():
 	await save_firebase()
 	
 	Logger.log_simple("SAVE", "Data cleared")
-	
-	await Save.load_data()
 
 func save_firebase():
 	Firebase.Auth.get_user_data()
@@ -81,4 +79,5 @@ func load_firebase():
 	
 	if not document["doc_fields"].has("item_primary"):
 		await clear_data()
-	data = document["doc_fields"]
+	else:
+		data = document["doc_fields"]
