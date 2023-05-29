@@ -55,6 +55,9 @@ func clear_data():
 	Logger.log_simple("SAVE", "Data cleared")
 
 func save_firebase():
+	if not Firebase.Auth.is_logged_in():
+		return
+	
 	Firebase.Auth.get_user_data()
 	var user_data = await Firebase.Auth.userdata_received
 	

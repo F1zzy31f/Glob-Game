@@ -147,9 +147,10 @@ secret = true
 layout_mode = 2
 text = "Login"
 
-[node name="Back" type="Button" parent="Menus/LoginMenu/Content"]
+[node name="UseGoogle" type="Button" parent="Menus/LoginMenu/Content"]
 layout_mode = 2
-text = "Back"
+disabled = true
+text = "Use Google"
 
 [node name="Spacer" type="Control" parent="Menus/LoginMenu/Content"]
 custom_minimum_size = Vector2(250, 31)
@@ -227,9 +228,10 @@ secret = true
 layout_mode = 2
 text = "Signup"
 
-[node name="Back" type="Button" parent="Menus/SignupMenu/Content"]
+[node name="UseGoogle" type="Button" parent="Menus/SignupMenu/Content"]
 layout_mode = 2
-text = "Back"
+disabled = true
+text = "Use Google"
 
 [node name="Spacer" type="Control" parent="Menus/SignupMenu/Content"]
 custom_minimum_size = Vector2(250, 31)
@@ -1025,6 +1027,42 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "Clear"
 
+[node name="Logout" type="Control" parent="Menus/SettingsMenu/Content"]
+custom_minimum_size = Vector2(384, 31)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menus/SettingsMenu/Content/Logout"]
+custom_minimum_size = Vector2(134, 31)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 61.0
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 24
+text = "Logout"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Menus/SettingsMenu/Content/Logout"]
+custom_minimum_size = Vector2(100, 31)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Logout"
+
 [node name="Spacer" type="Control" parent="Menus/SettingsMenu/Content"]
 custom_minimum_size = Vector2(250, 31)
 layout_mode = 2
@@ -1069,13 +1107,13 @@ libraries = {
 [connection signal="text_changed" from="Menus/LoginMenu/Content/EmailAddress" to="." method="_on_email_address_text_changed"]
 [connection signal="text_changed" from="Menus/LoginMenu/Content/Password" to="." method="_on_password_text_changed"]
 [connection signal="pressed" from="Menus/LoginMenu/Content/Login" to="." method="_on_login_pressed"]
-[connection signal="pressed" from="Menus/LoginMenu/Content/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Menus/LoginMenu/Content/UseGoogle" to="." method="_on_use_google_pressed"]
 [connection signal="pressed" from="Menus/LoginMenu/Content/Signup" to="." method="_on_to_signup_pressed"]
 [connection signal="text_changed" from="Menus/SignupMenu/Content/DisplayName" to="." method="_on_display_name_text_changed"]
 [connection signal="text_changed" from="Menus/SignupMenu/Content/EmailAddress" to="." method="_on_email_address_text_changed"]
 [connection signal="text_changed" from="Menus/SignupMenu/Content/Password" to="." method="_on_password_text_changed"]
 [connection signal="pressed" from="Menus/SignupMenu/Content/Signup" to="." method="_on_signup_pressed"]
-[connection signal="pressed" from="Menus/SignupMenu/Content/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Menus/SignupMenu/Content/UseGoogle" to="." method="_on_use_google_pressed"]
 [connection signal="pressed" from="Menus/SignupMenu/Content/Login" to="." method="_on_to_login_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Menus/TitleMenu/Content/Customize" to="." method="_on_customize_pressed"]
@@ -1096,5 +1134,6 @@ libraries = {
 [connection signal="pressed" from="Menus/DirectConnectMenu/Content/Connect" to="." method="_on_connect_pressed"]
 [connection signal="pressed" from="Menus/DirectConnectMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Menus/SettingsMenu/Content/ClearSave/Button" to="." method="_on_clear_save_pressed"]
+[connection signal="pressed" from="Menus/SettingsMenu/Content/Logout/Button" to="." method="_on_logout_pressed"]
 [connection signal="pressed" from="Menus/SettingsMenu/Content/Back" to="." method="_on_back_pressed"]
 [connection signal="request_completed" from="GetServerListRequest" to="." method="_on_get_server_list_request_request_completed"]

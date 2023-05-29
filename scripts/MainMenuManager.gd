@@ -26,7 +26,7 @@ var display_name = ""
 @onready var direct_address = $Menus/DirectConnectMenu/Content/Address
 @onready var direct_port = $Menus/DirectConnectMenu/Content/Port
 
-var menu_queue = ["LoginMenu"]
+var menu_queue = []
 
 var servers = []
 
@@ -167,6 +167,9 @@ func _on_to_signup_pressed():
 	_on_back_pressed()
 	open_menu("SignupMenu")
 
+func _on_use_google_pressed():
+	Firebase.Auth.get_auth_localhost()
+
 func _on_play_pressed():
 	open_menu("PlayMenu")
 
@@ -266,3 +269,9 @@ func _on_globapedia_text_changed(new_text):
 	globapedia_type.text = result["type"]
 	globapedia_description.text = result["description"]
 
+
+func _on_logout_pressed():
+	Firebase.Auth.logout()
+	
+	menu_queue = []
+	open_menu("LoginMenu")
