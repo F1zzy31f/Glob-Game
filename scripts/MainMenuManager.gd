@@ -4,11 +4,15 @@ extends Control
 
 var has_save_loaded = false
 
+var email_address = ""
+var password = ""
+var display_name = ""
+
 @onready var menus = $Menus
 @onready var get_server_list_request = $GetServerListRequest
 
+@onready var display_name_text = $DisplayName
 @onready var server_list = $Menus/PlayMenu/Content/ServerList/Content
-@onready var username = $Menus/TitleMenu/Content/Username
 @onready var item_primary = $Menus/CustomizeMenu/Content/ItemPrimary/Dropdown
 @onready var item_secondary = $Menus/CustomizeMenu/Content/ItemSecondary/Dropdown
 @onready var ability_passive = $Menus/CustomizeMenu/Content/AbilityPassive/Dropdown
@@ -28,7 +32,6 @@ var servers = []
 
 func _ready():
 	Save.save_loaded.connect(self.save_loaded)
-	Save.load_data()
 	
 	get_server_list()
 	
@@ -39,13 +42,22 @@ func _ready():
 		
 		get_tree().change_scene_to_file("res://scenes/Map.tscn")
 		Network.host_server()
+	
+	Firebase.Auth.login_succeeded.connect(self.on_login_success)
+	Firebase.Auth.login_failed.connect(self.on_login_failure)
+	Firebase.Auth.signup_succeeded.connect(self.on_signup_success)
+	Firebase.Auth.signup_failed.connect(self.on_signup_failure)
+
+func _process(delta):
+	if Network.display_name == "":
+		display_name_text.text = "Display Name: Not Logged In"
+	else:
+		display_name_text.text = "Display Name: " + Network.display_name
 
 func save_loaded():
 	if has_save_loaded == false:
 		has_save_loaded = true
-		open_menu("TitleMenu")
-	
-	username.text = Save.data["username"]
+		open_menu("LoginMenu")
 	
 	for item in item_primary.item_count:
 		if item_primary.get_item_text(item) == Save.data["item_primary"]:
@@ -77,8 +89,86 @@ func open_menu(menu_name):
 	for child in menus.get_children():
 		child.visible = child.name == menu_name
 
-func _on_username_text_changed(new_text):
-	Network.set_username(new_text)
+func on_login_success(auth_info):
+	Logger.log_simple("AUTH", "Login success")
+	
+	Firebase.Auth.get_user_data()
+	var user_data = await Firebase.Auth.userdata_received
+	
+	var accounts_collection = Firebase.Firestore.collection("accounts")
+	accounts_collection.get_doc(user_data["local_id"])
+	var document = await accounts_collection.get_document
+	
+	Network.display_name = document["doc_fields"]["display_name"]
+	
+	await Save.load_data()
+	
+	open_menu("TitleMenu")
+
+func on_login_failure(code, message):
+	Logger.log_complex("AUTH", "Login failure", [
+		["code", str(code)],
+		["message", message]
+	])
+	print(menu_queue)
+	
+	_on_back_pressed()
+
+func on_signup_success(auth_info):
+	Logger.log_simple("AUTH", "Signup success")
+	
+	Firebase.Auth.get_user_data()
+	var user_data = await Firebase.Auth.userdata_received
+	
+	var accounts_collection = Firebase.Firestore.collection("accounts")
+	accounts_collection.add(user_data["local_id"], {
+		"display_name": display_name
+	})
+	await accounts_collection.add_document
+	
+	Network.display_name = display_name
+	
+	await Save.load_data()
+	
+	open_menu("TitleMenu")
+
+func on_signup_failure(code, message):
+	Logger.log_complex("AUTH", "Signup failure", [
+		["code", str(code)],
+		["message", message]
+	])
+	
+	print(menu_queue)
+	
+	_on_back_pressed()
+
+func _on_login_pressed():
+	open_menu("LoadingMenu")
+	Firebase.Auth.login_with_email_and_password(email_address, password)
+
+func _on_signup_pressed():
+	open_menu("LoadingMenu")
+	Firebase.Auth.signup_with_email_and_password(email_address, password)
+
+func _on_email_address_text_changed(new_text):
+	email_address = new_text
+
+func _on_password_text_changed(new_text):
+	password = new_text
+
+func _on_display_name_text_changed(new_text):
+	display_name = new_text
+
+func _on_to_login_pressed():
+	_on_back_pressed()
+	open_menu("LoginMenu")
+
+func _on_to_signup_pressed():
+	_on_back_pressed()
+	open_menu("SignupMenu")
+
+func _on_use_google_pressed():
+	Firebase.Auth.get_auth_localhost()
 
 func _on_play_pressed():
 	open_menu("PlayMenu")
@@ -178,3 +268,10 @@ func _on_globapedia_text_changed(new_text):
 	globapedia_title.text = result["title"]
 	globapedia_type.text = result["type"]
 	globapedia_description.text = result["description"]
+
+
+func _on_logout_pressed():
+	Firebase.Auth.logout()
+	
+	menu_queue = []
+	open_menu("LoginMenu")

@@ -17,7 +17,7 @@ signal on_end_game
 var address = "93.89.131.224"
 var start_on_join = false
 
-var username = "Username"
+var display_name = ""
 var item_primary = "AK-47"
 var item_secondary = "MP5"
 var ability_passive = "Speedy"
@@ -62,8 +62,8 @@ func _process(delta):
 		if teams[i] > teams[winning_team]:
 			winning_team = i
 
-func set_username(new):
-	username = new
+func set_display_name(new):
+	display_name = new
 
 func set_server_address(new):
 	address = new

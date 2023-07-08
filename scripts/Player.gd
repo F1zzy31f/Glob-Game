@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var dormant = false
-@export var username = ""
+@export var display_name = ""
 
 @export var health = 32
 @export var shield = 0
@@ -29,7 +29,7 @@ extends CharacterBody2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite = $Sprite
-@onready var overhead_username = $OverheadUI/Username
+@onready var overhead_display_name = $OverheadUI/DisplayName
 @onready var offscreen_marker = $OffscreenMarker
 @onready var camera = $Camera
 @onready var audio_listener = $Camera/AudioListener
@@ -84,8 +84,8 @@ func _ready():
 	
 	if not is_multiplayer_authority(): return
 	
-	username = Network.username
-	overhead_username.text = username
+	display_name = Network.display_name
+	overhead_display_name.text = display_name
 	
 	team_index = randi_range(0, len(Globals.teams) - 1)
 	
